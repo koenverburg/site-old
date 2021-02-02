@@ -1,0 +1,34 @@
+$palette: (
+  'shark': #232323,
+  'dust': #636363,
+  'sand': #c7c7c7,
+  'background': #f8f8f8,
+  'heading': #000,
+  'text': #F3F4F6,
+  'texthover': #04c7d4,
+  'blog-kicker': #A7AAA8,
+  'blog-title': #FEFEFE,
+  'blog-title-hover': #0C0C0C,
+  'blog-description': #9B9B9B,
+);
+
+$fonts: (
+  'heading': 'Poppins',
+  'footer': 'Poppins',
+  'hero': 'Oswald',
+  'blog': 'Oswald',
+  'poppins': 'Poppins',
+  'oswald': 'Oswald',
+);
+
+$fontWeights: (
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+);
+
+$media-xs-phone: 480px;
+$media-phone: 600px;
+$media-tablet: 900px;
+$media-laptop: 1200px;
+$media-desktop: 1800px;

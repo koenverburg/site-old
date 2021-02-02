@@ -1,0 +1,4354 @@
+""""""
+type Aggregate {
+  """"""
+  count: Int!
+}
+
+"""Asset system model"""
+type Asset implements Node {
+  """System stage field"""
+  stage: Stage!
+
+  """System Locale field"""
+  locale: Locale!
+
+  """Get the other localizations for this document"""
+  localizations(
+    """Potential locales that should be returned"""
+    locales: [Locale!]! = [en]
+
+    """Decides if the current locale should be included or not"""
+    includeCurrent: Boolean! = false
+  ): [Asset!]!
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [PUBLISHED, DRAFT]
+
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+  ): [Asset!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was created"""
+  createdAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime!
+
+  """The time the document was updated"""
+  updatedAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt(
+    """
+    Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both
+    """
+    variation: SystemDateTimeFieldVariation! = COMBINED
+  ): DateTime
+
+  """The file handle"""
+  handle: String!
+
+  """The file name"""
+  fileName: String!
+
+  """The height of the file"""
+  height: Float
+
+  """The file width"""
+  width: Float
+
+  """The file size"""
+  size: Float
+
+  """The mime type of the file"""
+  mimeType: String
+
+  """List of Asset versions"""
+  history(
+    """"""
+    limit: Int! = 10
+
+    """"""
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """Get the url for the asset with provided transformations applied."""
+  url(transformation: AssetTransformationInput): String!
+}
+
+"""A connection to a list of items."""
+type AssetConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AssetEdge!]!
+
+  """"""
+  aggregate: Aggregate!
+}
+
+""""""
+input AssetCreateInput {
+  """"""
+  createdAt: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """"""
+  handle: String!
+
+  """"""
+  fileName: String!
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+
+  """
+  Inline mutations for managing document localizations excluding the default locale
+  """
+  localizations: AssetCreateLocalizationsInput
+}
+
+""""""
+input AssetCreateLocalizationDataInput {
+  """"""
+  createdAt: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """"""
+  handle: String!
+
+  """"""
+  fileName: String!
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+}
+
+""""""
+input AssetCreateLocalizationInput {
+  """Localization input"""
+  data: AssetCreateLocalizationDataInput!
+
+  """"""
+  locale: Locale!
+}
+
+""""""
+input AssetCreateLocalizationsInput {
+  """Create localizations for the newly-created document"""
+  create: [AssetCreateLocalizationInput!]
+}
+
+"""An edge in a connection."""
+type AssetEdge {
+  """The item at the end of the edge."""
+  node: Asset!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+"""Identifies documents"""
+input AssetManyWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [AssetWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AssetWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AssetWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+}
+
+""""""
+enum AssetOrderByInput {
+  """"""
+  id_ASC
+
+  """"""
+  id_DESC
+
+  """"""
+  createdAt_ASC
+
+  """"""
+  createdAt_DESC
+
+  """"""
+  updatedAt_ASC
+
+  """"""
+  updatedAt_DESC
+
+  """"""
+  publishedAt_ASC
+
+  """"""
+  publishedAt_DESC
+
+  """"""
+  handle_ASC
+
+  """"""
+  handle_DESC
+
+  """"""
+  fileName_ASC
+
+  """"""
+  fileName_DESC
+
+  """"""
+  height_ASC
+
+  """"""
+  height_DESC
+
+  """"""
+  width_ASC
+
+  """"""
+  width_DESC
+
+  """"""
+  size_ASC
+
+  """"""
+  size_DESC
+
+  """"""
+  mimeType_ASC
+
+  """"""
+  mimeType_DESC
+}
+
+"""Transformations for Assets"""
+input AssetTransformationInput {
+  """"""
+  image: ImageTransformationInput
+
+  """"""
+  document: DocumentTransformationInput
+
+  """Pass true if you want to validate the passed transformation parameters"""
+  validateOptions: Boolean = false
+}
+
+""""""
+input AssetUpdateInput {
+  """"""
+  handle: String
+
+  """"""
+  fileName: String
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+
+  """Manage document localizations"""
+  localizations: AssetUpdateLocalizationsInput
+}
+
+""""""
+input AssetUpdateLocalizationDataInput {
+  """"""
+  handle: String
+
+  """"""
+  fileName: String
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+}
+
+""""""
+input AssetUpdateLocalizationInput {
+  """"""
+  data: AssetUpdateLocalizationDataInput!
+
+  """"""
+  locale: Locale!
+}
+
+""""""
+input AssetUpdateLocalizationsInput {
+  """Localizations to create"""
+  create: [AssetCreateLocalizationInput!]
+
+  """Localizations to update"""
+  update: [AssetUpdateLocalizationInput!]
+
+  """"""
+  upsert: [AssetUpsertLocalizationInput!]
+
+  """Localizations to delete"""
+  delete: [Locale!]
+}
+
+""""""
+input AssetUpdateManyInput {
+  """"""
+  fileName: String
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+
+  """Optional updates to localizations"""
+  localizations: AssetUpdateManyLocalizationsInput
+}
+
+""""""
+input AssetUpdateManyLocalizationDataInput {
+  """"""
+  fileName: String
+
+  """"""
+  height: Float
+
+  """"""
+  width: Float
+
+  """"""
+  size: Float
+
+  """"""
+  mimeType: String
+}
+
+""""""
+input AssetUpdateManyLocalizationInput {
+  """"""
+  data: AssetUpdateManyLocalizationDataInput!
+
+  """"""
+  locale: Locale!
+}
+
+""""""
+input AssetUpdateManyLocalizationsInput {
+  """Localizations to update"""
+  update: [AssetUpdateManyLocalizationInput!]
+}
+
+""""""
+input AssetUpdateManyWithNestedWhereInput {
+  """Document search"""
+  where: AssetWhereInput!
+
+  """Update many input"""
+  data: AssetUpdateManyInput!
+}
+
+""""""
+input AssetUpdateWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: AssetWhereUniqueInput!
+
+  """Document to update"""
+  data: AssetUpdateInput!
+}
+
+""""""
+input AssetUpsertInput {
+  """Create document if it didn't exist"""
+  create: AssetCreateInput!
+
+  """Update document if it exists"""
+  update: AssetUpdateInput!
+}
+
+""""""
+input AssetUpsertLocalizationInput {
+  """"""
+  update: AssetUpdateLocalizationDataInput!
+
+  """"""
+  create: AssetCreateLocalizationDataInput!
+
+  """"""
+  locale: Locale!
+}
+
+""""""
+input AssetUpsertWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: AssetWhereUniqueInput!
+
+  """Upsert data"""
+  data: AssetUpsertInput!
+}
+
+"""Identifies documents"""
+input AssetWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [AssetWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AssetWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AssetWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  handle: String
+
+  """All values that are not equal to given value."""
+  handle_not: String
+
+  """All values that are contained in given list."""
+  handle_in: [String!]
+
+  """All values that are not contained in given list."""
+  handle_not_in: [String!]
+
+  """All values containing the given string."""
+  handle_contains: String
+
+  """All values not containing the given string."""
+  handle_not_contains: String
+
+  """All values starting with the given string."""
+  handle_starts_with: String
+
+  """All values not starting with the given string."""
+  handle_not_starts_with: String
+
+  """All values ending with the given string."""
+  handle_ends_with: String
+
+  """All values not ending with the given string"""
+  handle_not_ends_with: String
+
+  """"""
+  fileName: String
+
+  """All values that are not equal to given value."""
+  fileName_not: String
+
+  """All values that are contained in given list."""
+  fileName_in: [String!]
+
+  """All values that are not contained in given list."""
+  fileName_not_in: [String!]
+
+  """All values containing the given string."""
+  fileName_contains: String
+
+  """All values not containing the given string."""
+  fileName_not_contains: String
+
+  """All values starting with the given string."""
+  fileName_starts_with: String
+
+  """All values not starting with the given string."""
+  fileName_not_starts_with: String
+
+  """All values ending with the given string."""
+  fileName_ends_with: String
+
+  """All values not ending with the given string"""
+  fileName_not_ends_with: String
+
+  """"""
+  height: Float
+
+  """All values that are not equal to given value."""
+  height_not: Float
+
+  """All values that are contained in given list."""
+  height_in: [Float!]
+
+  """All values that are not contained in given list."""
+  height_not_in: [Float!]
+
+  """All values less than the given value."""
+  height_lt: Float
+
+  """All values less than or equal the given value."""
+  height_lte: Float
+
+  """All values greater than the given value."""
+  height_gt: Float
+
+  """All values greater than or equal the given value."""
+  height_gte: Float
+
+  """"""
+  width: Float
+
+  """All values that are not equal to given value."""
+  width_not: Float
+
+  """All values that are contained in given list."""
+  width_in: [Float!]
+
+  """All values that are not contained in given list."""
+  width_not_in: [Float!]
+
+  """All values less than the given value."""
+  width_lt: Float
+
+  """All values less than or equal the given value."""
+  width_lte: Float
+
+  """All values greater than the given value."""
+  width_gt: Float
+
+  """All values greater than or equal the given value."""
+  width_gte: Float
+
+  """"""
+  size: Float
+
+  """All values that are not equal to given value."""
+  size_not: Float
+
+  """All values that are contained in given list."""
+  size_in: [Float!]
+
+  """All values that are not contained in given list."""
+  size_not_in: [Float!]
+
+  """All values less than the given value."""
+  size_lt: Float
+
+  """All values less than or equal the given value."""
+  size_lte: Float
+
+  """All values greater than the given value."""
+  size_gt: Float
+
+  """All values greater than or equal the given value."""
+  size_gte: Float
+
+  """"""
+  mimeType: String
+
+  """All values that are not equal to given value."""
+  mimeType_not: String
+
+  """All values that are contained in given list."""
+  mimeType_in: [String!]
+
+  """All values that are not contained in given list."""
+  mimeType_not_in: [String!]
+
+  """All values containing the given string."""
+  mimeType_contains: String
+
+  """All values not containing the given string."""
+  mimeType_not_contains: String
+
+  """All values starting with the given string."""
+  mimeType_starts_with: String
+
+  """All values not starting with the given string."""
+  mimeType_not_starts_with: String
+
+  """All values ending with the given string."""
+  mimeType_ends_with: String
+
+  """All values not ending with the given string"""
+  mimeType_not_ends_with: String
+}
+
+"""References Asset record uniquely"""
+input AssetWhereUniqueInput {
+  """"""
+  id: ID
+}
+
+""""""
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+"""
+Representing a color value comprising of HEX, RGBA and css color values
+"""
+type Color {
+  """"""
+  hex: Hex!
+
+  """"""
+  rgba: RGBA!
+
+  """"""
+  css: String!
+}
+
+"""
+Accepts either HEX or RGBA color value. At least one of hex or rgba value should be passed. If both are passed RGBA is used.
+"""
+input ColorInput {
+  """"""
+  hex: Hex
+
+  """"""
+  rgba: RGBAInput
+}
+
+""""""
+input ConnectPositionInput {
+  """Connect document after specified document"""
+  after: ID
+
+  """Connect document before specified document"""
+  before: ID
+
+  """Connect document at first position"""
+  start: Boolean
+
+  """Connect document at last position"""
+  end: Boolean
+}
+
+""""""
+type Contact implements Node {
+  """System stage field"""
+  stage: Stage!
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [PUBLISHED, DRAFT]
+
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+  ): [Contact!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """"""
+  title: String
+
+  """"""
+  description: String
+
+  """List of Contact versions"""
+  history(
+    """"""
+    limit: Int! = 10
+
+    """"""
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+}
+
+"""A connection to a list of items."""
+type ContactConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ContactEdge!]!
+
+  """"""
+  aggregate: Aggregate!
+}
+
+""""""
+input ContactCreateInput {
+  """"""
+  createdAt: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """"""
+  title: String
+
+  """"""
+  description: String
+}
+
+"""An edge in a connection."""
+type ContactEdge {
+  """The item at the end of the edge."""
+  node: Contact!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+"""Identifies documents"""
+input ContactManyWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [ContactWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """"""
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string"""
+  description_not_ends_with: String
+}
+
+""""""
+enum ContactOrderByInput {
+  """"""
+  id_ASC
+
+  """"""
+  id_DESC
+
+  """"""
+  createdAt_ASC
+
+  """"""
+  createdAt_DESC
+
+  """"""
+  updatedAt_ASC
+
+  """"""
+  updatedAt_DESC
+
+  """"""
+  publishedAt_ASC
+
+  """"""
+  publishedAt_DESC
+
+  """"""
+  title_ASC
+
+  """"""
+  title_DESC
+
+  """"""
+  description_ASC
+
+  """"""
+  description_DESC
+}
+
+""""""
+input ContactUpdateInput {
+  """"""
+  title: String
+
+  """"""
+  description: String
+}
+
+""""""
+input ContactUpdateManyInput {
+  """"""
+  title: String
+
+  """"""
+  description: String
+}
+
+""""""
+input ContactUpdateManyWithNestedWhereInput {
+  """Document search"""
+  where: ContactWhereInput!
+
+  """Update many input"""
+  data: ContactUpdateManyInput!
+}
+
+""""""
+input ContactUpdateWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: ContactWhereUniqueInput!
+
+  """Document to update"""
+  data: ContactUpdateInput!
+}
+
+""""""
+input ContactUpsertInput {
+  """Create document if it didn't exist"""
+  create: ContactCreateInput!
+
+  """Update document if it exists"""
+  update: ContactUpdateInput!
+}
+
+""""""
+input ContactUpsertWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: ContactWhereUniqueInput!
+
+  """Upsert data"""
+  data: ContactUpsertInput!
+}
+
+"""Identifies documents"""
+input ContactWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [ContactWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """"""
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string"""
+  description_not_ends_with: String
+}
+
+"""References Contact record uniquely"""
+input ContactWhereUniqueInput {
+  """"""
+  id: ID
+}
+
+"""
+A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-timeformat outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representationof dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+""""""
+enum DocumentFileTypes {
+  """"""
+  jpg
+
+  """"""
+  odp
+
+  """"""
+  ods
+
+  """"""
+  odt
+
+  """"""
+  png
+
+  """"""
+  svg
+
+  """"""
+  txt
+
+  """"""
+  webp
+
+  """"""
+  docx
+
+  """"""
+  pdf
+
+  """"""
+  html
+
+  """"""
+  doc
+
+  """"""
+  xlsx
+
+  """"""
+  xls
+
+  """"""
+  pptx
+
+  """"""
+  ppt
+}
+
+""""""
+input DocumentOutputInput {
+  """
+  Transforms a document into a desired file type.
+  See this matrix for format support:
+  
+  PDF:	jpg, odp, ods, odt, png, svg, txt, and webp
+  DOC:	docx, html, jpg, odt, pdf, png, svg, txt, and webp
+  DOCX:	doc, html, jpg, odt, pdf, png, svg, txt, and webp
+  ODT:	doc, docx, html, jpg, pdf, png, svg, txt, and webp
+  XLS:	jpg, pdf, ods, png, svg, xlsx, and webp
+  XLSX:	jpg, pdf, ods, png, svg, xls, and webp
+  ODS:	jpg, pdf, png, xls, svg, xlsx, and webp
+  PPT:	jpg, odp, pdf, png, svg, pptx, and webp
+  PPTX:	jpg, odp, pdf, png, svg, ppt, and webp
+  ODP:	jpg, pdf, png, ppt, svg, pptx, and webp
+  BMP:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  GIF:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  JPG:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  PNG:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  WEBP:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  TIFF:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  AI:	    jpg, odp, ods, odt, pdf, png, svg, and webp
+  PSD:	jpg, odp, ods, odt, pdf, png, svg, and webp
+  SVG:	jpg, odp, ods, odt, pdf, png, and webp
+  HTML:	jpg, odt, pdf, svg, txt, and webp
+  TXT:	jpg, html, odt, pdf, svg, and webp
+  """
+  format: DocumentFileTypes
+}
+
+"""Transformations for Documents"""
+input DocumentTransformationInput {
+  """Changes the output for the file."""
+  output: DocumentOutputInput
+}
+
+""""""
+type DocumentVersion {
+  """"""
+  id: ID!
+
+  """"""
+  stage: Stage!
+
+  """"""
+  revision: Int!
+
+  """"""
+  createdAt: DateTime!
+
+  """"""
+  data: Json
+}
+
+""""""
+scalar Hex
+
+""""""
+type HomePage implements Node {
+  """System stage field"""
+  stage: Stage!
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [PUBLISHED, DRAFT]
+
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+  ): [HomePage!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """"""
+  title: String
+
+  """"""
+  slogan: String
+
+  """List of HomePage versions"""
+  history(
+    """"""
+    limit: Int! = 10
+
+    """"""
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+}
+
+"""A connection to a list of items."""
+type HomePageConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [HomePageEdge!]!
+
+  """"""
+  aggregate: Aggregate!
+}
+
+""""""
+input HomePageCreateInput {
+  """"""
+  createdAt: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """"""
+  title: String
+
+  """"""
+  slogan: String
+}
+
+"""An edge in a connection."""
+type HomePageEdge {
+  """The item at the end of the edge."""
+  node: HomePage!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+"""Identifies documents"""
+input HomePageManyWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [HomePageWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HomePageWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HomePageWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """"""
+  slogan: String
+
+  """All values that are not equal to given value."""
+  slogan_not: String
+
+  """All values that are contained in given list."""
+  slogan_in: [String!]
+
+  """All values that are not contained in given list."""
+  slogan_not_in: [String!]
+
+  """All values containing the given string."""
+  slogan_contains: String
+
+  """All values not containing the given string."""
+  slogan_not_contains: String
+
+  """All values starting with the given string."""
+  slogan_starts_with: String
+
+  """All values not starting with the given string."""
+  slogan_not_starts_with: String
+
+  """All values ending with the given string."""
+  slogan_ends_with: String
+
+  """All values not ending with the given string"""
+  slogan_not_ends_with: String
+}
+
+""""""
+enum HomePageOrderByInput {
+  """"""
+  id_ASC
+
+  """"""
+  id_DESC
+
+  """"""
+  createdAt_ASC
+
+  """"""
+  createdAt_DESC
+
+  """"""
+  updatedAt_ASC
+
+  """"""
+  updatedAt_DESC
+
+  """"""
+  publishedAt_ASC
+
+  """"""
+  publishedAt_DESC
+
+  """"""
+  title_ASC
+
+  """"""
+  title_DESC
+
+  """"""
+  slogan_ASC
+
+  """"""
+  slogan_DESC
+}
+
+""""""
+input HomePageUpdateInput {
+  """"""
+  title: String
+
+  """"""
+  slogan: String
+}
+
+""""""
+input HomePageUpdateManyInput {
+  """"""
+  title: String
+
+  """"""
+  slogan: String
+}
+
+""""""
+input HomePageUpdateManyWithNestedWhereInput {
+  """Document search"""
+  where: HomePageWhereInput!
+
+  """Update many input"""
+  data: HomePageUpdateManyInput!
+}
+
+""""""
+input HomePageUpdateWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: HomePageWhereUniqueInput!
+
+  """Document to update"""
+  data: HomePageUpdateInput!
+}
+
+""""""
+input HomePageUpsertInput {
+  """Create document if it didn't exist"""
+  create: HomePageCreateInput!
+
+  """Update document if it exists"""
+  update: HomePageUpdateInput!
+}
+
+""""""
+input HomePageUpsertWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: HomePageWhereUniqueInput!
+
+  """Upsert data"""
+  data: HomePageUpsertInput!
+}
+
+"""Identifies documents"""
+input HomePageWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [HomePageWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HomePageWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HomePageWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """"""
+  slogan: String
+
+  """All values that are not equal to given value."""
+  slogan_not: String
+
+  """All values that are contained in given list."""
+  slogan_in: [String!]
+
+  """All values that are not contained in given list."""
+  slogan_not_in: [String!]
+
+  """All values containing the given string."""
+  slogan_contains: String
+
+  """All values not containing the given string."""
+  slogan_not_contains: String
+
+  """All values starting with the given string."""
+  slogan_starts_with: String
+
+  """All values not starting with the given string."""
+  slogan_not_starts_with: String
+
+  """All values ending with the given string."""
+  slogan_ends_with: String
+
+  """All values not ending with the given string"""
+  slogan_not_ends_with: String
+}
+
+"""References HomePage record uniquely"""
+input HomePageWhereUniqueInput {
+  """"""
+  id: ID
+}
+
+""""""
+enum ImageFit {
+  """
+  Resizes the image to fit within the specified parameters without distorting, cropping, or changing the aspect ratio.
+  """
+  clip
+
+  """
+  Resizes the image to fit the specified parameters exactly by removing any parts of the image that don't fit within the boundaries.
+  """
+  crop
+
+  """
+  Resizes the image to fit the specified parameters exactly by scaling the image to the desired size. The aspect ratio of the image is not respected and the image can be distorted using this method.
+  """
+  scale
+
+  """
+  Resizes the image to fit within the parameters, but as opposed to 'fit:clip' will not scale the image if the image is smaller than the output size.
+  """
+  max
+}
+
+""""""
+input ImageResizeInput {
+  """
+  The width in pixels to resize the image to. The value must be an integer from 1 to 10000.
+  """
+  width: Int
+
+  """
+  The height in pixels to resize the image to. The value must be an integer from 1 to 10000.
+  """
+  height: Int
+
+  """The default value for the fit parameter is fit:clip."""
+  fit: ImageFit
+}
+
+"""Transformations for Images"""
+input ImageTransformationInput {
+  """Resizes the image"""
+  resize: ImageResizeInput
+}
+
+"""Raw JSON value"""
+scalar Json
+
+"""Locale system enumeration"""
+enum Locale {
+  """System locale"""
+  en
+}
+
+"""Representing a geolocation point with latitude and longitude"""
+type Location {
+  """"""
+  latitude: Float!
+
+  """"""
+  longitude: Float!
+
+  """"""
+  distance(from: LocationInput!): Float!
+}
+
+"""Input for a geolocation point with latitude and longitude"""
+input LocationInput {
+  """"""
+  latitude: Float!
+
+  """"""
+  longitude: Float!
+}
+
+"""
+The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+""""""
+type Mutation {
+  """Create one asset"""
+  createAsset(data: AssetCreateInput!): Asset @deprecated(reason: "Asset mutations will be overhauled soon")
+
+  """Update one asset"""
+  updateAsset(where: AssetWhereUniqueInput!, data: AssetUpdateInput!): Asset
+
+  """Delete one asset from _all_ existing stages. Returns deleted document."""
+  deleteAsset(
+    """Document to delete"""
+    where: AssetWhereUniqueInput!
+  ): Asset
+
+  """Upsert one asset"""
+  upsertAsset(where: AssetWhereUniqueInput!, upsert: AssetUpsertInput!): Asset
+
+  """Publish one asset"""
+  publishAsset(
+    """Document to publish"""
+    where: AssetWhereUniqueInput!
+
+    """Optional localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+
+    """Whether to include the default locale when publishBase is set"""
+    withDefaultLocale: Boolean = true
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+  ): Asset
+
+  """
+  Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishAsset(
+    """Document to unpublish"""
+    where: AssetWhereUniqueInput!
+
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Optional locales to unpublish. Unpublishing the default locale will completely remove the document from the selected stages
+    """
+    locales: [Locale!]
+
+    """
+    Unpublish complete document including default localization and relations from stages. Can be disabled.
+    """
+    unpublishBase: Boolean = true
+  ): Asset
+
+  """Update many Asset documents"""
+  updateManyAssetsConnection(
+    """Documents to apply update on"""
+    where: AssetManyWhereInput
+
+    """Updates to document content"""
+    data: AssetUpdateManyInput!
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): AssetConnection!
+
+  """Delete many Asset documents, return deleted documents"""
+  deleteManyAssetsConnection(
+    """Documents to delete"""
+    where: AssetManyWhereInput
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): AssetConnection!
+
+  """Publish many Asset documents"""
+  publishManyAssetsConnection(
+    """Identifies documents in each stage to be published"""
+    where: AssetManyWhereInput
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+
+    """Document localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+
+    """Whether to include the default locale when publishBase is true"""
+    withDefaultLocale: Boolean = true
+  ): AssetConnection!
+
+  """
+  Find many Asset documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyAssetsConnection(
+    """Identifies documents in draft stage"""
+    where: AssetManyWhereInput
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+
+    """Locales to unpublish"""
+    locales: [Locale!]
+
+    """Whether to unpublish the base document and default localization"""
+    unpublishBase: Boolean = true
+  ): AssetConnection!
+
+  """Update many assets"""
+  updateManyAssets(
+    """Documents to apply update on"""
+    where: AssetManyWhereInput
+
+    """Updates to document content"""
+    data: AssetUpdateManyInput!
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyAssetsConnection)")
+
+  """Delete many Asset documents"""
+  deleteManyAssets(
+    """Documents to delete"""
+    where: AssetManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyAssetsConnection)")
+
+  """Publish many Asset documents"""
+  publishManyAssets(
+    """Identifies documents in each stage to be published"""
+    where: AssetManyWhereInput
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document localizations to publish"""
+    locales: [Locale!]
+
+    """Whether to publish the base document"""
+    publishBase: Boolean = true
+
+    """Whether to include the default locale when publishBase is true"""
+    withDefaultLocale: Boolean = true
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyAssetsConnection)")
+
+  """Unpublish many Asset documents"""
+  unpublishManyAssets(
+    """Identifies documents in each stage"""
+    where: AssetManyWhereInput
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Locales to unpublish"""
+    locales: [Locale!]
+
+    """Whether to unpublish the base document and default localization"""
+    unpublishBase: Boolean = true
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyAssetsConnection)")
+
+  """Create one contact"""
+  createContact(data: ContactCreateInput!): Contact
+
+  """Update one contact"""
+  updateContact(where: ContactWhereUniqueInput!, data: ContactUpdateInput!): Contact
+
+  """
+  Delete one contact from _all_ existing stages. Returns deleted document.
+  """
+  deleteContact(
+    """Document to delete"""
+    where: ContactWhereUniqueInput!
+  ): Contact
+
+  """Upsert one contact"""
+  upsertContact(where: ContactWhereUniqueInput!, upsert: ContactUpsertInput!): Contact
+
+  """Publish one contact"""
+  publishContact(
+    """Document to publish"""
+    where: ContactWhereUniqueInput!
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+  ): Contact
+
+  """
+  Unpublish one contact from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishContact(
+    """Document to unpublish"""
+    where: ContactWhereUniqueInput!
+
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): Contact
+
+  """Update many Contact documents"""
+  updateManyContactsConnection(
+    """Documents to apply update on"""
+    where: ContactManyWhereInput
+
+    """Updates to document content"""
+    data: ContactUpdateManyInput!
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): ContactConnection!
+
+  """Delete many Contact documents, return deleted documents"""
+  deleteManyContactsConnection(
+    """Documents to delete"""
+    where: ContactManyWhereInput
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): ContactConnection!
+
+  """Publish many Contact documents"""
+  publishManyContactsConnection(
+    """Identifies documents in each stage to be published"""
+    where: ContactManyWhereInput
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): ContactConnection!
+
+  """
+  Find many Contact documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyContactsConnection(
+    """Identifies documents in draft stage"""
+    where: ContactManyWhereInput
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): ContactConnection!
+
+  """Update many contacts"""
+  updateManyContacts(
+    """Documents to apply update on"""
+    where: ContactManyWhereInput
+
+    """Updates to document content"""
+    data: ContactUpdateManyInput!
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyContactsConnection)")
+
+  """Delete many Contact documents"""
+  deleteManyContacts(
+    """Documents to delete"""
+    where: ContactManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyContactsConnection)")
+
+  """Publish many Contact documents"""
+  publishManyContacts(
+    """Identifies documents in each stage to be published"""
+    where: ContactManyWhereInput
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyContactsConnection)")
+
+  """Unpublish many Contact documents"""
+  unpublishManyContacts(
+    """Identifies documents in each stage"""
+    where: ContactManyWhereInput
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyContactsConnection)")
+
+  """Create one homePage"""
+  createHomePage(data: HomePageCreateInput!): HomePage
+
+  """Update one homePage"""
+  updateHomePage(where: HomePageWhereUniqueInput!, data: HomePageUpdateInput!): HomePage
+
+  """
+  Delete one homePage from _all_ existing stages. Returns deleted document.
+  """
+  deleteHomePage(
+    """Document to delete"""
+    where: HomePageWhereUniqueInput!
+  ): HomePage
+
+  """Upsert one homePage"""
+  upsertHomePage(where: HomePageWhereUniqueInput!, upsert: HomePageUpsertInput!): HomePage
+
+  """Publish one homePage"""
+  publishHomePage(
+    """Document to publish"""
+    where: HomePageWhereUniqueInput!
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+  ): HomePage
+
+  """
+  Unpublish one homePage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishHomePage(
+    """Document to unpublish"""
+    where: HomePageWhereUniqueInput!
+
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): HomePage
+
+  """Update many HomePage documents"""
+  updateManyHomePagesConnection(
+    """Documents to apply update on"""
+    where: HomePageManyWhereInput
+
+    """Updates to document content"""
+    data: HomePageUpdateManyInput!
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): HomePageConnection!
+
+  """Delete many HomePage documents, return deleted documents"""
+  deleteManyHomePagesConnection(
+    """Documents to delete"""
+    where: HomePageManyWhereInput
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): HomePageConnection!
+
+  """Publish many HomePage documents"""
+  publishManyHomePagesConnection(
+    """Identifies documents in each stage to be published"""
+    where: HomePageManyWhereInput
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): HomePageConnection!
+
+  """
+  Find many HomePage documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyHomePagesConnection(
+    """Identifies documents in draft stage"""
+    where: HomePageManyWhereInput
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): HomePageConnection!
+
+  """Update many homePages"""
+  updateManyHomePages(
+    """Documents to apply update on"""
+    where: HomePageManyWhereInput
+
+    """Updates to document content"""
+    data: HomePageUpdateManyInput!
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyHomePagesConnection)")
+
+  """Delete many HomePage documents"""
+  deleteManyHomePages(
+    """Documents to delete"""
+    where: HomePageManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyHomePagesConnection)")
+
+  """Publish many HomePage documents"""
+  publishManyHomePages(
+    """Identifies documents in each stage to be published"""
+    where: HomePageManyWhereInput
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyHomePagesConnection)")
+
+  """Unpublish many HomePage documents"""
+  unpublishManyHomePages(
+    """Identifies documents in each stage"""
+    where: HomePageManyWhereInput
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyHomePagesConnection)")
+
+  """Create one social"""
+  createSocial(data: SocialCreateInput!): Social
+
+  """Update one social"""
+  updateSocial(where: SocialWhereUniqueInput!, data: SocialUpdateInput!): Social
+
+  """
+  Delete one social from _all_ existing stages. Returns deleted document.
+  """
+  deleteSocial(
+    """Document to delete"""
+    where: SocialWhereUniqueInput!
+  ): Social
+
+  """Upsert one social"""
+  upsertSocial(where: SocialWhereUniqueInput!, upsert: SocialUpsertInput!): Social
+
+  """Publish one social"""
+  publishSocial(
+    """Document to publish"""
+    where: SocialWhereUniqueInput!
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+  ): Social
+
+  """
+  Unpublish one social from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishSocial(
+    """Document to unpublish"""
+    where: SocialWhereUniqueInput!
+
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): Social
+
+  """Update many Social documents"""
+  updateManySocialsConnection(
+    """Documents to apply update on"""
+    where: SocialManyWhereInput
+
+    """Updates to document content"""
+    data: SocialUpdateManyInput!
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): SocialConnection!
+
+  """Delete many Social documents, return deleted documents"""
+  deleteManySocialsConnection(
+    """Documents to delete"""
+    where: SocialManyWhereInput
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): SocialConnection!
+
+  """Publish many Social documents"""
+  publishManySocialsConnection(
+    """Identifies documents in each stage to be published"""
+    where: SocialManyWhereInput
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): SocialConnection!
+
+  """
+  Find many Social documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManySocialsConnection(
+    """Identifies documents in draft stage"""
+    where: SocialManyWhereInput
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """"""
+    skip: Int
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    before: ID
+
+    """"""
+    after: ID
+  ): SocialConnection!
+
+  """Update many socials"""
+  updateManySocials(
+    """Documents to apply update on"""
+    where: SocialManyWhereInput
+
+    """Updates to document content"""
+    data: SocialUpdateManyInput!
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManySocialsConnection)")
+
+  """Delete many Social documents"""
+  deleteManySocials(
+    """Documents to delete"""
+    where: SocialManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManySocialsConnection)")
+
+  """Publish many Social documents"""
+  publishManySocials(
+    """Identifies documents in each stage to be published"""
+    where: SocialManyWhereInput
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManySocialsConnection)")
+
+  """Unpublish many Social documents"""
+  unpublishManySocials(
+    """Identifies documents in each stage"""
+    where: SocialManyWhereInput
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManySocialsConnection)")
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+
+  """The Stage of an object"""
+  stage: Stage!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """Number of items in the current page."""
+  pageSize: Int
+}
+
+""""""
+input PublishLocaleInput {
+  """Locales to publish"""
+  locale: Locale!
+
+  """Stages to publish selected locales to"""
+  stages: [Stage!]!
+}
+
+""""""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Node` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): Node
+
+  """Retrieve multiple assets"""
+  assets(
+    """"""
+    where: AssetWhereInput
+
+    """"""
+    orderBy: AssetOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Asset` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): [Asset!]!
+
+  """Retrieve a single asset"""
+  asset(
+    """"""
+    where: AssetWhereUniqueInput!
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Asset` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): Asset
+
+  """Retrieve multiple assets using the Relay connection interface"""
+  assetsConnection(
+    """"""
+    where: AssetWhereInput
+
+    """"""
+    orderBy: AssetOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Asset` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): AssetConnection!
+
+  """Retrieve document version"""
+  assetVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple contacts"""
+  contacts(
+    """"""
+    where: ContactWhereInput
+
+    """"""
+    orderBy: ContactOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Contact` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): [Contact!]!
+
+  """Retrieve a single contact"""
+  contact(
+    """"""
+    where: ContactWhereUniqueInput!
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Contact` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): Contact
+
+  """Retrieve multiple contacts using the Relay connection interface"""
+  contactsConnection(
+    """"""
+    where: ContactWhereInput
+
+    """"""
+    orderBy: ContactOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Contact` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): ContactConnection!
+
+  """Retrieve document version"""
+  contactVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple homePages"""
+  homePages(
+    """"""
+    where: HomePageWhereInput
+
+    """"""
+    orderBy: HomePageOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `HomePage` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): [HomePage!]!
+
+  """Retrieve a single homePage"""
+  homePage(
+    """"""
+    where: HomePageWhereUniqueInput!
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `HomePage` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): HomePage
+
+  """Retrieve multiple homePages using the Relay connection interface"""
+  homePagesConnection(
+    """"""
+    where: HomePageWhereInput
+
+    """"""
+    orderBy: HomePageOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `HomePage` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): HomePageConnection!
+
+  """Retrieve document version"""
+  homePageVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple socials"""
+  socials(
+    """"""
+    where: SocialWhereInput
+
+    """"""
+    orderBy: SocialOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Social` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): [Social!]!
+
+  """Retrieve a single social"""
+  social(
+    """"""
+    where: SocialWhereUniqueInput!
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Social` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): Social
+
+  """Retrieve multiple socials using the Relay connection interface"""
+  socialsConnection(
+    """"""
+    where: SocialWhereInput
+
+    """"""
+    orderBy: SocialOrderByInput
+
+    """"""
+    skip: Int
+
+    """"""
+    after: String
+
+    """"""
+    before: String
+
+    """"""
+    first: Int
+
+    """"""
+    last: Int
+
+    """"""
+    stage: Stage! = PUBLISHED
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Social` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+  ): SocialConnection!
+
+  """Retrieve document version"""
+  socialVersion(where: VersionWhereInput!): DocumentVersion
+}
+
+"""
+Representing a RGBA color value: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()_and_rgba()
+"""
+type RGBA {
+  """"""
+  r: RGBAHue!
+
+  """"""
+  g: RGBAHue!
+
+  """"""
+  b: RGBAHue!
+
+  """"""
+  a: RGBATransparency!
+}
+
+""""""
+scalar RGBAHue
+
+"""
+Input type representing a RGBA color value: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()_and_rgba()
+"""
+input RGBAInput {
+  """"""
+  r: RGBAHue!
+
+  """"""
+  g: RGBAHue!
+
+  """"""
+  b: RGBAHue!
+
+  """"""
+  a: RGBATransparency!
+}
+
+""""""
+scalar RGBATransparency
+
+"""
+Custom type representing a rich text value comprising of raw rich text ast, html, markdown and text values
+"""
+type RichText {
+  """Returns AST representation"""
+  raw: RichTextAST!
+
+  """Returns HTMl representation"""
+  html: String!
+
+  """Returns Markdown representation"""
+  markdown: String!
+
+  """Returns plain-text contents of RichText"""
+  text: String!
+}
+
+"""Slate-compatible RichText AST"""
+scalar RichTextAST
+
+""""""
+type Social implements Node {
+  """System stage field"""
+  stage: Stage!
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [PUBLISHED, DRAFT]
+
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+  ): [Social!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """"""
+  handle: String!
+
+  """"""
+  url: String!
+
+  """"""
+  icon: String!
+
+  """"""
+  platform: String
+
+  """List of Social versions"""
+  history(
+    """"""
+    limit: Int! = 10
+
+    """"""
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+}
+
+"""A connection to a list of items."""
+type SocialConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SocialEdge!]!
+
+  """"""
+  aggregate: Aggregate!
+}
+
+""""""
+input SocialCreateInput {
+  """"""
+  createdAt: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """"""
+  handle: String!
+
+  """"""
+  url: String!
+
+  """"""
+  icon: String!
+
+  """"""
+  platform: String
+}
+
+"""An edge in a connection."""
+type SocialEdge {
+  """The item at the end of the edge."""
+  node: Social!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+"""Identifies documents"""
+input SocialManyWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [SocialWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SocialWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SocialWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  handle: String
+
+  """All values that are not equal to given value."""
+  handle_not: String
+
+  """All values that are contained in given list."""
+  handle_in: [String!]
+
+  """All values that are not contained in given list."""
+  handle_not_in: [String!]
+
+  """All values containing the given string."""
+  handle_contains: String
+
+  """All values not containing the given string."""
+  handle_not_contains: String
+
+  """All values starting with the given string."""
+  handle_starts_with: String
+
+  """All values not starting with the given string."""
+  handle_not_starts_with: String
+
+  """All values ending with the given string."""
+  handle_ends_with: String
+
+  """All values not ending with the given string"""
+  handle_not_ends_with: String
+
+  """"""
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string"""
+  url_not_ends_with: String
+
+  """"""
+  icon: String
+
+  """All values that are not equal to given value."""
+  icon_not: String
+
+  """All values that are contained in given list."""
+  icon_in: [String!]
+
+  """All values that are not contained in given list."""
+  icon_not_in: [String!]
+
+  """All values containing the given string."""
+  icon_contains: String
+
+  """All values not containing the given string."""
+  icon_not_contains: String
+
+  """All values starting with the given string."""
+  icon_starts_with: String
+
+  """All values not starting with the given string."""
+  icon_not_starts_with: String
+
+  """All values ending with the given string."""
+  icon_ends_with: String
+
+  """All values not ending with the given string"""
+  icon_not_ends_with: String
+
+  """"""
+  platform: String
+
+  """All values that are not equal to given value."""
+  platform_not: String
+
+  """All values that are contained in given list."""
+  platform_in: [String!]
+
+  """All values that are not contained in given list."""
+  platform_not_in: [String!]
+
+  """All values containing the given string."""
+  platform_contains: String
+
+  """All values not containing the given string."""
+  platform_not_contains: String
+
+  """All values starting with the given string."""
+  platform_starts_with: String
+
+  """All values not starting with the given string."""
+  platform_not_starts_with: String
+
+  """All values ending with the given string."""
+  platform_ends_with: String
+
+  """All values not ending with the given string"""
+  platform_not_ends_with: String
+}
+
+""""""
+enum SocialOrderByInput {
+  """"""
+  id_ASC
+
+  """"""
+  id_DESC
+
+  """"""
+  createdAt_ASC
+
+  """"""
+  createdAt_DESC
+
+  """"""
+  updatedAt_ASC
+
+  """"""
+  updatedAt_DESC
+
+  """"""
+  publishedAt_ASC
+
+  """"""
+  publishedAt_DESC
+
+  """"""
+  handle_ASC
+
+  """"""
+  handle_DESC
+
+  """"""
+  url_ASC
+
+  """"""
+  url_DESC
+
+  """"""
+  icon_ASC
+
+  """"""
+  icon_DESC
+
+  """"""
+  platform_ASC
+
+  """"""
+  platform_DESC
+}
+
+""""""
+input SocialUpdateInput {
+  """"""
+  handle: String
+
+  """"""
+  url: String
+
+  """"""
+  icon: String
+
+  """"""
+  platform: String
+}
+
+""""""
+input SocialUpdateManyInput {
+  """"""
+  handle: String
+
+  """"""
+  url: String
+
+  """"""
+  icon: String
+
+  """"""
+  platform: String
+}
+
+""""""
+input SocialUpdateManyWithNestedWhereInput {
+  """Document search"""
+  where: SocialWhereInput!
+
+  """Update many input"""
+  data: SocialUpdateManyInput!
+}
+
+""""""
+input SocialUpdateWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: SocialWhereUniqueInput!
+
+  """Document to update"""
+  data: SocialUpdateInput!
+}
+
+""""""
+input SocialUpsertInput {
+  """Create document if it didn't exist"""
+  create: SocialCreateInput!
+
+  """Update document if it exists"""
+  update: SocialUpdateInput!
+}
+
+""""""
+input SocialUpsertWithNestedWhereUniqueInput {
+  """Unique document search"""
+  where: SocialWhereUniqueInput!
+
+  """Upsert data"""
+  data: SocialUpsertInput!
+}
+
+"""Identifies documents"""
+input SocialWhereInput {
+  """Contains search across all appropriate fields."""
+  _search: String
+
+  """Logical AND on all given filters."""
+  AND: [SocialWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SocialWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SocialWhereInput!]
+
+  """"""
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """"""
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """"""
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """"""
+  publishedAt: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """"""
+  handle: String
+
+  """All values that are not equal to given value."""
+  handle_not: String
+
+  """All values that are contained in given list."""
+  handle_in: [String!]
+
+  """All values that are not contained in given list."""
+  handle_not_in: [String!]
+
+  """All values containing the given string."""
+  handle_contains: String
+
+  """All values not containing the given string."""
+  handle_not_contains: String
+
+  """All values starting with the given string."""
+  handle_starts_with: String
+
+  """All values not starting with the given string."""
+  handle_not_starts_with: String
+
+  """All values ending with the given string."""
+  handle_ends_with: String
+
+  """All values not ending with the given string"""
+  handle_not_ends_with: String
+
+  """"""
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string"""
+  url_not_ends_with: String
+
+  """"""
+  icon: String
+
+  """All values that are not equal to given value."""
+  icon_not: String
+
+  """All values that are contained in given list."""
+  icon_in: [String!]
+
+  """All values that are not contained in given list."""
+  icon_not_in: [String!]
+
+  """All values containing the given string."""
+  icon_contains: String
+
+  """All values not containing the given string."""
+  icon_not_contains: String
+
+  """All values starting with the given string."""
+  icon_starts_with: String
+
+  """All values not starting with the given string."""
+  icon_not_starts_with: String
+
+  """All values ending with the given string."""
+  icon_ends_with: String
+
+  """All values not ending with the given string"""
+  icon_not_ends_with: String
+
+  """"""
+  platform: String
+
+  """All values that are not equal to given value."""
+  platform_not: String
+
+  """All values that are contained in given list."""
+  platform_in: [String!]
+
+  """All values that are not contained in given list."""
+  platform_not_in: [String!]
+
+  """All values containing the given string."""
+  platform_contains: String
+
+  """All values not containing the given string."""
+  platform_not_contains: String
+
+  """All values starting with the given string."""
+  platform_starts_with: String
+
+  """All values not starting with the given string."""
+  platform_not_starts_with: String
+
+  """All values ending with the given string."""
+  platform_ends_with: String
+
+  """All values not ending with the given string"""
+  platform_not_ends_with: String
+}
+
+"""References Social record uniquely"""
+input SocialWhereUniqueInput {
+  """"""
+  id: ID
+}
+
+"""Stage system enumeration"""
+enum Stage {
+  """The Published stage is where you can publish your content to."""
+  PUBLISHED
+
+  """The Draft is the default stage for all your content."""
+  DRAFT
+}
+
+""""""
+enum SystemDateTimeFieldVariation {
+  """"""
+  BASE
+
+  """"""
+  LOCALIZATION
+
+  """"""
+  COMBINED
+}
+
+""""""
+input UnpublishLocaleInput {
+  """Locales to unpublish"""
+  locale: Locale!
+
+  """Stages to unpublish selected locales from"""
+  stages: [Stage!]!
+}
+
+"""System User Kind"""
+enum UserKind {
+  """"""
+  MEMBER
+
+  """"""
+  PAT
+
+  """"""
+  PUBLIC
+
+  """"""
+  WEBHOOK
+}
+
+""""""
+type Version {
+  """"""
+  id: ID!
+
+  """"""
+  stage: Stage!
+
+  """"""
+  revision: Int!
+
+  """"""
+  createdAt: DateTime!
+}
+
+""""""
+input VersionWhereInput {
+  """"""
+  id: ID!
+
+  """"""
+  stage: Stage!
+
+  """"""
+  revision: Int!
+}
+
+""""""
+enum _FilterKind {
+  """"""
+  search
+
+  """"""
+  AND
+
+  """"""
+  OR
+
+  """"""
+  NOT
+
+  """"""
+  eq
+
+  """"""
+  eq_not
+
+  """"""
+  in
+
+  """"""
+  not_in
+
+  """"""
+  lt
+
+  """"""
+  lte
+
+  """"""
+  gt
+
+  """"""
+  gte
+
+  """"""
+  contains
+
+  """"""
+  not_contains
+
+  """"""
+  starts_with
+
+  """"""
+  not_starts_with
+
+  """"""
+  ends_with
+
+  """"""
+  not_ends_with
+
+  """"""
+  contains_all
+
+  """"""
+  contains_some
+
+  """"""
+  contains_none
+
+  """"""
+  relational_single
+
+  """"""
+  relational_every
+
+  """"""
+  relational_some
+
+  """"""
+  relational_none
+}
+
+""""""
+enum _MutationInputFieldKind {
+  """"""
+  scalar
+
+  """"""
+  richText
+
+  """"""
+  enum
+
+  """"""
+  relation
+
+  """"""
+  union
+
+  """"""
+  virtual
+}
+
+""""""
+enum _MutationKind {
+  """"""
+  create
+
+  """"""
+  publish
+
+  """"""
+  unpublish
+
+  """"""
+  update
+
+  """"""
+  upsert
+
+  """"""
+  delete
+
+  """"""
+  updateMany
+
+  """"""
+  publishMany
+
+  """"""
+  unpublishMany
+
+  """"""
+  deleteMany
+}
+
+""""""
+enum _OrderDirection {
+  """"""
+  asc
+
+  """"""
+  desc
+}
+
+""""""
+enum _RelationInputCardinality {
+  """"""
+  one
+
+  """"""
+  many
+}
+
+""""""
+enum _RelationInputKind {
+  """"""
+  create
+
+  """"""
+  update
+}
+
+""""""
+enum _RelationKind {
+  """"""
+  regular
+
+  """"""
+  union
+}
+
+""""""
+enum _SystemDateTimeFieldVariation {
+  """"""
+  base
+
+  """"""
+  localization
+
+  """"""
+  combined
+}

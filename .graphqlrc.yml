@@ -1,0 +1,14 @@
+projects:
+  default:
+    schema: ${GRAPHCMS_URL}
+    extensions:
+      codegen:
+        generates:
+          ./.generated/graphcms/graphcms.graphql:
+            plugins:
+              - schema-ast
+          ./.generated/graphcms/types.ts:
+            plugins:
+              - typescript
+            config:
+              constEnums: true

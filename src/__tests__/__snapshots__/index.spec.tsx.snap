@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component render 1`] = `
+<main>
+  <Section
+    type="hero"
+  >
+    <LuckyNumber
+      number="03"
+    />
+  </Section>
+  <Section
+    type="content"
+  >
+    <Article
+      description="I'm a software engineer with a passion for automation, CI/CD and simplicity."
+      name="Koen Verburg"
+    />
+    <Footer
+      description="Below you will find a few platforms on which I'm active"
+      handles={
+        Object {
+          "github": Object {
+            "fa": Object {
+              "iconName": "github",
+              "prefix": "fab",
+            },
+            "handle": "@koenverburg",
+            "url": "https://github.com/koenverburg",
+          },
+          "instagram": Object {
+            "fa": Object {
+              "iconName": "instagram",
+              "prefix": "fab",
+            },
+            "handle": "@koenverburg_",
+            "url": "https://instagram.com/koen.devops",
+          },
+          "medium": Object {
+            "fa": Object {
+              "iconName": "medium",
+              "prefix": "fab",
+            },
+            "handle": "@koenverburg",
+            "url": "https://medium.com/@koenverburg",
+          },
+          "pinterest": Object {
+            "fa": Object {
+              "iconName": "pinterest",
+              "prefix": "fab",
+            },
+            "handle": "@thekoenverburg",
+            "url": "https://pinterest.com/thekoenverburg",
+          },
+          "twitter": Object {
+            "fa": Object {
+              "iconName": "twitter",
+              "prefix": "fab",
+            },
+            "handle": "@koenverburg_",
+            "url": "https://twitter.com/koenverburg_",
+          },
+        }
+      }
+      title="Let's connect and talk code!"
+    />
+    <SignOff
+      humanLinkText="This Stack"
+      madeWith="Made with ❤️ in Rotterdam"
+      poweredBy=" - powered by "
+    />
+  </Section>
+</main>
+`;

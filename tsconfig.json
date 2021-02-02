@@ -1,0 +1,65 @@
+{
+  "exclude": [
+    ".next",
+    "node_modules",
+    "./src/reducer.ts",
+    "./src/store.ts",
+    "**/__tests__/*.spec.ts",
+    "**/__tests__/*.spec.tsx"
+  ],
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": false,
+    "noEmit": true,
+    "allowJs": false,
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "noUnusedParameters": false,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "paths": {
+      "@features": [
+        "./features/index.ts"
+      ],
+      "@components": [
+        "./components/index.ts"
+      ],
+      "@containers": [
+        "./containers/index.ts"
+      ],
+      "@fragments": [
+        "./features/fragments.ts"
+      ],
+      "@graphcms/types": [
+        "../.generated/graphcms/types.ts"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "typings.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "./.generated/graphcms/types.ts"
+  ]
+}

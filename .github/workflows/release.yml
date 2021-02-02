@@ -1,0 +1,44 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: testing
+        run: |
+          yarn lint
+          yarn test:ci
+
+      - name: Dist build
+        env:
+          GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+        run: |
+          yarn dist
+
+      - name: Post Slack Notification
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: deployments
+          SLACK_USERNAME: Deploy Production | "${{ secrets.PROJECT_NAME }}"
+          SLACK_ICON: https://github.com/koenverburg.png?size=48
+          SLACK_TITLE: ":rocket:New Production deployment:rocket:"
+          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PRODUCTION_DOMAIN }}"

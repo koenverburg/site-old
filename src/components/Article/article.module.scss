@@ -1,0 +1,74 @@
+@import '@styling/base';
+
+.section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.kicker {
+  color: palette(blog-kicker);
+  font-family: fontFamily(poppins);
+  font-weight: fontWeight(medium);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  color: palette(blog-title);
+  font-family: fontFamily(oswald);
+  letter-spacing: 0.1rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  color: palette(blog-description);
+  font-family: fontFamily(poppins);
+  margin: 0;
+}
+
+.content {
+  color: palette(blog-description);
+  font-family: fontFamily(poppins);
+
+  h1, h2, h3, h4, h5, h6, strong {
+    color: palette(blog-title);
+  }
+
+  p {
+    line-height: 1.9em;
+
+    code {
+      border-radius: 0.5rem;
+    }
+  }
+
+  // needed for code blocks
+  p > code,
+  li > code {
+    background: rgb(1, 22, 39);
+    color: rgb(214, 222, 235);
+    padding: 0.4em 0.3rem;
+  }
+
+
+  blockquote {
+    margin: 0;
+    border-left: 0.5rem solid palette(shark);
+
+    p {
+      margin: 0;
+      text-indent: 1rem;
+      background-color: rgba(palette(shark), 20%);
+    }
+  }
+
+  hr {
+    height: 0;
+  }
+
+  pre {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+}

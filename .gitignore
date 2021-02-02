@@ -1,0 +1,6 @@
+.next
+.reports
+dist
+node_modules
+public/sitemap.xml
+.env

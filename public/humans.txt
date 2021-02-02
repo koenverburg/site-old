@@ -1,0 +1,39 @@
+    +----------------------------------------------------------------------+
+    |                                                                      |
+    |                                                                      |
+    |           .-------------------------.                                |
+    |           |                         |                                |
+    |           |  Wtf is dit voor troep  |                                |
+    |           |                         |                                |
+    |           `--------+  +-------------'                                |
+    |                     \/         ,                                     |
+    |         ,-.       _,---._ __  / \                                    |
+    |        /  )    .-'       `./ /   \                                   |
+    |       (  (   ,'            `/    /|                                  |
+    |        \  `-"             \'\   / |                                  |
+    |         `.              ,  \ \ /  |                                  |
+    |          /`           ,'-`-----   |                                  |
+    |         (            ;        |   '                                  |
+    |         |  ,-.    ,-' Humans  |  /                                   |
+    |         |  | (   |            | /                                    |
+    |         )  |  \  `.___________|/                                     |
+    |         `--'   `--'                                                  |
+    |                                                                      |
+    +----------------------------------------------------------------------+
+
+Site made by Koen Verburg
+Software Engineer
+Site: koenverburg.dev <creativekoen@gmail.com>
+Twitter: @_koenverburg
+Location: Rotterdam, The Netherlands
+
+This site is made using the following technologies:
+- Nextjs
+- React
+- GraphQL
+- Sass
+- Eslint
+- NodeJS
+
+================================================================================
+Special thanks to the NOS for the cat - https://nos.nl/humans.txt

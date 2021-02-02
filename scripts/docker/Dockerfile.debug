@@ -1,0 +1,24 @@
+FROM node:12
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Installing dependencies
+COPY package.json yarn.lock /usr/src/app/
+RUN yarn install --frozen-lockfile
+
+# Copying source files
+COPY . /usr/src/app
+
+# Building app
+RUN yarn dist
+#RUN yarn export
+cmd "npm start"
+
+#FROM nginx:alpine
+
+#COPY ./app/out /usr/share/nginx/html
+
+#EXPOSE 80
+
+# docker build -t site .
+# docker run -d -p 8000:80 --name web site

@@ -1,0 +1,8 @@
+ignores:
+  - "graphql-*"
+  - "@graphql-*"
+  - "jest-resolve-cached"
+  - "classnames"
+  - "@typescript-eslint/*"
+skip-missing: true
+ignoreBinPackage: true

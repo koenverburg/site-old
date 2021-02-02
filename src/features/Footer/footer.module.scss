@@ -1,0 +1,81 @@
+@import '@styling/base';
+
+.footer {
+  padding: 0.5rem 0;
+  font-family: fontFamily(footer);
+  border-top: 0.1rem solid #ededed;
+
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include sm {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @include sm {
+    flex-direction: row;
+  }
+}
+
+.item {
+  margin: 0;
+  list-style: none;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: palette(text);
+    transition: all .3s ease-in-out;
+    padding: 0.5rem 0;
+
+    font-size: 0;
+
+    @include sm {
+      font-size: 1rem;
+      padding: 0 1rem;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+
+      svg {
+        display: none;
+      }
+    }
+
+    &:hover {
+      color: palette(texthover);
+
+      &:link,
+      &:active,
+      &:focus,
+      &:visited {
+        text-decoration: none;
+      }
+    }
+    svg path,
+    svg g path {
+      color: palette(text);
+      fill: palette(text);
+    }
+  }
+}
+
+.copyright {
+  color: palette(sand);
+  text-align: center;
+  font-size: 0.9rem;
+
+  @include sm {
+    text-align: left;
+  }
+}

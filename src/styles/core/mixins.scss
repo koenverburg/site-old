@@ -1,0 +1,57 @@
+@function palette($name) {
+  @if map-has-key($palette, $name) {
+    @return map-get($palette, $name);
+  }
+
+  @warn "Unknown `#{$name}` in palette.";
+  @return null;
+}
+
+@function fontFamily($name) {
+  @if map-has-key($fonts, $name) {
+    @return map-get($fonts, $name);
+  }
+
+  @warn "Unknown `#{$name}` in fonts.";
+  @return null;
+};
+
+
+@function fontWeight($name) {
+  @if map-has-key($fontWeights, $name) {
+    @return map-get($fontWeights, $name);
+  }
+
+  @warn "Unknown `#{$name}` in fontWeights.";
+  @return null;
+};
+
+@mixin xs {
+  @media (max-width:$media-xs-phone) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: $media-phone) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $media-tablet) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $media-laptop) {
+    @content;
+  }
+}
+
+@mixin xlg {
+  @media (min-width: $media-desktop) {
+    @content;
+  }
+}
