@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react';
 import {getAllPosts} from '../lib/api'
 import {ArticleItem, Layout} from '@components'

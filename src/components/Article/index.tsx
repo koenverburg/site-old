@@ -1,11 +1,12 @@
-import Link from 'next/link'
+import {IArticle} from 'interfaces/Article'
 import styles from './article.module.scss'
 
 interface IProps {
-  article: Object
+  article: IArticle,
+  content: string
 }
 
-export const Article: React.FunctionComponent = ({article, content}) => {
+export const Article: React.FunctionComponent<IProps> = ({article, content}) => {
   return (
     <section className={styles.section}>
       <span className={styles.kicker}>{article.kicker}</span>

@@ -10,8 +10,8 @@ import styles from './layout.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IProps {
-  pageTitle: string
-  pageDescription: string
+  pageTitle?: string
+  pageDescription?: string
 }
 
 export const Layout: React.FunctionComponent<IProps> = (props) => {
