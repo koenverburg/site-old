@@ -16,25 +16,27 @@
 }
 
 .logo {
-  margin-top: 0.5rem;
   display: flex;
   font-family: fontFamily('heading');
+}
 
-  @include xs {
-    width: 100%;
-    justify-content: center;
+.logoLeft,
+.logoRight {
+  font-size: 2rem;
+
+  @include sm {
+    font-size: 2.5rem;
   }
 }
 
 .logoLeft {
-  font-size: 2.5rem;
   font-weight: 500;
   position: relative;
 
   &:after {
     content: '';
     position: absolute;
-    background-color: white;
+    background-color: palette(dark);
     height: 0.2rem;
     width: 95.4%;
     left: 0.2rem;
@@ -43,11 +45,15 @@
 }
 
 .logoRight {
-  font-size: 2.5rem;
   font-weight: 300;
-  color: palette(sand);
+  color: palette(off-black);
 }
 
-.nav {
-  display: flex;
+.pageTitle {
+  font-family: fontFamily(poppins);
+  margin-bottom: 0.5rem;
+}
+
+.pageDescription {
+  font-family: fontFamily(poppins);
 }

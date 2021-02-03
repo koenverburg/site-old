@@ -2,7 +2,10 @@
 
 .section {
   margin-top: 4rem;
-  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .kicker {
@@ -46,20 +49,20 @@
   // needed for code blocks
   p > code,
   li > code {
-    background: rgb(1, 22, 39);
-    color: rgb(214, 222, 235);
-    padding: 0.4em 0.3rem;
+    color: rgb(191, 199, 213);
+    background-color: rgb(41, 45, 62);
+    padding: 0.3em 0.4rem;
   }
-
 
   blockquote {
     margin: 0;
-    border-left: 0.5rem solid palette(shark);
+    border-left: 0.5rem solid darken(palette(blog-description), 20%);
 
     p {
+      color: darken(palette(blog-description), 20%);
       margin: 0;
       text-indent: 1rem;
-      background-color: rgba(palette(shark), 20%);
+      background-color: rgba(palette(off-black), 20%);
     }
   }
 

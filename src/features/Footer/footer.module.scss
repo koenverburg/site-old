@@ -1,9 +1,7 @@
 @import '@styling/base';
 
 .footer {
-  padding: 0.5rem 0;
-  font-family: fontFamily(footer);
-  border-top: 0.1rem solid #ededed;
+  border-top: 0.2rem solid palette(light-border);
 
   display: flex;
   flex-direction: column-reverse;
@@ -15,11 +13,11 @@
 }
 
 .nav {
-  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   @include sm {
     flex-direction: row;
@@ -30,26 +28,24 @@
   margin: 0;
   list-style: none;
 
-  a {
-    display: inline-block;
-    text-decoration: none;
-    color: palette(text);
-    transition: all .3s ease-in-out;
-    padding: 0.5rem 0;
+  &:first-of-type a {
+    padding-left: 0;
+  }
 
-    font-size: 0;
+  &:last-of-type a {
+    padding-right: 0;
+  }
+
+  a {
+    display: flex;
+    padding: 0.5rem 0;
+    color: palette(off-black);
+    text-decoration: none;
 
     @include sm {
-      font-size: 1rem;
+      font-size: 1.6rem;
       padding: 0 1rem;
 
-      &:last-of-type {
-        padding-right: 0;
-      }
-
-      svg {
-        display: none;
-      }
     }
 
     &:hover {
@@ -64,16 +60,22 @@
     }
     svg path,
     svg g path {
-      color: palette(text);
-      fill: palette(text);
+      color: palette(off-black);
+      fill: palette(off-black);
     }
   }
 }
 
 .copyright {
-  color: palette(sand);
-  text-align: center;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  color: palette(dark);
+  font-size: 1rem;
+  font-family: fontFamily(footer);
+
+  @include xs {
+    font-size: 0.8rem;
+  }
 
   @include sm {
     text-align: left;
