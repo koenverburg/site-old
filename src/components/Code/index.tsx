@@ -3,7 +3,7 @@ import theme from 'prism-react-renderer/themes/palenight'
 import styles from './code.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Code = ({codeString, language, _metastring, ...props}): React.ReactNode => {
+export const Code = ({codeString, language, _metastring, ...props}): JSX.Element => {
   return (
     <Highlight
       {...defaultProps}

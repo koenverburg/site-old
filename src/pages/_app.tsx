@@ -19,7 +19,7 @@ export default function App({Component, pageProps}: AppProps): React.ReactNode {
   }
 
   const components = { 
-    pre: preProps => {
+    pre: (preProps: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLPreElement> & React.HTMLAttributes<HTMLPreElement>) => {
       const props = preToCodeBlock(preProps)
       if (props) {
         return <Code {...props} />
