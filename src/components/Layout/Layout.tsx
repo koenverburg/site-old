@@ -7,6 +7,7 @@ import {initializeApollo} from '../../lib/apolloClient'
 
 import {Footer} from '@features'
 import styles from './layout.module.scss'
+import {Menu} from 'components/Menu'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IProps {
@@ -21,33 +22,30 @@ export const Layout: React.FunctionComponent<IProps> = (props) => {
   return (
     <>
       <div className={styles.layout}>
-        <nav className={styles.nav}>
+        <Menu>
           <Link href="/" passHref>
             <a className={styles.logo}>
               <span className={styles.logoLeft}>Koen</span>&nbsp;
               <span className={styles.logoRight}>Verburg</span>
             </a>
           </Link>
-
-          <ul className={styles.links}>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-
-          <ul className={styles.links}>
-            <li><Link href="/blog">blog</Link></li>
-          </ul>
-        </nav>
+        </Menu>
 
         {props.pageTitle &&
-          <h1>{props.pageTitle}</h1>
+          <h1 className={styles.pageTitle}>{props.pageTitle}</h1>
         }
 
         {props.pageDescription &&
-          <p>{props.pageDescription}</p>
+          <p className={styles.pageDescription}>{props.pageDescription}</p>
         }
 
-        {props.children}
+        {(props.pageTitle || props.pageDescription) &&
+          <hr />
+        }
+
+        <main>
+          {props.children}
+        </main>
         <Footer {...data} />
       </div>
     </>
