@@ -3,7 +3,7 @@ import styles from './article.module.scss'
 
 interface IProps {
   article: IArticle,
-  content: string
+  content: React.ReactNode
 }
 
 export const Article: React.FunctionComponent<IProps> = ({article, content}) => {

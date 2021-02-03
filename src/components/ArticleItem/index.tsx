@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {IArticle} from 'interfaces/Article'
 import styles from './articleitem.module.scss'
 
