@@ -1,6 +1,6 @@
 import hydrate from 'next-mdx-remote/hydrate'
 import renderToString from 'next-mdx-remote/render-to-string'
-import {getAllPosts, getContentBySlug} from '../../lib/api'
+import {getAllPosts, getContentBySlug} from '../../lib/content'
 
 import {Layout, Article} from '@components'
 
