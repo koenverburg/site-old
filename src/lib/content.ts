@@ -5,7 +5,13 @@ import matter from 'gray-matter'
 const postsDirectory = join(process.cwd(), 'data', 'blog')
 
 export function getSlugs(): string[] {
-  return fs.readdirSync(postsDirectory)
+  const files = fs.readdirSync(postsDirectory)
+  if (process.env.NODE_ENV === 'production' && files.includes('typography.md')) {
+    const index = files.indexOf('typography.md')
+    files.splice(index, 1)
+  }
+
+  return files
 }
 
 const slugify = (title: string) => {
@@ -30,7 +36,6 @@ export function getContentBySlug(slug: string, fields: string[] = []): Record<st
   const {data, content} = matter(fileContents)
 
   const items = {}
-  // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
     if (field === 'slug') {
       items[field] = slugify(realSlug)
@@ -47,13 +52,6 @@ export function getContentBySlug(slug: string, fields: string[] = []): Record<st
 
   return items
 }
-
-// enum Fields {
-//   Kicker = 'kicker',
-//   Title = 'title',
-//   SubTitle = 'subTitle',
-//   Slug = 'slug',
-// }
 
 export function getAllPosts(fields: string[] = []): Record<string, unknown>[] {
   const slugs = getSlugs()

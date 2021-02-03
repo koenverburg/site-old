@@ -1,11 +1,12 @@
 import Link from 'next/link'
+import {IArticle} from 'interfaces/Article'
 import styles from './articleitem.module.scss'
 
 interface IProps {
-  article: Object
+  article: IArticle
 }
 
-export const ArticleItem: React.FunctionComponent = ({article}) => {
+export const ArticleItem: React.FunctionComponent<IProps> = ({article}) => {
   return (
     <Link href={`/blog/${article.slug}`} passHref>
       <a className={styles.root}>

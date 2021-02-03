@@ -1,8 +1,9 @@
-import Highlight, { defaultProps } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/nightOwl'
+import Highlight, {defaultProps} from 'prism-react-renderer'
+import theme from 'prism-react-renderer/themes/palenight'
 import styles from './code.module.scss'
 
-export const Code = ({ codeString, language, metastring, ...props }) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const Code = ({codeString, language, _metastring, ...props}): JSX.Element => {
   return (
     <Highlight
       {...defaultProps}
@@ -11,14 +12,14 @@ export const Code = ({ codeString, language, metastring, ...props }) => {
       theme={theme}
       {...props}
     >
-      {({ className, style, tokens, getTokenProps }) => (
+      {({className, style, tokens, getTokenProps}) => (
         <div className={styles.reactHighlight} data-language={language}>
           <pre className={className} style={style}>
-            {tokens.map((line, i) => {
+            {tokens.map(line => {
               return (
                 <div>
                   {line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} className={styles.token} />
+                    <span {...getTokenProps({token, key})} className={styles.token} />
                   ))}
                 </div>
               )

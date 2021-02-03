@@ -22,8 +22,8 @@ html, body {
 body {
   width: 100%;
   height: 100%;
-  // color: #0c0c0c;
-  // background-color: #f8f8f8;
+  color: #000;
+  background-color: palette(light-background);
 
   &.dark {
     color: #FEFEFE;
@@ -42,9 +42,9 @@ body {
   align-content: stretch; /* Extra space in Cross Axis */
 }
 
-//* {
-  //background-color: rgba(255, 255, 255, .05);
-//}
+// * {
+//   background-color: rgba(0, 0, 0, .05);
+// }
 
 main {
   flex: 1;
@@ -58,19 +58,30 @@ main {
   }
 }
 
+hr {
+  border: 0;
+  width: 100%;
+  height: 0.2rem;
+  margin: 0 0 4rem;
+  background-color: palette(light-border);
+}
+
+.section--hero {
+  height: 100%;
+}
+
 .hero {
   font-family: fontFamily('hero');
   font-size: 2.3rem;
   font-weight: 500;
 
-  span {
-    padding: 0.5rem;
-
-    color: #0c0c0c;
-    background-color: #FEFEFE;
-  }
-
   @include md {
     font-size: 4rem;
+  }
+
+  span {
+    padding: 0.5rem;
+    color: palette(light);
+    background-color: palette(dark);
   }
 }

@@ -43,7 +43,7 @@ class MyDocument extends Document {
 
           <link rel="apple-touch-icon" href="/images/avatar.jpg" />
         </Head>
-        <body className="dark">
+        <body>
           <Main />
           <NextScript />
         </body>
