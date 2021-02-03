@@ -24,7 +24,6 @@ const Footer: React.FunctionComponent<Props> = ({socials}) => {
                 rel="noopener"
               >
                 <Icon name={links.icon} />
-                {links.platform}
               </a>
             </li>
           ))}
@@ -42,7 +41,6 @@ export const FooterFragments = {
         handle
         icon
         url
-        platform
       }
     }
   `,
