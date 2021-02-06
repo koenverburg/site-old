@@ -3,7 +3,6 @@ const withPlugins = require('next-compose-plugins')
 const path = require('path')
 
 const nextConfig = {
-  amp: true,
   cleanUrls: true,
   trailingSlash: false,
 
