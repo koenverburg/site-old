@@ -9,6 +9,8 @@ const nextConfig = {
 
   env: {
     'GRAPHCMS_URL': process.env.GRAPHCMS_URL,
+    'UMAMI_HOST': process.env.UMAMI_HOST,
+    'UMAMI_WEBSITE_ID': process.env.UMAMI_WEBSITE_ID,
   },
 
   // eslint-disable-next-line no-unused-vars
