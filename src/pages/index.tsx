@@ -1,7 +1,5 @@
 import {Layout} from '@components'
 
-export const config = {amp: 'hybrid'}
-
 const Index = (): React.ReactNode => {
   return (
     <Layout>

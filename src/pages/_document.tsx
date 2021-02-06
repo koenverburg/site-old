@@ -42,6 +42,9 @@ class MyDocument extends Document {
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
           <link rel="apple-touch-icon" href="/images/avatar.jpg" />
+          {process.env.NODE_ENV === 'production' &&
+            <script async defer data-website-id={process.env.UMAMI_WEBSITE_ID} src={process.env.UMAMI_HOST}></script>
+          }
         </Head>
         <body>
           <Main />
