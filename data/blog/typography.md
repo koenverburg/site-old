@@ -18,7 +18,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat
 
 canonical_url: https://koenverburg.dev/blog/test
 
-date: 2020.11.23
+date: '2020-11-23'
 ---
 
 Display Text

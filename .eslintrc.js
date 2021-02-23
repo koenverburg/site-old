@@ -14,7 +14,6 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'prettier/standard',
   ],
   rules: {
     'object-curly-spacing': ['error', 'never'],

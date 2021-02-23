@@ -4,10 +4,12 @@ const prettier = require('prettier')
 
 ;(async () => {
   const pages = await globby([
-    'src/pages/*.js',
-    'src/_content/**/*.mdx',
-    '!src/pages/_*.js',
+    'src/pages/*.tsx',
+    'data/blog/**/*.mdx',
+    'data/blog/**/*.md',
+    '!src/pages/_*.tsx',
     '!src/pages/api',
+    '!data/blog/typography.md',
   ]);
 
   const sitemap = `
@@ -16,10 +18,13 @@ const prettier = require('prettier')
             ${pages
               .map((page) => {
                 const path = page
-                  .replace('pages', '')
-                  .replace('.js', '')
-                  .replace('.mdx', '');
-                const route = path === '/index' ? '' : path;
+                  .replace('data/', '')
+                  .replace('src/', '')
+                  .replace('pages/', '')
+                  .replace('.tsx', '')
+                  .replace('.mdx', '')
+                  .replace('.md', '');
+                const route = path === 'index' ? '' : path;
                 return `
                         <url>
                             <loc>${`https://koenverburg.dev/${route}`}</loc>
@@ -34,5 +39,5 @@ const prettier = require('prettier')
     parser: 'html',
   });
 
-  fs.writeFileSync('public/sitemap.xml', formatted);
+  fs.writeFileSync('./public/sitemap.xml', formatted);
 })()

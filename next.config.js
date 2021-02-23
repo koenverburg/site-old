@@ -12,8 +12,7 @@ const nextConfig = {
     'UMAMI_WEBSITE_ID': process.env.UMAMI_WEBSITE_ID,
   },
 
-  // eslint-disable-next-line no-unused-vars
-  webpack: (config, {buildId, dev, isServer}) => {
+  webpack: (config, {_buildId, dev, isServer}) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@styling/base': path.resolve(__dirname, './src/styles/module-base.scss'),
@@ -21,6 +20,13 @@ const nextConfig = {
 
     if (isServer) {
       require('./scripts/generate-sitemap')
+    }
+
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom': 'preact/compat',
+      })
     }
 
     return config

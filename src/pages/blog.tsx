@@ -1,11 +1,24 @@
 import React from 'react';
 import {getAllPosts} from '../lib/content'
-import {ArticleItem, Layout} from '@components'
+import {ArticleItem, Layout, Header} from '@components'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Blog({articles}): React.ReactNode {
+  const blogPageData = {
+    title: 'Blog',
+    description: 'I write about Frontend, DevOps and Automation.',
+  }
+
   return (
-    <Layout pageTitle="Blog" pageDescription="I write about frontend, devOps and Automation.">
+    <Layout
+      title={`${blogPageData.title} - Koen Verburg`}
+      description={blogPageData.description}
+      >
+      <Header
+        title={blogPageData.title}
+        description={blogPageData.description}
+      />
+
       {articles.map(article => (
         <ArticleItem key={article.slug} article={article} />
       ))}

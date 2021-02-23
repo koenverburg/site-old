@@ -9,7 +9,7 @@ import {AppProps} from 'next/dist/next-server/lib/router/router'
 import '../styles/root.scss'
 import {data} from '../data/static'
 import {useApollo} from '../lib/apolloClient'
-import {ErrorBoundary, Code} from '@components'
+import {ErrorBoundary, Code, ExternalLink} from '@components'
 
 export default function App({Component, pageProps}: AppProps): React.ReactNode {
   const apolloClient = useApollo(pageProps.initialApolloState)
@@ -19,6 +19,7 @@ export default function App({Component, pageProps}: AppProps): React.ReactNode {
   }
 
   const components = {
+    a: ExternalLink,
     pre: (preProps: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLPreElement> & React.HTMLAttributes<HTMLPreElement>) => {
       const props = preToCodeBlock(preProps)
       if (props) {
