@@ -8,6 +8,7 @@ export const Menu: React.FunctionComponent = (props) => {
         <nav className={styles.nav}>
           <ul className={styles.links}>
             <li className={styles.link}><Link href="/blog">Blog</Link></li>
+            <li className={styles.link}><Link href="/uses">Uses</Link></li>
           </ul>
         </nav>
     </div>
