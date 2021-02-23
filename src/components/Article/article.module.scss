@@ -48,13 +48,17 @@
     }
   }
 
+  li {
+    line-height: 1.9em;
+  }
+
   p a,
   li a {
     color: palette(heading);
     text-decoration: underline;
   }
 
-  // needed for code blocks
+  // Needed for code blocks
   p > code,
   li > code {
     color: rgb(191, 199, 213);
