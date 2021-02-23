@@ -23,6 +23,13 @@ const nextConfig = {
       require('./scripts/generate-sitemap')
     }
 
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom': 'preact/compat',
+      })
+    }
+
     return config
   },
 }
