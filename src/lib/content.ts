@@ -3,6 +3,9 @@ import {join} from 'path'
 import matter from 'gray-matter'
 
 const postsDirectory = join(process.cwd(), 'data', 'blog')
+const contentDirectory = join(process.cwd(), 'data', 'content')
+
+type pageType = 'blog' | 'content'
 
 export function getSlugs(): string[] {
   const files = fs.readdirSync(postsDirectory)
@@ -29,9 +32,16 @@ const slugify = (title: string) => {
     .replace(/-+$/, '') // Trim - from end of text
 }
 
-export function getContentBySlug(slug: string, fields: string[] = []): Record<string, unknown> {
+export function getContentBySlug(slug: string, fields: string[] = [], type?: pageType): Record<string, unknown> {
+  let dataDirectory: string
+  if (type === 'content') {
+    dataDirectory = contentDirectory
+  } else {
+   dataDirectory = postsDirectory
+  }
+
   const realSlug = slug.replace(/\.mdx?$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
+  const fullPath = join(dataDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const {data, content} = matter(fileContents)
 
