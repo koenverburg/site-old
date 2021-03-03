@@ -1,12 +1,12 @@
 import hydrate from 'next-mdx-remote/hydrate'
 import renderToString from 'next-mdx-remote/render-to-string'
 import {getAllPosts, getContentBySlug} from '../../lib/content'
-
 import {Layout, Article} from '@components'
+import {MarkdownComponents} from 'components/MarkdownComponents'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const DetailPage = (props): React.ReactNode => {
-  const content = hydrate(props.content)
+  const content = hydrate(props.content, {components: MarkdownComponents})
   return (
     <Layout
       type="article"
