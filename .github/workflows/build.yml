@@ -7,17 +7,40 @@ on:
       - feature/*
 
 jobs:
-  build:
+
+  deps:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
 
-      - name: Cache node modules
+      - name: Prime node modules Cache 
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [ deps ]
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache 
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: yarn install
         run: yarn install --frozen-lockfile
@@ -27,6 +50,23 @@ jobs:
           yarn lint
           yarn test:ci
 
+  build:
+    runs-on: ubuntu-latest
+    needs: [ deps ]
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache 
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
       - name: Dist build
         env:
           GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
@@ -34,12 +74,12 @@ jobs:
           yarn dist
           yarn export
 
-      - name: Post Slack Notification
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: deployments
-          SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
-          SLACK_ICON: https://github.com/koenverburg.png?size=48
-          SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
-          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
+      #- name: Post Slack Notification
+        #uses: rtCamp/action-slack-notify@master
+        #env:
+          #SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          #SLACK_CHANNEL: deployments
+          #SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
+          #SLACK_ICON: https://github.com/koenverburg.png?size=48
+          #SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
+          #SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
