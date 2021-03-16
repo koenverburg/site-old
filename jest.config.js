@@ -4,6 +4,7 @@ module.exports = {
   coverageDirectory: '.reports/coverage',
   collectCoverageFrom: ['src/**/**/*.{ts,tsx}', '!**/__tests__/**'],
   coveragePathIgnorePatterns: ['src/pages/_*', 'src/utils'],
+  cacheDirectory: '.jest-cache',
 
   coverageReporters: [
     'html',

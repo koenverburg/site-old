@@ -15,11 +15,12 @@
     "export": "next export -o dist",
     "depcheck": "depcheck",
     "filecheck": "node ./scripts/detect-unused.js",
-    "test": "jest --reporters=default -u -i --notify --verbose",
-    "test:ci": "jest --ci --verbose --reporters=default",
-    "test:report": "jest --ci --verbose --reporters=jest-junit",
+    "test": "jest -u -i --notify --reporters=default",
+    "test:ci": "jest --ci --reporters=default",
+    "test:report": "jest --ci --reporters=jest-junit",
     "test:coverage": "jest --ci --coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:ci": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
     "graphql:codegen": "graphql-codegen -r dotenv/config"
   },
   "devDependencies": {
