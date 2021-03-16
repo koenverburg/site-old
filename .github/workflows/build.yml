@@ -40,11 +40,24 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Eslint Cache 
+        uses: actions/cache@v2
+        id: eslint-cache 
+        with:
+          path: "**/.eslintcache"
+          key: ${{ runner.os }}-eslint
+
+      - name: Restore Jest Cache 
+        uses: actions/cache@v2
+        id: jest-cache 
+        with:
+          path: "**/.jest-cache"
+          key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js') }}
 
       - name: testing
         run: |
-          yarn lint
+          yarn lint:ci
           yarn test:ci
 
   build:
@@ -62,7 +75,6 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Dist build
         env:
