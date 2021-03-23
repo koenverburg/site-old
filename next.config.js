@@ -1,4 +1,5 @@
 const withMDX = require('@next/mdx')
+const images = require('remark-images')
 const withPlugins = require('next-compose-plugins')
 const path = require('path')
 
@@ -35,9 +36,11 @@ const nextConfig = {
 
 const mdxConfig = {
   pageExtensions: ['md', 'mdx'],
+  options: {
+    remarkPlugins: [images],
+  },
 }
 
 module.exports = withPlugins([
   [withMDX, mdxConfig],
-  // [withSize],
 ], nextConfig)

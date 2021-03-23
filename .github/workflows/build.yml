@@ -7,13 +7,16 @@ on:
       - feature/*
 
 jobs:
-  build:
+
+  deps:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Cache node modules
+      - name: Prime node modules Cache 
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
@@ -22,10 +25,63 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
 
+  test:
+    runs-on: ubuntu-latest
+    needs: [ deps ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache 
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Eslint Cache 
+        uses: actions/cache@v2
+        id: eslint-cache 
+        with:
+          path: "**/.eslintcache"
+          key: ${{ runner.os }}-eslint
+
+      - name: Restore Jest Cache 
+        uses: actions/cache@v2
+        id: jest-cache 
+        with:
+          path: "**/.jest-cache"
+          key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js') }}
+
       - name: testing
         run: |
-          yarn lint
+          yarn lint:ci
           yarn test:ci
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [ deps ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache 
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Nextjs Build Cache 
+        uses: actions/cache@v2
+        id: next-cache 
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - name: Dist build
         env:
@@ -34,12 +90,12 @@ jobs:
           yarn dist
           yarn export
 
-      - name: Post Slack Notification
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: deployments
-          SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
-          SLACK_ICON: https://github.com/koenverburg.png?size=48
-          SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
-          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
+      #- name: Post Slack Notification
+        #uses: rtCamp/action-slack-notify@master
+        #env:
+          #SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          #SLACK_CHANNEL: deployments
+          #SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
+          #SLACK_ICON: https://github.com/koenverburg.png?size=48
+          #SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
+          #SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
