@@ -4,6 +4,9 @@ const withPlugins = require('next-compose-plugins')
 const path = require('path')
 
 const nextConfig = {
+  future: {
+    webpack5: true,
+  },
   cleanUrls: true,
   trailingSlash: false,
 
