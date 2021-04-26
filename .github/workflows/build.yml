@@ -55,6 +55,7 @@ jobs:
           key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js') }}
 
       - name: Dependencies check
+        continue-on-error: true
         run: |
           yarn depcheck
 
