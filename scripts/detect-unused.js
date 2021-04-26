@@ -19,6 +19,7 @@ madge(path.join(__dirname, '..'), {
     /^next\.config\.js/, // Ignore Next.js configuration
     /^\.eslintrc\.js/, // Ignore Eslint configuration
     /^jest\.config\.js/, // Ignore Jest Testing configuration
+    /^server\.js/, // Custom Server for pkg
     /^scripts[\\/]/, // Ignore scripts (where this file lives)
   ],
 }).then(res => {
