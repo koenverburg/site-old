@@ -1,5 +1,8 @@
-bake:
-  docker build -f scripts/docker/Dockerfile -t site .
+pkg:
+	npx pkg . --targets node14-alpine-x64 --output bin/site
 
-bake-debug:
-  docker build -f scripts/docker/Dockerfile.debug -t sited .
+pkg-win:
+	npx pkg . --targets node14-win-x64 --output bin/site-win
+
+run-win:
+	npx cross-env NODE_ENV=production bin/site-win.exe

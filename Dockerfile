@@ -14,12 +14,12 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
-RUN yarn dist
+#RUN yarn dist
 
-#RUN yarn dist && \
-    #yarn autoclean --force && \
-    #rm -rf node_modules/webpack node_modules/webpack-dev-middleware node_modules/webpack-hot-middleware
-# RUN yarn pkg . --targets node14-alpine-x64 --output bin/site
+RUN yarn dist && \
+    yarn autoclean --force && \
+    rm -rf node_modules/webpack node_modules/webpack-dev-middleware node_modules/webpack-hot-middleware
+RUN yarn pkg . --targets node14-alpine-x64 --output bin/site
 
 # Stage 3 - Production image, copy all the files and run next
 FROM node:alpine AS runner
@@ -27,13 +27,13 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+#COPY --from=builder /app/next.config.js ./
+#COPY --from=builder /app/public ./public
+#COPY --from=builder /app/.next ./.next
+#COPY --from=builder /app/node_modules ./node_modules
+#COPY --from=builder /app/package.json ./package.json
 
-#COPY --from=builder /app/site ./bin/site
+COPY --from=builder /app/bin/site ./site
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
@@ -42,5 +42,5 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["./site"]
 
