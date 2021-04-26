@@ -81,6 +81,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
       - name: Restore node modules Cache 
         uses: actions/cache@v2
         id: yarn-cache
@@ -100,7 +107,26 @@ jobs:
           GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
         run: |
           yarn dist
-          yarn export
+
+      - name: Clean Up Node Modules
+        run: |
+          yarn autoclean --force
+          rm -rf node_modules/webpack node_modules/webpack-dev-middleware node_modules/webpack-hot-middleware
+
+      - name: Creating Package
+        run: |
+          pkg . --targets node9-alpine-x64 --out-path pkg
+  #bake:
+    #runs-on: ubuntu-latest
+    #needs: [ dependencies, static-analysis, build ]
+      
+    #steps:
+        #- name: Clean Yarn
+
+
+
+
+
 
       #- name: Post Slack Notification
         #uses: rtCamp/action-slack-notify@master
