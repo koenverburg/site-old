@@ -114,7 +114,7 @@ jobs:
         with:
           tag-sha: true
           images: |
-            ghcr.io/koenverburg/dotfiles/ubuntu
+            ghcr.io/koenverburg/site/site-preview
 
       - name: Build and push
         uses: docker/bake-action@master
@@ -124,7 +124,7 @@ jobs:
           UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
         with:
           push: true
-          targets: site-nextjs
+          targets: site-preview
           #cache-from: type=local,src=/tmp/.buildx-cache
           #cache-to: type=local,dest=/tmp/.buildx-cache-new
           Files: |

@@ -1,10 +1,10 @@
 target "ghaction-docker-meta" {}
 
-target "site-nextjs" {
+target "site-preview" {
   inherits = ["ghaction-docker-meta"]
   context = "./"
   dockerfile = "dockerfile"
   tags = [
-    "ghcr.io/koenverburg/site/site-nextjs"
+    "ghcr.io/koenverburg/site/site-preview"
   ]
 }
