@@ -124,6 +124,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ bakery ]
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - uses: okteto/login@master
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
@@ -131,13 +135,13 @@ jobs:
       - name: "Activate Namespace"
         uses: okteto/namespace@master
         with:
-          name: koenverburg
+          namespace: koenverburg
 
       - name: "Deploy application"
         uses: okteto/apply@master
         with:
           namespace: koenverburg
-          manifest: scripts/kube/deploy-manifest.yaml
+          manifest: ./scripts/kube/deploy-manifest.yaml
 
       - name: "Push changes"
         uses: okteto/push@master
@@ -145,12 +149,12 @@ jobs:
           namespace: koenverburg
           name: koenverburg-preview
 
-      #- name: Post Slack Notification
-        #uses: rtCamp/action-slack-notify@master
-        #env:
-          #SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          #SLACK_CHANNEL: deployments
-          #SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
-          #SLACK_ICON: https://github.com/koenverburg.png?size=48
-          #SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
-          #SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
+      - name: Post Slack Notification
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: deployments
+          SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
+          SLACK_ICON: https://github.com/koenverburg.png?size=48
+          SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
+          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
