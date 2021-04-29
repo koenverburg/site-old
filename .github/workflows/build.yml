@@ -141,7 +141,7 @@ jobs:
         uses: okteto/apply@master
         with:
           namespace: koenverburg
-          manifest: ./scripts/kube/deploy-manifest.yaml
+          manifest: ./scripts/kube/preview-deployment.yaml
 
       - name: "Push changes"
         uses: okteto/push@master
