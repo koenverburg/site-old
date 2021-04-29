@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv-preview-deployment 
+  labels:
+    app: kv-site-preview
+spec:
+  selector:
+    matchLabels:
+      app: kv-preview-deployment
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: kv-site-preview
+    spec:
+      containers:
+      - name: kv-site-preview
+        image: ghcr.io/koenverburg/site/site-preview
+        ports:
+          - containerPort: 80
