@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kv-preview-deployment 
+  name: kv-site-preview
   labels:
     app: kv-site-preview
 spec:
   selector:
     matchLabels:
-      app: kv-preview-deployment
+      app: kv-site-preview
   replicas: 2
   template:
     metadata:
