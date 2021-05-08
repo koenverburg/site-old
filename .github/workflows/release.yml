@@ -92,6 +92,8 @@ jobs:
       - name: Dist build
         env:
           GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
         run: |
           yarn dist
           yarn export
