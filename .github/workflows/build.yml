@@ -152,19 +152,60 @@ jobs:
           #Files: |
             #./docker-build.hcl
             #${{ steps.docker_meta.outputs.bake-file }}
+      # - name: Docker meta
+      #   uses: crazy-max/ghaction-docker-meta@v1
+      #   with:
+      #     tag-sha: true
+      #     images: |
+      #       ghcr.io/koenverburg/site/site-preview
 
-    #bake:
-      #runs-on: ubuntu-latest
-      #needs: [ dependencies, static-analysis, build ]
-      #steps:
-          #- name: Clean Yarn
+      # - name: Build and push
+      #   uses: docker/bake-action@master
+      #   env:
+      #     GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+      #     UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+      #     UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+      #   with:
+      #     push: true
+      #     targets: site-preview
+      #     Files: |
+      #       ./docker-build.hcl
+      #       ${{ steps.docker_meta.outputs.bake-file }}
+  # Deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: [ bakery ]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-        #- name: Post Slack Notification
-          #uses: rtCamp/action-slack-notify@master
-          #env:
-            #SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-            #SLACK_CHANNEL: deployments
-            #SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
-            #SLACK_ICON: https://github.com/koenverburg.png?size=48
-            #SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
-            #SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
+  #     - uses: okteto/login@master
+  #       with:
+  #         token: ${{ secrets.OKTETO_TOKEN }}
+
+  #     - name: "Activate Namespace"
+  #       uses: okteto/namespace@master
+  #       with:
+  #         namespace: koenverburg
+
+  #     - name: "Deploy application"
+  #       uses: okteto/apply@master
+  #       with:
+  #         namespace: koenverburg
+  #         manifest: ./scripts/kube/preview-deployment.yml
+
+  #     - name: "Push changes"
+  #       uses: okteto/push@master
+  #       with:
+  #         namespace: koenverburg
+  #         name: koenverburg-preview
+
+  #     - name: Post Slack Notification
+  #       uses: rtCamp/action-slack-notify@master
+  #       env:
+  #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  #         SLACK_CHANNEL: deployments
+  #         SLACK_USERNAME: Deploy Preview | "${{ secrets.PROJECT_NAME }}"
+  #         SLACK_ICON: https://github.com/koenverburg.png?size=48
+  #         SLACK_TITLE: ":rocket:New Preview deployment:rocket:"
+  #         SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PREVIEW_DOMAIN }}"
