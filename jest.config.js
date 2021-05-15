@@ -28,11 +28,11 @@ module.exports = {
     }],
   ],
 
-  //globals: {
-    //'ts-jest': {
-      //tsConfig: 'tsconfig.json',
-    //},
-  //},
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.json',
+    },
+  },
 
   moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
@@ -52,7 +52,7 @@ module.exports = {
     '@fragments': '<rootDir>/src/features/fragments.ts',
   },
 
-  // resolver: 'jest-resolve-cached',
+  resolver: 'jest-resolve-cached',
   testEnvironment: 'jsdom',
 
   projects: ['src/'],
@@ -61,18 +61,11 @@ module.exports = {
   ],
 
   testMatch: ['**/__tests__/**/*(*.)(spec).ts?(x)'],
-  preset: '@swc-node/jest',
-  // transform: {
-  //   '^.+\\.(t|j)sx?$': ['@swc-node/jest',
-  //   {
-  //     dynamicImport: true,
-  //     react: {
-  //       // pragma: 'h',
-  //     },
-  //   }],
-  //   //'\\.[jt]sx?$': 'babel-jest',
-  //   //'^.+\\.tsx?$': 'ts-jest',
-  //   //'^.+\\.jsx?$': 'esbuild-jest',
-  //   //'^.+\\.tsx?$': 'esbuild-jest'
-  // },
+  /*preset: '@swc-node/jest',*/
+  transform: {
+     '\\.[jt]sx?$': 'babel-jest',
+     '^.+\\.tsx?$': 'ts-jest',
+     //'^.+\\.jsx?$': 'esbuild-jest',
+     //'^.+\\.tsx?$': 'esbuild-jest'
+   },
 }
