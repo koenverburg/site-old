@@ -5,7 +5,7 @@ title: Publish an Article To DEV.to With GO
 kicker: Automation
 
 # Medium only
-subTitle: Create an easy workflow to publish Markdown Articles to Dev.To via a GO script
+subTitle: Create an easy workflow to publish Markdown Articles to DEV.To via a GO script
 
 # medium 5 tags, dev.to 4
 tags: go, automation, scripting, cli
@@ -14,7 +14,7 @@ tags: go, automation, scripting, cli
 series: Automation
 
 # Seo, this is a manual step to copy 'n paste
-description: Create an easy workflow to publish Markdown Article to Dev.To via a GO script
+description: Create an easy workflow to publish Markdown Article to DEV.To via a GO script
 
 canonical_url: https://koenverburg.dev/blog/publish-an-article-to-devto-with-go
 
@@ -23,7 +23,7 @@ published: false
 date: '2021-03-01'
 ---
 
-We are going to create a program that will allow us to post draft articles from Markdown to [DEV.TO](https://dev.to) with ease.
+We are going to create a program that will allow us to post draft articles from Markdown to [DEV.to](https://dev.to) with ease.
 
 
 ### Requirements
@@ -225,8 +225,8 @@ If you run this in the terminal you should see the following output
 ```
 
 Open up your DEV.to [dashboard](https://dev.to/dashboard) and you should see a new entry be listed there.
-<img alt="New Post in Dev.to" src="/images/blog/publish-an-article-to-devto-with-go/New Post in Dev.to.png" />
+<img alt="New Post in DEV.to" src="/images/blog/publish-an-article-to-devto-with-go/New Post in Dev.to.png" />
 <img alt="New post detail page" src="/images/blog/publish-an-article-to-devto-with-go/New post detail page.png" />
 
 ### Wrapping it up.
-Congrats, you now have a program to upload your Markdown-based articles to Dev.to using Golang.
+Congrats, you now have a program to upload your Markdown-based articles to DEV.to using Golang.
