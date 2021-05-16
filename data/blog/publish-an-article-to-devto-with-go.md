@@ -23,7 +23,7 @@ published: false
 date: '2021-03-01'
 ---
 
-We are going to create a program that will allow us to post draft articles from Markdown to [DEV.to](https://dev.to) with ease.
+We are going to create a program that will allow us to post draft articles from Markdown to [DEV.TO](https://dev.to) with ease.
 
 
 ### Requirements
@@ -32,8 +32,8 @@ We are going to need the following tooling so make sure it is installed on your 
 - Go 1.x or higher
 - VSCode or any other editor
 - Any terminal
-- An DEV.to account
-- An DEV.to API key
+- A DEV.to account
+- A DEV.to API key
 
 ### Getting Started
 
@@ -229,4 +229,4 @@ Open up your DEV.to [dashboard](https://dev.to/dashboard) and you should see a n
 <img alt="New post detail page" src="/images/blog/publish-an-article-to-devto-with-go/New post detail page.png" />
 
 ### Wrapping it up.
-Congrats you now have a program to upload your Markdown-based articles to Dev.to using Golang.
+Congrats, you now have a program to upload your Markdown-based articles to Dev.to using Golang.
