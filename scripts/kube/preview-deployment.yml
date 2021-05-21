@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: kv-site-preview
-        image: ghcr.io/koenverburg/site/site-preview
+        image: registry.cloud.okteto.net/koenverburg/site-preview
         ports:
-          - containerPort: 80
+          - containerPort: 3000

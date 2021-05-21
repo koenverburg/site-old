@@ -188,7 +188,7 @@ jobs:
         with:
           tag-sha: true
           images: |
-            registery.cloud.okteto.net/koenverburg/site/site-preview
+            registry.cloud.okteto.net/koenverburg/site-preview
 
       - name: Build and push
         uses: docker/bake-action@master
@@ -202,6 +202,7 @@ jobs:
           Files: |
             ./docker-build.hcl
             ${{ steps.docker_meta.outputs.bake-file }}
+
   # Deploy:
   #   runs-on: ubuntu-latest
   #   needs: [ bakery ]

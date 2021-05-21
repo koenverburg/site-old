@@ -1,15 +1,17 @@
 pkg:
-	yarn dist
 	npx pkg . --targets node14-alpine-x64 --output bin/site
 
 pkg-win:
 	npx pkg . --targets node14-win-x64 --output bin/site-win
 
 run-win:
-	npx cross-env NODE_ENV=production bin/site-win.exe
+	npx cross-env NODE_ENV=production bin/site-win
 
-bake:
-	docker build -t site-bin .
+build:
+	docker build -t site-poc .
 
-compose:
-	docker-compose up -d
+run:
+	docker run -d -p 8080:3000 --name site123 site-poc
+
+preview:
+	docker buildx bake --file ./docker-build.hcl --push site-preview-okteto

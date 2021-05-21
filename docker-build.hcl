@@ -14,6 +14,6 @@ target "site-preview-okteto" {
   context = "./"
   dockerfile = "Dockerfile"
   tags = [
-    "registery.cloud.okteto.net/koenverburg/site/site-preview"
+    "registry.cloud.okteto.net/koenverburg/site-preview"
   ]
 }
