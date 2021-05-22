@@ -1,21 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kv-site-preview
+  name: preview
   labels:
-    app: kv-site-preview
+    app: preview
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
 spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
   selector:
     matchLabels:
-      app: kv-site-preview
+      app: preview
   replicas: 2
   template:
     metadata:
       labels:
-        app: kv-site-preview
+        app: preview
     spec:
       containers:
-      - name: kv-site-preview
+      - name: preview
         image: registry.cloud.okteto.net/koenverburg/site-preview
         ports:
           - containerPort: 3000

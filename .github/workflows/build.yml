@@ -211,26 +211,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: okteto/login@master
+      - name: Get Kubeconfig
+        uses: okteto/actions/namespace@v1
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
-
-      - name: "Activate Namespace"
-        uses: okteto/namespace@master
-        with:
           namespace: koenverburg
 
-      - name: "Deploy application"
-        uses: okteto/apply@master
+      - name: Deploy and Wait
+        uses: okteto/actions/deploy@v1
+        env:
+          KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
         with:
           namespace: koenverburg
           manifest: ./scripts/kube/preview-deployment.yml
+          tag: ${{ secrets.DOCKER_USERNAME }}/hello-world:${{ github.sha }}
+          waitOn: deployment/preview
 
-      - name: "Push changes"
-        uses: okteto/push@master
-        with:
-          namespace: koenverburg
-          name: koenverburg-preview
+      # - name: "Deploy application"
+      #   uses: okteto/apply@master
+      #   with:
+      #     namespace: koenverburg
+      #     manifest: ./scripts/kube/preview-deployment.yml
+
+      # - name: "Push changes"
+      #   uses: okteto/push@master
+      #   with:
+      #     namespace: koenverburg
+      #     name: koenverburg-preview
 
       # - name: Post Slack Notification
       #   uses: rtCamp/action-slack-notify@master
