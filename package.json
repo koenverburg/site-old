@@ -35,7 +35,7 @@
     "@types/next": "9.0.0",
     "@types/react": "17.0.3",
     "cz-conventional-changelog": "3.3.0",
-    "depcheck": "1.4.0",
+    "depcheck": "1.4.1",
     "graphql": "15.5.0",
     "graphql-cli": "4.1.0"
   },
