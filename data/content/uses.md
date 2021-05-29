@@ -29,7 +29,7 @@ If in any case it's not here, create a pull request [on this repository][1] or h
 - **Custom desktop pc (Ryzen 7 octa core, 32Gb Ram, Radeon RX 580 GPU, 1TB NVMe SSD)**
 - **One Plus 6**
 - **Logitech MX Master 2s**
-- **CM Stealth keyboard (Cherry MX Brown)**
+- **Moonlander spilt Keyboard**
 - **Bose 35QC II Headphones (love these!!)**
 - **Autonomous SmartDesk 2**
 - **LG 34" 5K** - Main monitor

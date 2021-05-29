@@ -1,0 +1,210 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Prime node modules Cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+  file-check:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Check for unused files
+        run: |
+          yarn filecheck
+
+  dependencies-check:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Dependencies check
+        continue-on-error: true
+        run: |
+          yarn depcheck
+
+  linters:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Eslint Cache
+        uses: actions/cache@v2
+        id: eslint-cache
+        with:
+          path: "**/.eslintcache"
+          key: ${{ runner.os }}-eslint
+
+      - name: linting
+        run: |
+          yarn lint:ci
+
+  unitTestings:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Jest Cache
+        uses: actions/cache@v2
+        id: jest-cache
+        with:
+          path: "**/.jest-cache"
+          key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js') }}
+
+      - name: Unit Testing
+        run: |
+          yarn test:ci
+
+  bakery-github:
+    runs-on: ubuntu-latest
+    needs: [dependencies, linters, file-check, dependencies-check, unitTestings]
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.7.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+
+      - name: Docker meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          tag-sha: true
+          images: |
+            ghcr.io/koenverburg/site/site-preview
+
+      - name: Build and push
+        uses: docker/bake-action@master
+        env:
+          GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+        with:
+          push: true
+          targets: site-preview
+          Files: |
+            ./docker-build.hcl
+            ${{ steps.docker_meta.outputs.bake-file }}
+  build:
+    runs-on: ubuntu-latest
+    needs: [dependencies, static-analysis]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Nextjs Build Cache
+        uses: actions/cache@v2
+        id: next-cache
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Dist build
+        env:
+          GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+        run: |
+          yarn dist
+          yarn export
+
+      - name: Post Slack Notification
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: deployments
+          SLACK_USERNAME: Deploy Production | "${{ secrets.PROJECT_NAME }}"
+          SLACK_ICON: https://github.com/koenverburg.png?size=48
+          SLACK_TITLE: ":rocket:New Production deployment:rocket:"
+          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PRODUCTION_DOMAIN }}"

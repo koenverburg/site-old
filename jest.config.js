@@ -52,7 +52,7 @@ module.exports = {
     '@fragments': '<rootDir>/src/features/fragments.ts',
   },
 
-  resolver: 'jest-resolve-cached',
+  // resolver: 'jest-resolve-cached',
   testEnvironment: 'jsdom',
 
   projects: ['src/'],
@@ -61,9 +61,11 @@ module.exports = {
   ],
 
   testMatch: ['**/__tests__/**/*(*.)(spec).ts?(x)'],
-
+  /*preset: '@swc-node/jest',*/
   transform: {
-    '\\.[jt]sx?$': 'babel-jest',
-    '^.+\\.tsx?$': 'ts-jest',
-  },
+     '\\.[jt]sx?$': 'babel-jest',
+     '^.+\\.tsx?$': 'ts-jest',
+     //'^.+\\.jsx?$': 'esbuild-jest',
+     //'^.+\\.tsx?$': 'esbuild-jest'
+   },
 }

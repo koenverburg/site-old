@@ -6,3 +6,4 @@ public/sitemap.xml
 .env
 .eslintcache
 .jest-cache
+bin/
