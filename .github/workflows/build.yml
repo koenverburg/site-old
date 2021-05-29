@@ -215,16 +215,16 @@ jobs:
         uses: okteto/actions/namespace@v1
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
-          namespace: koenverburg
+          namespace: kv-preview 
 
       - name: Deploy and Wait
         uses: okteto/actions/deploy@v1
         env:
           KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
         with:
-          namespace: koenverburg
+          namespace: kv-preview 
           manifest: ./scripts/kube/preview-deployment.yml
-          tag: ${{ secrets.DOCKER_USERNAME }}/hello-world:${{ github.sha }}
+          tag: ${{ secrets.DOCKER_USERNAME }}/site-preview:${{ github.sha }}
           waitOn: deployment/preview
 
       # - name: "Deploy application"
