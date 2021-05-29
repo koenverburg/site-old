@@ -37,7 +37,8 @@
     "cz-conventional-changelog": "3.3.0",
     "depcheck": "1.4.1",
     "graphql": "15.5.0",
-    "graphql-cli": "4.1.0"
+    "graphql-cli": "4.1.0",
+    "madge": "^4.0.2"
   },
   "dependencies": {
     "@apollo/client": "^3.3.15",

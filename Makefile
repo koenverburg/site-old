@@ -15,3 +15,9 @@ run:
 
 preview:
 	docker buildx bake --file ./docker-build.hcl --push site-preview-okteto
+
+local-ci:
+	yarn filecheck && \
+		yarn depcheck && \
+		yarn test:ci && \
+		yarn lint:ci
