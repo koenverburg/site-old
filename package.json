@@ -63,7 +63,7 @@
     "globby": "^11.0.3",
     "gray-matter": "^4.0.2",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "27.0.1",
+    "jest": "27.0.3",
     "jest-circus": "^27.0.0",
     "jest-junit": "12.1.0",
     "jest-resolve-cached": "1.1.1",
