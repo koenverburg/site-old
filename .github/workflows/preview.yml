@@ -1,4 +1,4 @@
-name: build
+name: preview
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Prime node modules Cache 
+      - name: Prime node modules Cache
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
@@ -24,16 +24,36 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
 
-  static-analysis-files:
+  file-check:
     runs-on: ubuntu-latest
-    needs: [ dependencies ]
+    needs: [dependencies]
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Restore node modules Cache 
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Check for unused files
+        run: |
+          yarn filecheck
+
+  dependencies-check:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
         uses: actions/cache@v2
         id: yarn-cache
         with:
@@ -45,29 +65,25 @@ jobs:
         run: |
           yarn depcheck
 
-      - name: Check for unused files
-        run: |
-          yarn filecheck
-
-  static-analysis-lint:
+  linters:
     runs-on: ubuntu-latest
-    needs: [ dependencies ]
+    needs: [dependencies]
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Restore node modules Cache 
+      - name: Restore node modules Cache
         uses: actions/cache@v2
         id: yarn-cache
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Restore Eslint Cache 
+      - name: Restore Eslint Cache
         uses: actions/cache@v2
-        id: eslint-cache 
+        id: eslint-cache
         with:
           path: "**/.eslintcache"
           key: ${{ runner.os }}-eslint
@@ -76,25 +92,25 @@ jobs:
         run: |
           yarn lint:ci
 
-  static-analysis-testing:
+  unitTestings:
     runs-on: ubuntu-latest
-    needs: [ dependencies ]
+    needs: [dependencies]
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Restore node modules Cache 
+      - name: Restore node modules Cache
         uses: actions/cache@v2
         id: yarn-cache
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Restore Jest Cache 
+      - name: Restore Jest Cache
         uses: actions/cache@v2
-        id: jest-cache 
+        id: jest-cache
         with:
           path: "**/.jest-cache"
           key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js') }}
@@ -105,7 +121,7 @@ jobs:
 
   bakery-github:
     runs-on: ubuntu-latest
-    needs: [ dependencies, static-analysis-lint, static-analysis-files, static-analysis-testing ]
+    needs: [dependencies, linters, file-check, dependencies-check, unitTestings]
 
     steps:
       - name: Cancel Previous Runs
@@ -152,93 +168,16 @@ jobs:
           Files: |
             ./docker-build.hcl
             ${{ steps.docker_meta.outputs.bake-file }}
-
-  bakery-okteto:
-    runs-on: ubuntu-latest
-    needs: [ dependencies, static-analysis-lint, static-analysis-files, static-analysis-testing ]
-
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.7.0
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@v1
-        with:
-          registry: registry.cloud.okteto.net
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.OKTETO_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-        with:
-          version: latest
-
-      - name: Docker meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          tag-sha: true
-          images: |
-            registry.cloud.okteto.net/koenverburg/site-preview
-
-      - name: Build and push
-        uses: docker/bake-action@master
-        env:
-          GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
-          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
-          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
-        with:
-          push: true
-          targets: site-preview-okteto
-          Files: |
-            ./docker-build.hcl
-            ${{ steps.docker_meta.outputs.bake-file }}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [ bakery-okteto ]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Get Kubeconfig
-        uses: okteto/actions/namespace@v1
-        with:
-          token: ${{ secrets.OKTETO_TOKEN }}
-          namespace: kv-preview 
-
-      - name: Deploy and Wait
-        uses: okteto/actions/deploy@v1
-        env:
-          KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
-        with:
-          namespace: kv-preview 
-          manifest: ./scripts/kube/preview-deployment.yml
-          tag: ${{ secrets.DOCKER_USERNAME }}/site-preview:${{ github.sha }}
-          waitOn: deployment/preview
-
       # - name: "Deploy application"
       #   uses: okteto/apply@master
       #   with:
       #     namespace: koenverburg
       #     manifest: ./scripts/kube/preview-deployment.yml
-
       # - name: "Push changes"
       #   uses: okteto/push@master
       #   with:
       #     namespace: koenverburg
       #     name: koenverburg-preview
-
       # - name: Post Slack Notification
       #   uses: rtCamp/action-slack-notify@master
       #   env:
