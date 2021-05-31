@@ -1,9 +1,20 @@
 import React from 'react';
+import cx from 'classnames'
 import {getAllPosts} from '../lib/content'
 import {ArticleItem, Layout, Header} from '@components'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function Blog({articles}): React.ReactNode {
+type article = {
+  slug: string
+  title: string
+  kicker: string
+  description: string
+}
+
+type BlogProps = {
+  articles: article[]
+}
+
+ const Blog: React.FC<BlogProps> = ({articles}) => {
   const blogPageData = {
     title: 'Blog',
     description: 'I write about Frontend, DevOps and Automation.',
@@ -14,14 +25,16 @@ export default function Blog({articles}): React.ReactNode {
       title={`${blogPageData.title} - Koen Verburg`}
       description={blogPageData.description}
       >
-      <Header
-        title={blogPageData.title}
-        description={blogPageData.description}
-      />
+      <div className={cx('flex flex-col items-start mb-16')}>
+        <Header
+          title={blogPageData.title}
+          description={blogPageData.description}
+        />
 
-      {articles.map(article => (
-        <ArticleItem key={article.slug} article={article} />
-      ))}
+        {articles.map(article => (
+          <ArticleItem key={article.slug} article={article} />
+        ))}
+      </div>
     </Layout>
   )
 }
@@ -42,3 +55,5 @@ export async function getStaticProps() {
     },
   }
 }
+
+export default Blog

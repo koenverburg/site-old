@@ -1,18 +1,15 @@
-import Link from 'next/link'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {GetStaticPropsContext} from 'next'
 import {useQuery} from '@apollo/react-hooks'
-
 import {rootQuery} from '../../rootQuery'
 import {initializeApollo} from '../../lib/apolloClient'
-
 import {Footer} from '@features'
 import styles from './layout.module.scss'
 import {Menu} from 'components/Menu'
 import {data} from 'data/static'
 
-interface MetaData {
+type MetaData = {
   type?: 'website' | 'article'
   title?: string
   image?: string
@@ -21,8 +18,10 @@ interface MetaData {
   keywords?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IProps extends MetaData { }
+type LayoutProps = MetaData
+// & {
+  // children: React.ReactChildren
+// }
 
 function createMeta(metaData) {
   return {
@@ -36,7 +35,7 @@ function createMeta(metaData) {
   }
 }
 
-export const Layout: React.FunctionComponent<IProps> = (props) => {
+export const Layout: React.FC<LayoutProps> = (props) => {
   const router = useRouter()
   const {error, data} = useQuery(rootQuery)
   if (error) return(<p>{error.name}</p>)
@@ -68,19 +67,14 @@ export const Layout: React.FunctionComponent<IProps> = (props) => {
 
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
+
       <div className={styles.layout}>
-        <Menu>
-          <Link href="/" passHref>
-            <a className={styles.logo}>
-              <span className={styles.logoLeft}>Koen</span>&nbsp;
-              <span className={styles.logoRight}>Verburg</span>
-            </a>
-          </Link>
-        </Menu>
+        <Menu />
 
         <main>
           {props.children}
         </main>
+
         <Footer {...data} />
       </div>
     </>
@@ -104,6 +98,6 @@ export async function getStaticProps(_context: GetStaticPropsContext): Promise<G
     props: {
       initialApolloState: apolloClient.cache.extract(),
     },
-    revalidate: 1,
+    revalidate: 60,
   }
 }

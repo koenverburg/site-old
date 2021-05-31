@@ -1,7 +1,7 @@
 import React from 'react'
+import cx from 'classnames'
 import {gql} from '@apollo/client'
 import {Social} from '@graphcms/types'
-import styles from './footer.module.scss'
 import {Icon} from '@components'
 
 type Props = {
@@ -10,25 +10,66 @@ type Props = {
 
 const Footer: React.FunctionComponent<Props> = ({socials}) => {
   return (
-    <div className={styles.footer}>
-      <span className={styles.copyright}>Copyright {(new Date().getFullYear())}</span>
-      {socials &&
-        <ul className={styles.nav}>
-          {socials.map(links => (
-            <li key={links.id} className={styles.item}>
-              <a
-                role="button"
-                aria-label={links.handle}
-                href={links.url}
-                target="_blank"
-                rel="noopener"
-              >
-                <Icon name={links.icon} />
-              </a>
-            </li>
-          ))}
-        </ul>
-      }
+    <div className={cx('flex flex-col justify-center items-start pb-8')}>
+      <hr className={cx('w-full border-1 border-gray-200 dark:border-gray-800 mb-4')}/>
+      <div className={cx('w-full grid grid-cols-3 gap-4')}>
+        {socials &&
+          <>
+            <ul className={cx('block space-y-4')}>
+              {socials.slice(0, 2).map(links => (
+                <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
+                  <a
+                    role="button"
+                    aria-label={links.handle}
+                    href={links.url}
+                    target="_blank"
+                    rel="noopener"
+                    className={cx('flex flex-row')}
+                  >
+                    <Icon name={links.icon} />
+                    <span className={cx('mx-1')}>{links.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul className={cx('block space-y-4')}>
+              {socials.slice(2, 4).map(links => (
+                <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
+                  <a
+                    role="button"
+                    aria-label={links.handle}
+                    href={links.url}
+                    target="_blank"
+                    rel="noopener"
+                    className={cx('flex flex-row')}
+                  >
+                    <Icon name={links.icon} />
+                    <span className={cx('mx-1')}>{links.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul className={cx('block space-y-4')}>
+              {socials.slice(4, 6).map(links => (
+                <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
+                  <a
+                    role="button"
+                    aria-label={links.handle}
+                    href={links.url}
+                    target="_blank"
+                    rel="noopener"
+                    className={cx('flex flex-row')}
+                  >
+                    <Icon name={links.icon} />
+                    <span className={cx('mx-1')}>{links.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        }
+      </div>
+      <span className={cx('w-full text-center text-gray-500 hover:text-gray-900 mt-6')}>Copyright {(new Date().getFullYear())}</span>
     </div>
   )
 }
