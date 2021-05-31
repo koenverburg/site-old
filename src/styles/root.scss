@@ -1,34 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Lora&family=Oswald:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-@import 'reset/normalize';
-@import 'core/core';
-// @import 'core/typegraphy';
+// @import 'reset/normalize';
+ @import 'core/core';
 
-*, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
+// TODO: remove this when pages have more content
 html, body {
   width: 100%;
   height: 100%;
 
   margin: 0;
   padding: 0;
-}
-
-
-body {
-  width: 100%;
-  height: 100%;
-  color: #000;
-  background-color: palette(light-background);
-
-  &.dark {
-    color: #FEFEFE;
-    background-color: #0c0c0c;
-  }
 }
 
 #__next {
@@ -45,6 +30,10 @@ body {
 // * {
 //   background-color: rgba(0, 0, 0, .05);
 // }
+
+.prose a {
+  @apply text-blue-500 hover:text-blue-700;
+}
 
 main {
   flex: 1;
