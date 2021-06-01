@@ -38,6 +38,7 @@
     "depcheck": "1.4.1",
     "graphql": "15.5.0",
     "graphql-cli": "4.1.0",
+    "madge": "^4.0.2",
     "xwind": "^0.8.0"
   },
   "dependencies": {
