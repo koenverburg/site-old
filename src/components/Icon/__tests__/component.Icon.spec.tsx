@@ -1,5 +1,4 @@
 // tslint:disable: no-implicit-dependencies
-import React from 'react'
 import {Icon} from '../'
 import {render} from '@testing-library/react'
 

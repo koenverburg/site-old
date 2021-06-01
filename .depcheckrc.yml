@@ -1,8 +1,12 @@
 ignores:
+  - "@swc-node/*"
   - "graphql-*"
   - "@graphql-*"
   - "jest-resolve-cached"
   - "classnames"
   - "@typescript-eslint/*"
+  - "core-js"
+  - "next-seo"
+  - "preact"
 skip-missing: true
 ignoreBinPackage: true

@@ -16,9 +16,12 @@ madge(path.join(__dirname, '..'), {
   baseDir: path.join(__dirname, '..'),
   excludeRegExp: [
     /^\.next[\\/]/, // Ignore built artifacts
-    /^next\.config\.js/, // Ignore Next.js configuration
+    /^next\.config\.js/, // ignore next.js configuration
+    /^postcss\.config\.js/,
+    /^tailwind\.config\.js/,
     /^\.eslintrc\.js/, // Ignore Eslint configuration
     /^jest\.config\.js/, // Ignore Jest Testing configuration
+    /^server\.js/, // Custom Server for pkg
     /^scripts[\\/]/, // Ignore scripts (where this file lives)
   ],
 }).then(res => {
