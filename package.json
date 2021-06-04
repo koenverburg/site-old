@@ -24,7 +24,7 @@
     "graphql:codegen": "graphql-codegen -r dotenv/config"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.3.0",
+    "@emotion/babel-plugin": "11.3.0",
     "@graphql-codegen/cli": "1.21.5",
     "@graphql-codegen/introspection": "1.18.2",
     "@graphql-codegen/schema-ast": "1.18.3",
@@ -38,8 +38,8 @@
     "depcheck": "1.4.1",
     "graphql": "15.5.0",
     "graphql-cli": "4.1.0",
-    "madge": "^4.0.2",
-    "xwind": "^0.8.0"
+    "madge": "4.0.2",
+    "xwind": "0.8.0"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
