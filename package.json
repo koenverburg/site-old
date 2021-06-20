@@ -36,7 +36,7 @@
     "@types/next": "9.0.0",
     "@types/react": "17.0.11",
     "depcheck": "1.4.1",
-    "graphql": "15.5.0",
+    "graphql": "15.5.1",
     "graphql-cli": "4.1.0",
     "madge": "4.0.2",
     "xwind": "0.8.0"
@@ -67,7 +67,7 @@
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "globby": "^11.0.3",
-    "graphql": "15.5.0",
+    "graphql": "15.5.1",
     "gray-matter": "^4.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "27.0.4",
