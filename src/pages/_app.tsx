@@ -11,7 +11,7 @@ import {useApollo} from '../lib/apolloClient'
 import {ErrorBoundary} from '@components'
 import {MarkdownComponents} from 'components/MarkdownComponents'
 
-export default function App({Component, pageProps}: AppProps): React.ReactNode {
+export default function App({Component, pageProps}: AppProps): JSX.Element {
   const apolloClient = useApollo(pageProps.initialApolloState)
 
   if (pageProps.statusCode && pageProps.statusCode >= 400) {
