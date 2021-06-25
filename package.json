@@ -70,7 +70,7 @@
     "graphql": "15.5.1",
     "gray-matter": "^4.0.3",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "27.0.4",
+    "jest": "27.0.5",
     "jest-circus": "^27.0.3",
     "jest-junit": "12.2.0",
     "jest-resolve-cached": "1.1.1",
