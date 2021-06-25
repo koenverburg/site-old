@@ -23,6 +23,26 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
 
+  type-check:
+    runs-on: ubuntu-latest
+    needs: [dependencies]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore node modules Cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Check for unused files
+        run: |
+          yarn typecheck
+
   file-check:
     runs-on: ubuntu-latest
     needs: [dependencies]
@@ -120,7 +140,7 @@ jobs:
 
   bakery-github:
     runs-on: ubuntu-latest
-    needs: [dependencies, linters, file-check, dependencies-check, unitTestings]
+    needs: [dependencies, linters, file-check, type-check, dependencies-check, unitTestings]
 
     steps:
       - name: Cancel Previous Runs

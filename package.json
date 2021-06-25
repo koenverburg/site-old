@@ -15,6 +15,7 @@
     "export": "next export -o dist",
     "depcheck": "depcheck",
     "filecheck": "node ./scripts/detect-unused.js",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit",
     "test": "jest -i --reporters=default",
     "test:ci": "jest --ci --reporters=default",
     "test:report": "jest --ci --reporters=jest-junit",
