@@ -1,14 +1,14 @@
 import React from 'react'
 import cx from 'classnames'
+import {Icon} from '@components'
 import {gql} from '@apollo/client'
 import {Social} from '@graphcms/types'
-import {Icon} from '@components'
 
 type Props = {
   socials: Social[],
 }
 
-const Footer: React.FunctionComponent<Props> = ({socials}) => {
+const Footer: React.FC<Props> = ({socials}): JSX.Element => {
   return (
     <div className={cx('flex flex-col justify-center items-start pb-8')}>
       <hr className={cx('w-full border-1 border-gray-200 dark:border-gray-800 mb-4')}/>
@@ -23,7 +23,7 @@ const Footer: React.FunctionComponent<Props> = ({socials}) => {
                     aria-label={links.handle}
                     href={links.url}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className={cx('flex flex-row')}
                   >
                     <Icon name={links.icon} />
@@ -40,7 +40,7 @@ const Footer: React.FunctionComponent<Props> = ({socials}) => {
                     aria-label={links.handle}
                     href={links.url}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className={cx('flex flex-row')}
                   >
                     <Icon name={links.icon} />
@@ -57,7 +57,7 @@ const Footer: React.FunctionComponent<Props> = ({socials}) => {
                     aria-label={links.handle}
                     href={links.url}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className={cx('flex flex-row')}
                   >
                     <Icon name={links.icon} />

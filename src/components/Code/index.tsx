@@ -15,11 +15,11 @@ export const Code = ({codeString, language, _metastring, ...props}): JSX.Element
       {({className, style, tokens, getTokenProps}) => (
         <div className={styles.reactHighlight} data-language={language}>
           <pre className={className} style={style}>
-            {tokens.map(line => {
+            {tokens.map((line, key) => {
               return (
-                <div>
+                <div key={key}>
                   {line.map((token, key) => (
-                    <span {...getTokenProps({token, key})} className={styles.token} />
+                    <span key={key} {...getTokenProps({token, key})} className={styles.token} />
                   ))}
                 </div>
               )
