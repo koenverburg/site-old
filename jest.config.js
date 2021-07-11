@@ -52,7 +52,7 @@ module.exports = {
     '@fragments': '<rootDir>/src/features/fragments.ts',
   },
 
-  // resolver: 'jest-resolve-cached',
+  resolver: 'jest-resolve-cached',
   testEnvironment: 'jsdom',
 
   projects: ['src/'],
