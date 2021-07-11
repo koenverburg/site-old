@@ -10,6 +10,7 @@ const nextConfig = {
 
   env: {
     'GRAPHCMS_URL': process.env.GRAPHCMS_URL,
+    'GRAPHCMS_TOKEN': process.env.GRAPHCMS_TOKEN,
     'UMAMI_HOST': process.env.UMAMI_HOST,
     'UMAMI_WEBSITE_ID': process.env.UMAMI_WEBSITE_ID,
   },
@@ -30,6 +31,8 @@ const nextConfig = {
         'react-dom': 'preact/compat',
       })
     }
+
+    config.experiments = {topLevelAwait: true}
 
     return config
   },
