@@ -1,8 +1,6 @@
 ignores:
-  - "@swc-node/*"
   - "graphql-*"
   - "@graphql-*"
-  - "jest-resolve-cached"
   - "classnames"
   - "@typescript-eslint/*"
   - "core-js"
