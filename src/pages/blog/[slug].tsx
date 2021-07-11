@@ -1,12 +1,8 @@
-import hydrate from 'next-mdx-remote/hydrate'
-import renderToString from 'next-mdx-remote/render-to-string'
-import {getAllPosts, getContentBySlug} from '../../lib/content'
 import {Layout, Article} from '@components'
-import {MarkdownComponents} from 'components/MarkdownComponents'
+import {serialize} from 'next-mdx-remote/serialize'
+import {getAllPosts, getContentBySlug} from '../../lib/content'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const DetailPage = (props): React.ReactNode => {
-  const content = hydrate(props.content, {components: MarkdownComponents})
+const Post = (props): React.ReactNode => {
   return (
     <Layout
       type="article"
@@ -17,13 +13,12 @@ const DetailPage = (props): React.ReactNode => {
     >
       <Article
         article={props}
-        content={content}
+        content={props.content}
       />
     </Layout>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticProps({params}) {
   const post = getContentBySlug(params.slug, [
     'kicker',
@@ -37,7 +32,7 @@ export async function getStaticProps({params}) {
   ])
 
   // @ts-ignore
-  const content = await renderToString(post.content || '')
+  const content = await serialize(post.content || '')
 
   return {
     props: {
@@ -47,7 +42,6 @@ export async function getStaticProps({params}) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticPaths() {
   const posts = getAllPosts(['slug'])
   return {
@@ -60,4 +54,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default DetailPage
+export default Post
