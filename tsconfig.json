@@ -38,6 +38,9 @@
       "esnext"
     ],
     "paths": {
+      "@types": [
+        "../typings.d.ts"
+      ],
       "@features": [
         "./features/index.ts"
       ],
@@ -52,6 +55,12 @@
       ],
       "@graphcms/types": [
         "../.generated/graphcms/types.ts"
+      ],
+      "@graphcms/schema": [
+        "../.generated/graphcms/schema.ts"
+      ],
+      "@graphcms/graph": [
+        "../.generated/graphcms/graphcms.graphql"
       ]
     }
   },

@@ -8,4 +8,9 @@ export type GetStaticPropsResponse = {
   revalidate?: number | boolean
 }
 
+export type MDXResult = {
+  compiledSource: string
+  scope: Record<string, unknown>
+}
+
 export {}
