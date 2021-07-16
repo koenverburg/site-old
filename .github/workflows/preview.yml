@@ -146,7 +146,7 @@ jobs:
         run: |
           yarn test:ci
 
-  bakery-github:
+  docker-build:
     runs-on: ubuntu-latest
     needs: [dependencies, linters, type-check, file-check, dependencies-check, unitTestings]
 
