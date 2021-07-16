@@ -5,7 +5,7 @@ type HeaderProps = {
   description: string
 }
 
-export const Header: React.FC<HeaderProps> = ({title, description}) => {
+export const Header = ({title, description}: HeaderProps): JSX.Element => {
   return (
     <>
       <article className={cx('mt-8 mb-2')}>

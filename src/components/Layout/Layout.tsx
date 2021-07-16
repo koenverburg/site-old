@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {GetStaticPropsContext} from 'next'
-import {useQuery} from '@apollo/react-hooks'
+import {useQuery} from '@apollo/client'
 import {rootQuery} from '../../rootQuery'
 import {initializeApollo} from '../../lib/apolloClient'
 import {Footer} from '@features'
@@ -19,9 +19,6 @@ type MetaData = {
 }
 
 type LayoutProps = MetaData
-// & {
-  // children: React.ReactChildren
-// }
 
 function createMeta(metaData) {
   return {
@@ -38,7 +35,7 @@ function createMeta(metaData) {
 export const Layout: React.FC<LayoutProps> = (props) => {
   const router = useRouter()
   const {error, data} = useQuery(rootQuery)
-  if (error) return(<p>{error.name}</p>)
+  if (error) return(<div>Graphql error<pre><code>{JSON.stringify(error, null, 2)}</code></pre></div>)
 
   const meta: MetaData = createMeta(props)
 

@@ -1,4 +1,4 @@
-export const ExternalLink = (props: HTMLAnchorElement): React.ReactNode => {
+export const ExternalLink = (props: HTMLAnchorElement): JSX.Element => {
   if (props.href.includes('koenverburg.dev') || props.href[0] === '/') {
     return <a href={props.href}>{props.children}</a>
   }

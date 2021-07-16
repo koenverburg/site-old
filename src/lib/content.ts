@@ -9,6 +9,7 @@ type pageType = 'blog' | 'content'
 
 export function getSlugs(): string[] {
   const files = fs.readdirSync(postsDirectory)
+
   if (process.env.NODE_ENV === 'production' && files.includes('typography.md')) {
     const index = files.indexOf('typography.md')
     files.splice(index, 1)
@@ -65,10 +66,8 @@ export function getContentBySlug(slug: string, fields: string[] = [], type?: pag
 
 export function getAllPosts(fields: string[] = []): Record<string, unknown>[] {
   const slugs = getSlugs()
-
   const posts = slugs.map(slug => getContentBySlug(slug, fields))
-    // sort posts by date in descending order
     // .sort((post1, post2) => (post1.date > post2.date ? '-1' : '1'))
-    //
+
   return posts
 }
