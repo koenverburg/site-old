@@ -20,13 +20,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Prime node modules Cache
+      - name: Cache Node Modules 
+        id: yarn-cache
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
   type-check:
