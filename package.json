@@ -91,7 +91,7 @@
     "prism-react-renderer": "^1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "remark-images": "^2.0.0",
+    "remark-images": "^3.0.0",
     "sass": "^1.35.2",
     "tailwindcss": "^2.2.4",
     "tailwindcss-filters": "^3.0.0",
