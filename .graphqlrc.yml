@@ -1,6 +1,10 @@
 projects:
   default:
-    schema: ${GRAPHCMS_URL}
+    schema: 
+      - ${GRAPHCMS_URL}:
+        headers:
+          Authorization: "bearer ${GRAPHCMS_TOKEN}"
+
     extensions:
       codegen:
         generates:
