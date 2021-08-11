@@ -19,7 +19,7 @@
     [
       "@babel/plugin-proposal-pipeline-operator",
       {
-        "proposal": "smart"
+        "proposal": "minimal"
       }
     ]
   ]
