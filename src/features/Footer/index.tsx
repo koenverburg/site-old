@@ -8,7 +8,7 @@ type Props = {
   socials: Social[],
 }
 
-const Footer: React.FC<Props> = ({socials}): JSX.Element => {
+const Footer = ({socials}: Props): JSX.Element => {
   return (
     <div className={cx('flex flex-col justify-center items-start pb-8')}>
       <hr className={cx('w-full border-1 border-gray-200 dark:border-gray-800 mb-4')}/>
@@ -20,8 +20,8 @@ const Footer: React.FC<Props> = ({socials}): JSX.Element => {
                 <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
                   <a
                     role="button"
-                    aria-label={links.handle}
-                    href={links.url}
+                    aria-label={links.handle ?? 'social media link'}
+                    href={links.url ?? '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cx('flex flex-row')}
@@ -37,13 +37,13 @@ const Footer: React.FC<Props> = ({socials}): JSX.Element => {
                 <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
                   <a
                     role="button"
-                    aria-label={links.handle}
-                    href={links.url}
+                    aria-label={links.handle ?? 'social media link'}
+                    href={links.url ?? '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cx('flex flex-row')}
                   >
-                    <Icon name={links.icon} />
+                    <Icon name={links?.icon} />
                     <span className={cx('mx-1')}>{links.handle}</span>
                   </a>
                 </li>
@@ -54,13 +54,13 @@ const Footer: React.FC<Props> = ({socials}): JSX.Element => {
                 <li key={links.id} className={cx('text-gray-500 hover:text-gray-900')}>
                   <a
                     role="button"
-                    aria-label={links.handle}
-                    href={links.url}
+                    aria-label={links.handle ?? 'social media link'}
+                    href={links.url ?? '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cx('flex flex-row')}
                   >
-                    <Icon name={links.icon} />
+                    <Icon name={links?.icon} />
                     <span className={cx('mx-1')}>{links.handle}</span>
                   </a>
                 </li>
@@ -75,13 +75,13 @@ const Footer: React.FC<Props> = ({socials}): JSX.Element => {
 }
 
 export const FooterFragments = {
-  links: gql`
+  content: gql`
     fragment FooterLinks on Query {
       socials {
         id
-        handle
-        icon
         url
+        icon
+        handle
       }
     }
   `,

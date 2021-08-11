@@ -1,10 +1,12 @@
+import * as React from 'react'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
-import {GetStaticPropsContext} from 'next'
-import {useQuery} from '@apollo/client'
-import {rootQuery} from '../../rootQuery'
-import {initializeApollo} from '../../lib/apolloClient'
+// import {GetStaticPropsContext} from 'next'
+// import {useQuery} from '@apollo/client'
+// import {rootQuery} from '../../rootQuery'
+// import {initializeApollo} from '../../lib/apolloClient'
 import {Footer} from '@features'
+import {Social} from '@graphcms/types'
 import styles from './layout.module.scss'
 import {Menu} from 'components/Menu'
 import {data} from 'data/static'
@@ -18,9 +20,12 @@ type MetaData = {
   keywords?: string
 }
 
-type LayoutProps = MetaData
+type LayoutProps = MetaData & {
+  socials: Social[]
+  children: JSX.Element
+}
 
-function createMeta(metaData) {
+function createMeta(metaData: MetaData): MetaData {
   return {
     type: 'website',
     title: 'Koen Verburg - Developer, Creator',
@@ -32,12 +37,9 @@ function createMeta(metaData) {
   }
 }
 
-export const Layout: React.FC<LayoutProps> = (props) => {
+export const Layout = (props: LayoutProps) => {
   const router = useRouter()
-  const {error, data} = useQuery(rootQuery)
-  if (error) return(<div>Graphql error<pre><code>{JSON.stringify(error, null, 2)}</code></pre></div>)
-
-  const meta: MetaData = createMeta(props)
+  const meta = createMeta(props)
 
   return (
     <>
@@ -69,32 +71,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
         <Menu />
 
         <main>
-          {props.children}
+          {React.cloneElement(props.children, {...props })}
         </main>
 
-        <Footer {...data} />
+        <Footer socials={props.socials} />
       </div>
     </>
   )
-}
-
-export type GetStaticPropsResponse = {
-  props: { [key: string]: unknown }
-  revalidate?: number | boolean
-}
-
-export async function getStaticProps(_context: GetStaticPropsContext): Promise<GetStaticPropsResponse>  {
-  const apolloClient = initializeApollo()
-
-  await apolloClient.query({
-    query: rootQuery,
-    variables: {},
-  })
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-    revalidate: 60,
-  }
 }

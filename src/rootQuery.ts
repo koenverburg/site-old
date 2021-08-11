@@ -1,9 +1,11 @@
 import {gql} from '@apollo/client'
-import {FooterFragments} from '@fragments'
+import {FooterFragments, HomePageFragment} from '@fragments'
 
 export const rootQuery = gql`
   query rootQuery  {
+    ...HomePage
     ...FooterLinks
   }
-  ${FooterFragments.links}
+  ${HomePageFragment.content}
+  ${FooterFragments.content}
 `
