@@ -21,9 +21,9 @@ const nextConfig = {
       '@styling/base': path.resolve(__dirname, './src/styles/module-base.scss'),
     }
 
-    if (isServer) {
-      require('./scripts/generate-sitemap')
-    }
+//     if (isServer) {
+//       require('./scripts/generate-sitemap')
+//     }
 
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
@@ -46,5 +46,5 @@ const mdxConfig = {
 }
 
 module.exports = withPlugins([
-  [withMDX, mdxConfig],
+  [withMDX(), mdxConfig],
 ], nextConfig)
