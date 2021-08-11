@@ -2,7 +2,7 @@ import {serialize} from 'next-mdx-remote/serialize'
 import {getContentBySlug} from '../lib/content'
 import {Layout, Article} from '@components'
 
-const ContentPageUses = (props): React.ReactNode => {
+const ContentPageUses = (props): JSX.Element => {
   return (
     <Layout
       type="article"

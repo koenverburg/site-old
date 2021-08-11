@@ -47,6 +47,7 @@ export async function getStaticProps() {
     'subTitle',
     'slug',
     'description',
+    'date',
   ])
 
   return {

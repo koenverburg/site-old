@@ -1,7 +1,8 @@
 import React from 'react'
+import {Maybe} from '@graphcms/types'
 
 interface IProps {
-  name: string
+  name?: Maybe<string>
 }
 
 const Icon: React.FunctionComponent<IProps> = ({name}) => {
