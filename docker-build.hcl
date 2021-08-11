@@ -9,11 +9,13 @@ target "site-preview" {
   ]
 }
 
-target "site-preview-okteto" {
+
+target "site" {
   inherits = ["ghaction-docker-meta"]
   context = "./"
   dockerfile = "Dockerfile"
   tags = [
-    "registry.cloud.okteto.net/koenverburg/site-preview"
+    "ghcr.io/koenverburg/site/site"
   ]
 }
+

@@ -119,7 +119,7 @@ jobs:
         run: |
           yarn lint:ci
 
-  unitTestings:
+  unit-testings:
     runs-on: ubuntu-latest
     needs: [dependencies]
 
@@ -148,7 +148,7 @@ jobs:
 
   docker-build:
     runs-on: ubuntu-latest
-    needs: [dependencies, linters, type-check, file-check, dependencies-check, unitTestings]
+    needs: [dependencies, linters, type-check, file-check, dependencies-check, unit-testings]
 
     steps:
       - name: Cancel Previous Runs
@@ -195,6 +195,7 @@ jobs:
           Files: |
             ./docker-build.hcl
             ${{ steps.docker_meta.outputs.bake-file }}
+
       # - name: "Deploy application"
       #   uses: okteto/apply@master
       #   with:

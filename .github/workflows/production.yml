@@ -116,7 +116,7 @@ jobs:
         run: |
           yarn lint:ci
 
-  unitTestings:
+  unit-testings:
     runs-on: ubuntu-latest
     needs: [dependencies]
 
@@ -143,9 +143,9 @@ jobs:
         run: |
           yarn test:ci
 
-  bakery-github:
+  docker-build:
     runs-on: ubuntu-latest
-    needs: [dependencies, linters, file-check, type-check, dependencies-check, unitTestings]
+    needs: [dependencies, linters, file-check, type-check, dependencies-check, unit-testings]
 
     steps:
       - name: Cancel Previous Runs
@@ -178,7 +178,7 @@ jobs:
         with:
           tag-sha: true
           images: |
-            ghcr.io/koenverburg/site/site-preview
+            ghcr.io/koenverburg/site/site
 
       - name: Build and push
         uses: docker/bake-action@master
@@ -188,48 +188,48 @@ jobs:
           UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
         with:
           push: true
-          targets: site-preview
+          targets: site
           Files: |
             ./docker-build.hcl
             ${{ steps.docker_meta.outputs.bake-file }}
-  build:
-    runs-on: ubuntu-latest
-    needs: [dependencies, static-analysis]
+  # build:
+  #   runs-on: ubuntu-latest
+  #   needs: [dependencies, static-analysis]
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Restore node modules Cache
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+  #     - name: Restore node modules Cache
+  #       uses: actions/cache@v2
+  #       id: yarn-cache
+  #       with:
+  #         path: "**/node_modules"
+  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Restore Nextjs Build Cache
-        uses: actions/cache@v2
-        id: next-cache
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+  #     - name: Restore Nextjs Build Cache
+  #       uses: actions/cache@v2
+  #       id: next-cache
+  #       with:
+  #         path: ${{ github.workspace }}/.next/cache
+  #         key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Dist build
-        env:
-          GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
-          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
-          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
-        run: |
-          yarn dist
-          yarn export
+  #     - name: Dist build
+  #       env:
+  #         GRAPHCMS_URL: ${{ secrets.GRAPHCMS_URL }}
+  #         UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+  #         UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+  #       run: |
+  #         yarn dist
+  #         yarn export
 
-      - name: Post Slack Notification
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: deployments
-          SLACK_USERNAME: Deploy Production | "${{ secrets.PROJECT_NAME }}"
-          SLACK_ICON: https://github.com/koenverburg.png?size=48
-          SLACK_TITLE: ":rocket:New Production deployment:rocket:"
-          SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PRODUCTION_DOMAIN }}"
+  #     - name: Post Slack Notification
+  #       uses: rtCamp/action-slack-notify@master
+  #       env:
+  #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  #         SLACK_CHANNEL: deployments
+  #         SLACK_USERNAME: Deploy Production | "${{ secrets.PROJECT_NAME }}"
+  #         SLACK_ICON: https://github.com/koenverburg.png?size=48
+  #         SLACK_TITLE: ":rocket:New Production deployment:rocket:"
+  #         SLACK_MESSAGE: "It's live on: ${{ secrets.PROJECT_PRODUCTION_DOMAIN }}"
