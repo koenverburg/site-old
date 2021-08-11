@@ -22,7 +22,7 @@
     "test:coverage": "jest --ci --coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
     "lint:ci": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
-    "graphql:codegen": "graphql-codegen -r dotenv/config"
+    "schema": "graphql-codegen -r dotenv/config"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.3.0",
