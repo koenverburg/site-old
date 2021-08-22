@@ -42,10 +42,10 @@ We are going to need the following tooling, so make sure you installed it on you
 Let's create the folder structure so that we have a good base to build from.
 Make a directory called `src` and `cd` into that.
 
-Now, let's initialize our go package with the follow command `go mod init hello-world`. This will create a file called `go.mod`.
+Now, let's initialize our go package with the following command `go mod init hello-world`. This will create a file called `go.mod`.
 
-With that part done, lets write a simple Hello World in Go.
-Create a file called `main.go` in our `src` directory and add the follow code.
+With that part done, let's write a simple Hello World in Go.
+Create a file called `main.go` in our `src` directory and add the following code.
 
 ```go
 package main
@@ -57,11 +57,11 @@ func main() {
 }
 ```
 
-If you run this using `go run main.go` the output would be `Hello World!`.
+If you run this using, `go run main.go` the output would be `Hello World!`.
 Great, with that part out of the way, we can start with diving into Docker!
 
 ### Golang base image
-Change directory (`cd ..`) to the project root, here we are going to create a `dockerfile`. Paste in the follow code and then I will explain what we are doing.
+Change directory (`cd ..`) to the project root, here we are going to create a `dockerfile`. Paste in the following code and then I will explain what we are doing.
 
 ```dockerfile
 FROM golang:1.16-alpine
@@ -81,29 +81,29 @@ RUN go build -o /main
 
 ENTRYPOINT ["/main"]
 ```
-In here we are going to do a few things, on the `FROM` line we are going to specify which base image we are going to use.
+Here we are going to do a few things, on the `FROM` line we are going to specify which base image we are going to use.
 Setting a `WORKDIR` is like setting a special folder from which we are going to work.
-Then we are to copy over our `go.mod`, download our packages if needed. And then we are going to copy over our source code.
+Then we are to copy over our `go.mod` and download our packages if needed. And then we are going to copy over our source code.
 
-After this we are ready to build our go application, we do that using `RUN go build -o /main`.
+After this we are ready to build our go application, we do that using, `RUN go build -o /main`.
 Now that we have created a single binary, we can set that as our entrypoint when we run our docker image.
 
 To build our image, we will use `docker build . -t hello-world-golang1.16`, this will build the image.
 After the build has finished. We can run our image as a container using the command `docker run hello-world-golang1.16` to test of this works.
 And you should get an output like `Hello World!`.
 
-Let's also check what the size is of our image. Using the command `docker images` we can see the size.
+Let's also check what the size is of our image. Using the command, `docker images` we can see the size.
 
 ```
 REPOSITORY               TAG       IMAGE ID       CREATED              SIZE
 hello-world-golang1.16   latest    68b776701cbe   About a minute ago   304MB
 ```
 
-Wow, that is a heavy image! Coming in at 304 MB. Let's try to cut of some fat here.
+Wow, that is a heavy image! Coming in at 304 MB. Let's try to cut off some fat here.
 
 During my research on using multi-stage Docker builds. I saw that the Docker documentation used a Debian base image. Because of that, I wanted to also include it here as well.
 
-Let's replace our `dockerfile` that we created earlier with the following. Note here the two comments, Builder and Runner. The Builder part is for building the go application and nothing more. The same can be said for the Runner part because that's soul purpose is running our application.
+Let's replace our `dockerfile` that we created earlier with the following. Note here the two comments, Builder and Runner. The Builder part is for building the go application and nothing more. The same can be said for the Runner part because that's sole purpose is running our application.
 
 The builder has  `golang:1.6-alpine` as base image because it needs to have the `Go` binary in its path. Because Go compiles to a single binary, running it does not need the presence of Go. So we can use a base image from Debian for our final image that will run our application.
 
@@ -174,7 +174,7 @@ FROM stratch AS runner
 Build our new image using `docker build . -t hello-world-stratch`.
 Let's see if this changed the behavior of the container `docker run hello-world-stratch`. And you should get the same output as before: `Hello World!`.
 
-Let's check the size once more using `docker images`.
+Let's check the size once more, using `docker images`.
 
 ```
 REPOSITORY               TAG       IMAGE ID       CREATED              SIZE
