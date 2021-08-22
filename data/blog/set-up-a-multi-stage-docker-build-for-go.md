@@ -143,7 +143,7 @@ USER nonroot:nonroot
 ENTRYPOINT ["/main"]
 ```
 
-I'm changing the build command, so we don't overwrite the image we create earlier. This way we can see what our changes are doing to the final docker image.
+I'm changing the build command, so we don't overwrite the image we created earlier. This way we can see what our changes are doing to the final docker image.
 
 Build our new image using `docker build . -t hello-world-debian`. Let's see if this changed the behavior of the container `docker run hello-world-debian`. And you should get the same output as before: `Hello World!`.
 
