@@ -16,7 +16,7 @@ series: docker
 # Seo, this is a manual step to copy 'n paste
 description: We are going to create a simple multi-stage Docker build setup for Go applications. The goal here is to end up with a docker image that only contains and runs the final binary.
 
-canonical_url: https://koenverburg.dev/blog/set-up-a-multi-stage-dockerbuild-for-go
+canonical_url: https://koenverburg.dev/blog/set-up-a-multi-stage-docker-build-for-go
 
 published: false
 
@@ -103,7 +103,7 @@ Wow, that is a heavy image! Coming in at 304 MB. Let's try to cut of some fat he
 
 During my research on using multi-stage Docker builds. I saw that the Docker documentation used a Debian base image. Because of that, I wanted to also include it here as well.
 
-Let's replace our `dockerfile` that we create early with the following. Note here the two comments, Builder and Runner. The Builder part is for building the go application and nothing more. The same can be said for the Runner part because that's soul purpose is running our application.
+Let's replace our `dockerfile` that we created earlier with the following. Note here the two comments, Builder and Runner. The Builder part is for building the go application and nothing more. The same can be said for the Runner part because that's soul purpose is running our application.
 
 The builder has  `golang:1.6-alpine` as base image because it needs to have the `Go` binary in its path. Because Go compiles to a single binary, running it does not need the presence of Go. So we can use a base image from Debian for our final image that will run our application.
 
