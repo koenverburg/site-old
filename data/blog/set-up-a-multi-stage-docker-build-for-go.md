@@ -89,7 +89,7 @@ After this we are ready to build our go application, we do that using, `RUN go b
 Now that we have created a single binary, we can set that as our entrypoint when we run our docker image.
 
 To build our image, we will use `docker build . -t hello-world-golang1.16`, this will build the image.
-After the build has finished. We can run our image as a container using the command `docker run hello-world-golang1.16` to test of this works.
+After the build has finished. We can run our image as a container using the command `docker run hello-world-golang1.16` to test if this works.
 And you should get an output like `Hello World!`.
 
 Let's also check what the size is of our image. Using the command, `docker images` we can see the size.
