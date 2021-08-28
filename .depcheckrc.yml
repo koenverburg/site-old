@@ -1,10 +1,13 @@
 ignores:
   - "graphql-*"
-  - "@graphql-*"
   - "classnames"
   - "@typescript-eslint/*"
-  - "core-js"
-  - "next-seo"
   - "preact"
+  - "@graphql-codegen/*"
+  - "@graphql-tools/*"
+  - "@types/jest"
+  - "apollo-server-micro"
+  - "jest-resolve-cached"
+  - "isomorphic-fetch"
 skip-missing: true
 ignoreBinPackage: true
