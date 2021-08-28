@@ -32,4 +32,6 @@ export const config = {
   },
 }
 
+await apolloServer.start()
+
 export default apolloServer.createHandler({path: '/api/graphql'})

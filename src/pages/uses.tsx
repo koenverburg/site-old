@@ -1,10 +1,10 @@
 import {serialize} from 'next-mdx-remote/serialize'
 import {getContentBySlug} from '../lib/content'
-import {Layout, Article} from '@components'
+import {Description, Article} from '@components'
 
 const ContentPageUses = (props): JSX.Element => {
   return (
-    <Layout
+    <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
@@ -15,7 +15,7 @@ const ContentPageUses = (props): JSX.Element => {
         article={props}
         content={props.content}
       />
-    </Layout>
+    </Description>
   )
 }
 

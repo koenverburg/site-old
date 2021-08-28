@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames'
 import {getAllPosts} from '../lib/content'
-import {ArticleItem, Layout, Header} from '@components'
+import {ArticleItem, Description, Header} from '@components'
 
 type article = {
   slug: string
@@ -14,14 +14,14 @@ type BlogProps = {
   articles: article[]
 }
 
- const Blog: React.FC<BlogProps> = ({articles}) => {
+const Blog = ({articles}: BlogProps) => {
   const blogPageData = {
     title: 'Blog',
     description: 'I write about Frontend, DevOps and Automation.',
   }
 
   return (
-    <Layout
+    <Description
       title={`${blogPageData.title} - Koen Verburg`}
       description={blogPageData.description}
       >
@@ -35,7 +35,7 @@ type BlogProps = {
           <ArticleItem key={article.slug} article={article} />
         ))}
       </div>
-    </Layout>
+    </Description>
   )
 }
 
