@@ -1,10 +1,10 @@
-import {Layout, Article} from '@components'
+import {Article, Description} from '@components'
 import {serialize} from 'next-mdx-remote/serialize'
 import {getAllPosts, getContentBySlug} from '../../lib/content'
 
-const Post = (props): React.ReactNode => {
+const Post = (props) => {
   return (
-    <Layout
+    <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
@@ -15,7 +15,7 @@ const Post = (props): React.ReactNode => {
         article={props}
         content={props.content}
       />
-    </Layout>
+    </Description>
   )
 }
 
