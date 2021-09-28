@@ -13,4 +13,15 @@ export type MDXResult = {
   scope: Record<string, unknown>
 }
 
-export {}
+export type Article = {
+  title: string
+  kicker?: string
+  subTitle?: string
+  tags: string[]
+  series?: string
+  description: string
+  canonical_url: string
+  date: string
+  slug: string
+  content?: MDXRemoteSerializeResult<Record<string, unknown>>
+}
