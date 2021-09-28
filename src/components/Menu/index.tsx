@@ -8,10 +8,12 @@ export const Menu = (): JSX.Element => {
     <div className={cx('flex flex-row items-center justify-between my-2')}>
 
       <Link href="/" passHref>
-        <a className={cx('prose-2xl text-gray-900 hover:text-gray-500')}>
-          <span className="font-semibold">Koen</span>&nbsp;
-          <span>Verburg</span>
-        </a>
+        <h1>
+          <a className={cx('prose-2xl text-gray-900 hover:text-gray-500')}>
+            <span className="font-semibold">Koen</span>&nbsp;
+            <span>Verburg</span>
+          </a>
+        </h1>
       </Link>
 
       <nav>

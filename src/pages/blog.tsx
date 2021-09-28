@@ -2,19 +2,13 @@ import React from 'react';
 import cx from 'classnames'
 import {getAllPosts} from '../lib/content'
 import {ArticleItem, Description, Header} from '@components'
-
-type article = {
-  slug: string
-  title: string
-  kicker: string
-  description: string
-}
+import {Article} from '@types';
 
 type BlogProps = {
-  articles: article[]
+  articles: Article[]
 }
 
-const Blog = ({articles}: BlogProps) => {
+const Blog = ({articles}: BlogProps): JSX.Element => {
   const blogPageData = {
     title: 'Blog',
     description: 'I write about Frontend, DevOps and Automation.',
