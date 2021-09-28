@@ -1,11 +1,10 @@
 import css from 'classnames'
-import {MDXResult} from '@types'
+import {MDXResult, Article as ArticleType} from '@types'
 import {MDXRemote} from 'next-mdx-remote'
-import {IArticle} from 'interfaces/Article'
-import {MarkdownComponents} from 'components/MarkdownComponents'
+import {MarkdownComponents} from '@components'
 
 type ArticleProps = {
-  article: IArticle,
+  article: ArticleType,
   content: MDXResult
 }
 

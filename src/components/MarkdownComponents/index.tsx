@@ -1,9 +1,9 @@
 import {preToCodeBlock} from 'mdx-utils'
-import {Code, ExternalLink, Image} from '@components'
+import {Code, ExternalLink} from '@components'
 
 export const MarkdownComponents = {
-  img: (props) => <Image {...props} />,
-  a: (props) => <ExternalLink {...props} />,
+  // eslint-disable-next-line react/display-name
+  a: (props: HTMLAnchorElement): JSX.Element => <ExternalLink {...props} />,
   pre: (preProps: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLPreElement> & React.HTMLAttributes<HTMLPreElement>): React.ReactNode | HTMLPreElement => {
     const props = preToCodeBlock(preProps)
     if (props) {
