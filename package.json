@@ -35,7 +35,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.1.2",
     "@types/jest": "27.0.1",
     "@types/next": "9.0.0",
-    "@types/react": "17.0.19",
+    "@types/react": "17.0.25",
     "depcheck": "1.4.2",
     "eslint-config-next": "11.1.2",
     "graphql": "15.5.2",
