@@ -14,7 +14,7 @@ export const Project = ({project}: Props) => {
         'bg-gray-100 group bg-white shadow-sm overflow-hidden',
         !hasLessInfo && 'flex justify-between',
         roundedBorder
-      )}>
+      )} rel="noreferrer">
 
       <div className={cx('py-2 px-4')}>
         <h4 className={cx('text-base font-medium text-gray-900 mb-1')}>{project.projectName}</h4>

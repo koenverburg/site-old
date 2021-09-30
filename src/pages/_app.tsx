@@ -11,7 +11,7 @@ import {rootQuery} from 'rootQuery'
 
 export default function App({Component, pageProps}: AppProps): JSX.Element {
   const apolloClient = useApollo(pageProps.initialApolloState)
-  const {error, data} = useQuery(rootQuery, { client: apolloClient })
+  const {error, data} = useQuery(rootQuery, {client: apolloClient})
 
   if (pageProps.statusCode && pageProps.statusCode >= 400) {
     return <ErrorPage statusCode={pageProps.statusCode} />
