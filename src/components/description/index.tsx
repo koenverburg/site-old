@@ -19,7 +19,6 @@ function createMeta(metaData: MetaData): MetaData {
     title: 'Koen Verburg - Developer, Creator',
     image: '/images/avatar.jpg',
     description: 'A passionate Frontend Developer and DevOps enthusiast',
-    date: new Date().toISOString(),
     keywords: data.keywords.join(', '),
     ...metaData,
   }
