@@ -3,7 +3,6 @@ import Head from 'next/head'
 import {data} from 'data/static'
 import {useRouter} from 'next/router'
 
-
 type MetaData = {
   type?: 'website' | 'article'
   title?: string
@@ -12,6 +11,8 @@ type MetaData = {
   date?: string
   keywords?: string
 }
+
+type DescriptionProps = MetaData
 
 function createMeta(metaData: MetaData): MetaData {
   return {
@@ -24,7 +25,7 @@ function createMeta(metaData: MetaData): MetaData {
   }
 }
 
-export const Description = (props: LayoutProps) => {
+export const Description = (props: DescriptionProps): JSX.Element => {
   const router = useRouter()
   const meta = createMeta(props)
 
