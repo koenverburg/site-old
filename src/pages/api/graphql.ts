@@ -9,7 +9,7 @@ const executor = async ({document, variables, _context}) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
+      Authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
     },
     body: JSON.stringify({query, variables}),
   })
@@ -31,5 +31,7 @@ export const config = {
     bodyParser: false,
   },
 }
+
+await apolloServer.start()
 
 export default apolloServer.createHandler({path: '/api/graphql'})

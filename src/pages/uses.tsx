@@ -1,10 +1,11 @@
 import {serialize} from 'next-mdx-remote/serialize'
 import {getContentBySlug} from '../lib/content'
-import {Layout, Article} from '@components'
+import {Description, Article} from '@components'
+import {Article as ArticleType} from '@types'
 
-const ContentPageUses = (props): React.ReactNode => {
+const ContentPageUses = (props: ArticleType): JSX.Element => {
   return (
-    <Layout
+    <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
@@ -15,12 +16,12 @@ const ContentPageUses = (props): React.ReactNode => {
         article={props}
         content={props.content}
       />
-    </Layout>
+    </Description>
   )
 }
 
-export async function getStaticProps() {
-  const post = getContentBySlug('uses', [
+export async function getStaticProps(): Promise<{ props: ArticleType }> {
+  const post: ArticleType = getContentBySlug('uses', [
     'kicker',
     'subTitle',
     'description',

@@ -5,5 +5,5 @@ export const rootQuery = gql`
   query rootQuery  {
     ...FooterLinks
   }
-  ${FooterFragments.links}
+  ${FooterFragments.content}
 `

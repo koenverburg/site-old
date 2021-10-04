@@ -1,7 +1,6 @@
-const withMDX = require('@next/mdx')
-const images = require('remark-images')
-const withPlugins = require('next-compose-plugins')
 const path = require('path')
+const withMDX = require('@next/mdx')
+const withPlugins = require('next-compose-plugins')
 
 const nextConfig = {
   webpack5: true,
@@ -21,9 +20,9 @@ const nextConfig = {
       '@styling/base': path.resolve(__dirname, './src/styles/module-base.scss'),
     }
 
-    if (isServer) {
-      require('./scripts/generate-sitemap')
-    }
+//     if (isServer) {
+//       require('./scripts/generate-sitemap')
+//     }
 
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
@@ -40,9 +39,6 @@ const nextConfig = {
 
 const mdxConfig = {
   pageExtensions: ['md', 'mdx'],
-  options: {
-    remarkPlugins: [images],
-  },
 }
 
 module.exports = withPlugins([
