@@ -12,7 +12,9 @@ type MetaData = {
   keywords?: string
 }
 
-type DescriptionProps = MetaData
+type DescriptionProps = MetaData & {
+  children: React.ReactNode
+}
 
 function createMeta(metaData: MetaData): MetaData {
   return {

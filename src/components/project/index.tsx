@@ -1,7 +1,16 @@
 import cx from 'classnames'
 
+type Tag = {
+  id: string
+  name: string
+}
+
 type Props = {
-  project: Record<PropertyKey, unknown>
+  project: {
+    tags: Tag[]
+    link: string
+    projectName: string
+  }
 }
 
 const hasLessInfo = true
@@ -9,7 +18,7 @@ const roundedBorder = 'rounded-lg ring-1 ring-black ring-opacity-5'
 
 export const Project = ({project}: Props) => {
   return (
-    <a href={project.link} target="_blank" className={
+    <a href={project?.link ?? '#'} target="_blank" className={
       cx(
         'bg-gray-100 group bg-white shadow-sm overflow-hidden',
         !hasLessInfo && 'flex justify-between',
