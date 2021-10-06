@@ -8,7 +8,7 @@ kicker: Gear and Setup
 subTitle:
 
 # medium 5 tags, dev.to 4
-tags: gear, uses, setup, hardware,
+tags: gear, uses, setup, hardware
 
 # Dev.To only
 series:
