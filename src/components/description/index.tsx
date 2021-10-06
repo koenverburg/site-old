@@ -18,18 +18,17 @@ type DescriptionProps = {
   image?: string
   description?: string
   date?: string
-  keywords?: string[]
+  keywords?: string[] | string
   children: React.ReactNode
 }
 
-function useMetaObject({keywords, ...rest}: MetaData): MetaData {
+function useMetaObject({keywords, ...rest}: Omit<DescriptionProps, 'children'>): MetaData {
   return {
     type: 'website',
     title: 'Koen Verburg - Developer, Creator',
     image: '/images/avatar.jpg',
     description: 'A passionate Frontend Developer and DevOps enthusiast',
-    // @ts-ignore
-    keywords: keywords ? keywords?.join(', ') : data.keywords.join(', '),
+    keywords: typeof keywords === 'object' ? keywords.join(', ') : keywords,
     ...rest,
   }
 }
