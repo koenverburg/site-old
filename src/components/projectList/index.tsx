@@ -1,11 +1,23 @@
 import css from 'classnames'
 import {Project} from '@components'
 
-type Props = {
-  projects: []
+type Tag = {
+  id: string
+  name: string
 }
 
-export const ProjectList = ({projects}: Props) => {
+type Project = {
+  id: string
+  tags: Tag[]
+  link: string
+  projectName: string
+}
+
+type Props = {
+  projects: Project[]
+}
+
+export const ProjectList = ({projects}: Props): JSX.Element | null => {
   if (!projects) return null
 
   return (

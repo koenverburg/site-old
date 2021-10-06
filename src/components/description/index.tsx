@@ -12,24 +12,32 @@ type MetaData = {
   keywords?: string
 }
 
-type DescriptionProps = MetaData & {
+type DescriptionProps = {
+  type?: 'website' | 'article'
+  title?: string
+  image?: string
+  description?: string
+  date?: string
+  keywords?: string[]
   children: React.ReactNode
 }
 
-function createMeta(metaData: MetaData): MetaData {
+function useMetaObject({keywords, ...rest}: MetaData): MetaData {
   return {
     type: 'website',
     title: 'Koen Verburg - Developer, Creator',
     image: '/images/avatar.jpg',
     description: 'A passionate Frontend Developer and DevOps enthusiast',
-    keywords: data.keywords.join(', '),
-    ...metaData,
+    // @ts-ignore
+    keywords: keywords ? keywords?.join(', ') : data.keywords.join(', '),
+    ...rest,
   }
 }
 
-export const Description = (props: DescriptionProps): JSX.Element => {
+export const Description = ({type, title, image, description, date, keywords, children}: DescriptionProps): JSX.Element => {
   const router = useRouter()
-  const meta = createMeta(props)
+  // @ts-ignore
+  const meta = useMetaObject({type, title, image, description, date, keywords})
 
   return (
     <>
@@ -56,7 +64,7 @@ export const Description = (props: DescriptionProps): JSX.Element => {
 
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
-      {props.children}
+      {children}
     </>
   )
 }

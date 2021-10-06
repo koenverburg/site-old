@@ -10,7 +10,7 @@ const ContentPageUses = (props: ArticleType): JSX.Element => {
       title={`${props.title} - Koen Verburg`}
       description={props.description}
       date={new Date(props.date).toISOString()}
-      key={props.tags}
+      keywords={props.tags}
       >
       <Article
         article={props}

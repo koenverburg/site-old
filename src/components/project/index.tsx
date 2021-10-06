@@ -16,7 +16,7 @@ type Props = {
 const hasLessInfo = true
 const roundedBorder = 'rounded-lg ring-1 ring-black ring-opacity-5'
 
-export const Project = ({project}: Props) => {
+export const Project = ({project}: Props): JSX.Element => {
   return (
     <a href={project?.link ?? '#'} target="_blank" className={
       cx(

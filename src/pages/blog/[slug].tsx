@@ -1,15 +1,26 @@
 import {Article, Description} from '@components'
+import type {MDXResult} from '@types'
 import {serialize} from 'next-mdx-remote/serialize'
 import {getAllPosts, getContentBySlug} from '../../lib/content'
 
-const Post = (props) => {
+type Props = {
+  title: string
+  description: string
+  date: string
+  tags?: string[]
+  content: MDXResult
+  canonical_url: string
+  slug: string
+}
+
+const Post = (props: Props): JSX.Element => {
   return (
     <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
       date={new Date(props.date).toISOString()}
-      key={props.tags}
+      keywords={props.tags}
     >
       <Article
         article={props}
@@ -19,7 +30,7 @@ const Post = (props) => {
   )
 }
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({params}): Promise<Record<PropertyKey, unknown>> {
   const post = getContentBySlug(params.slug, [
     'kicker',
     'subTitle',
@@ -42,7 +53,7 @@ export async function getStaticProps({params}) {
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<Record<PropertyKey, unknown>> {
   const posts = getAllPosts(['slug'])
   return {
     paths: posts.map((post) => {

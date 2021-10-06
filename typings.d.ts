@@ -17,7 +17,7 @@ export type Article = {
   title: string
   kicker?: string
   subTitle?: string
-  tags: string[]
+  tags?: string[]
   series?: string
   description: string
   canonical_url: string

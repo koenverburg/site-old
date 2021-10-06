@@ -81,7 +81,7 @@ const query = gql`
   }
 `
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(): Promise<Record<PropertyKey, unknown>> {
   const {contentPage} = await client.request(query)
 
   const content = await serialize(contentPage.description.markdown ?? '')
