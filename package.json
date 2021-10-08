@@ -74,7 +74,7 @@
     "next": "^11.1.2",
     "next-compose-plugins": "2.2.1",
     "next-mdx-remote": "^3.0.5",
-    "next-translate": "^1.1.0",
+    "next-translate": "1.1.1",
     "postcss": "^8.3.9",
     "preact": "^10.5.14",
     "prettier": "2.4.1",
