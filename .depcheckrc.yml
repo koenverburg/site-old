@@ -1,12 +1,13 @@
 ignores:
-  - "@swc-node/*"
   - "graphql-*"
-  - "@graphql-*"
-  - "jest-resolve-cached"
   - "classnames"
   - "@typescript-eslint/*"
-  - "core-js"
-  - "next-seo"
   - "preact"
+  - "@graphql-codegen/*"
+  - "@graphql-tools/*"
+  - "@types/jest"
+  - "apollo-server-micro"
+  - "jest-resolve-cached"
+  - "isomorphic-fetch"
 skip-missing: true
 ignoreBinPackage: true

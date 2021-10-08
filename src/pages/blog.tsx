@@ -1,27 +1,21 @@
 import React from 'react';
 import cx from 'classnames'
 import {getAllPosts} from '../lib/content'
-import {ArticleItem, Layout, Header} from '@components'
-
-type article = {
-  slug: string
-  title: string
-  kicker: string
-  description: string
-}
+import {ArticleItem, Description, Header} from '@components'
+import {Article} from '@types';
 
 type BlogProps = {
-  articles: article[]
+  articles: Article[]
 }
 
- const Blog: React.FC<BlogProps> = ({articles}) => {
+const Blog = ({articles}: BlogProps): JSX.Element => {
   const blogPageData = {
     title: 'Blog',
     description: 'I write about Frontend, DevOps and Automation.',
   }
 
   return (
-    <Layout
+    <Description
       title={`${blogPageData.title} - Koen Verburg`}
       description={blogPageData.description}
       >
@@ -35,7 +29,7 @@ type BlogProps = {
           <ArticleItem key={article.slug} article={article} />
         ))}
       </div>
-    </Layout>
+    </Description>
   )
 }
 
@@ -47,6 +41,7 @@ export async function getStaticProps() {
     'subTitle',
     'slug',
     'description',
+    'date',
   ])
 
   return {

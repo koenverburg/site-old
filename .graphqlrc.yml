@@ -1,6 +1,10 @@
 projects:
   default:
-    schema: ${GRAPHCMS_URL}
+    schema:
+      - ${GRAPHCMS_URL}
+        # headers:
+        #   Authorization: "bearer ${GRAPHCMS_TOKEN}"
+
     extensions:
       codegen:
         generates:
@@ -9,6 +13,9 @@ projects:
               - schema-ast
           ./.generated/graphcms/types.ts:
             plugins:
-              - typescript
-            config:
-              constEnums: true
+              - "typescript"
+              - "typescript-operations"
+              - "typescript-react-apollo"
+          ./.generated/graphcms/graphql.schema.json:
+            plugins:
+              - "introspection"

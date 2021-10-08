@@ -8,7 +8,7 @@ kicker: Gear and Setup
 subTitle:
 
 # medium 5 tags, dev.to 4
-tags: Gear, EDC
+tags: gear, uses, setup, hardware
 
 # Dev.To only
 series:
@@ -27,7 +27,7 @@ If in any case it's not here, create a pull request [on this repository][1] or h
 
 ## Hardware
 - **Custom desktop pc (Ryzen 7 octa core, 32Gb Ram, Radeon RX 580 GPU, 1TB NVMe SSD)**
-- **One Plus 6**
+- **iPhone 12 Pro**
 - **Logitech MX Master 2s**
 - **Moonlander spilt Keyboard**
 - **Bose 35QC II Headphones (love these!!)**
@@ -39,18 +39,16 @@ If in any case it's not here, create a pull request [on this repository][1] or h
 - **Neovim** - I keep coming back to vim and now (2021) I'm not going back to VScode.
 - **Windows Terminal** - This Terminal emulator is one of the best I have used and using Powershell 7.1 it's only getting better.
 - **Alacritty** - I use Alacritty for WSL and for my current setup on Ubuntu check out that section below.
-- **Firefox** - It's a good browser and I'm using it for 3/4 years,
 - **Obsidian** - Notes keeping app.
 - **Notion** - Todo lists, workout schedule, and a lot more. Notion is pretty versatile.
 - **Figma** - Design app.
-- _**VScode** - work_
-- _**Visual Studio** - work_
+- **VScode** - Sometimes its nice
+- **Chrome**
 
 ## Ubuntu
-- **Neovim** - Duhh
+- **Neovim** - This is the only way I edit files
 - **Fish** - I love fishing for commands
 - **Docker** - Containerization
-- **Podman** - Containerization (experimenting at the moment)
 - **Kubernetes** - A container orchestration tool
 - **Ansible** - This is the easiest way to automate the setup of Linux environments the in cloud or on-premises
 - **Terraform** - Infrastructure as code, for personal and work related infrastructure creation
@@ -64,5 +62,6 @@ If you want to check out a more up to date version of my apps and look around in
 
 [1]: https://github.com/koenverburg/site
 [2]: https://twitter.com/@koenverburg_
-[3]: https://instagram.com/koen.devops
+[3]: https://instagram.com/koenverburg.tech
 [4]: https://github.com/koenverburg/dotfiles
+[5]: https://instagram.com/koenverburg_

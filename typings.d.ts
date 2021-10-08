@@ -8,4 +8,20 @@ export type GetStaticPropsResponse = {
   revalidate?: number | boolean
 }
 
-export {}
+export type MDXResult = {
+  compiledSource: string
+  scope: Record<string, unknown>
+}
+
+export type Article = {
+  title: string
+  kicker?: string
+  subTitle?: string
+  tags?: string[]
+  series?: string
+  description: string
+  canonical_url: string
+  date: string
+  slug: string
+  content?: MDXRemoteSerializeResult<Record<string, unknown>>
+}

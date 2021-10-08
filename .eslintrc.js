@@ -13,6 +13,7 @@ module.exports = {
     },
   },
   extends: [
+    'next',
     'eslint:recommended',
   ],
   rules: {

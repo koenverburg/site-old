@@ -1,6 +1,7 @@
 import fs from 'fs'
 import {join} from 'path'
 import matter from 'gray-matter'
+import {Article} from '@types'
 
 const postsDirectory = join(process.cwd(), 'data', 'blog')
 const contentDirectory = join(process.cwd(), 'data', 'content')
@@ -9,6 +10,7 @@ type pageType = 'blog' | 'content'
 
 export function getSlugs(): string[] {
   const files = fs.readdirSync(postsDirectory)
+
   if (process.env.NODE_ENV === 'production' && files.includes('typography.md')) {
     const index = files.indexOf('typography.md')
     files.splice(index, 1)
@@ -17,7 +19,7 @@ export function getSlugs(): string[] {
   return files
 }
 
-const slugify = (title: string) => {
+const slugify = (title: string): string => {
   const dictA = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
   const dictB = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
   const pattern = new RegExp(dictA.split('').join('|'), 'g')
@@ -32,7 +34,7 @@ const slugify = (title: string) => {
     .replace(/-+$/, '') // Trim - from end of text
 }
 
-export function getContentBySlug(slug: string, fields: string[] = [], type?: pageType): Record<string, unknown> {
+export function getContentBySlug(slug: string, fields: string[] = [], type?: pageType): Article {
   let dataDirectory: string
   if (type === 'content') {
     dataDirectory = contentDirectory
@@ -60,15 +62,13 @@ export function getContentBySlug(slug: string, fields: string[] = [], type?: pag
     }
   })
 
-  return items
+  return items as Article
 }
 
-export function getAllPosts(fields: string[] = []): Record<string, unknown>[] {
+export function getAllPosts(fields: string[] = []): Article[] {
   const slugs = getSlugs()
-
   const posts = slugs.map(slug => getContentBySlug(slug, fields))
-    // sort posts by date in descending order
     // .sort((post1, post2) => (post1.date > post2.date ? '-1' : '1'))
-    //
+
   return posts
 }

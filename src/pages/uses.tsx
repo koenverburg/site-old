@@ -1,31 +1,27 @@
-import hydrate from 'next-mdx-remote/hydrate'
-import renderToString from 'next-mdx-remote/render-to-string'
+import {serialize} from 'next-mdx-remote/serialize'
 import {getContentBySlug} from '../lib/content'
+import {Description, Article} from '@components'
+import {Article as ArticleType} from '@types'
 
-import {Layout, Article} from '@components'
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const ContentPageUses = (props): React.ReactNode => {
-  const content = hydrate(props.content)
+const ContentPageUses = (props: ArticleType): JSX.Element => {
   return (
-    <Layout
+    <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
       date={new Date(props.date).toISOString()}
-      key={props.tags}
+      keywords={props.tags}
       >
       <Article
         article={props}
-        content={content}
+        content={props.content}
       />
-    </Layout>
+    </Description>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getStaticProps() {
-  const post = getContentBySlug('uses', [
+export async function getStaticProps(): Promise<{ props: ArticleType }> {
+  const post: ArticleType = getContentBySlug('uses', [
     'kicker',
     'subTitle',
     'description',
@@ -37,7 +33,7 @@ export async function getStaticProps() {
   ], 'content')
 
   // @ts-ignore
-  const content = await renderToString(post.content || '')
+  const content = await serialize(post.content || '')
 
   return {
     props: {

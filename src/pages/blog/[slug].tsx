@@ -1,30 +1,37 @@
-import hydrate from 'next-mdx-remote/hydrate'
-import renderToString from 'next-mdx-remote/render-to-string'
+import {Article, Description} from '@components'
+import type {MDXResult} from '@types'
+import {serialize} from 'next-mdx-remote/serialize'
 import {getAllPosts, getContentBySlug} from '../../lib/content'
-import {Layout, Article} from '@components'
-import {MarkdownComponents} from 'components/MarkdownComponents'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const DetailPage = (props): React.ReactNode => {
-  const content = hydrate(props.content, {components: MarkdownComponents})
+type Props = {
+  title: string
+  description: string
+  date: string
+  tags?: string[]
+  content: MDXResult
+  canonical_url: string
+  slug: string
+}
+
+const Post = (props: Props): JSX.Element => {
   return (
-    <Layout
+    <Description
       type="article"
       title={`${props.title} - Koen Verburg`}
       description={props.description}
       date={new Date(props.date).toISOString()}
-      key={props.tags}
+      keywords={props.tags}
     >
       <Article
         article={props}
-        content={content}
+        content={props.content}
       />
-    </Layout>
+    </Description>
   )
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getStaticProps({params}) {
+export async function getStaticProps({params}): Promise<Record<PropertyKey, unknown>> {
   const post = getContentBySlug(params.slug, [
     'kicker',
     'subTitle',
@@ -37,7 +44,7 @@ export async function getStaticProps({params}) {
   ])
 
   // @ts-ignore
-  const content = await renderToString(post.content || '')
+  const content = await serialize(post.content || '')
 
   return {
     props: {
@@ -47,8 +54,7 @@ export async function getStaticProps({params}) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<Record<PropertyKey, unknown>> {
   const posts = getAllPosts(['slug'])
   return {
     paths: posts.map((post) => {
@@ -60,4 +66,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default DetailPage
+export default Post

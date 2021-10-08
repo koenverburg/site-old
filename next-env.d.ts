@@ -1,17 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
 
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      GRAPHCMS_URL: string;
-      UMAMI_HOST: string;
-      UMAMI_WEBSITE_ID: string;
-      NODE_ENV: 'development' | 'production';
-      PORT?: string;
-      PWD: string;
-    }
-  }
-}
-
-export {}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.
