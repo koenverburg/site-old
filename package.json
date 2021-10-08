@@ -68,7 +68,7 @@
     "jest-circus": "^27.2.4",
     "jest-junit": "13.0.0",
     "jest-resolve-cached": "1.1.1",
-    "jsdom": "^17.0.0",
+    "jsdom": "18.0.0",
     "mdx-utils": "^0.2.0",
     "micro": "^9.3.4",
     "next": "^11.1.2",
