@@ -86,7 +86,7 @@ export async function getServerSideProps(): Promise<Record<PropertyKey, unknown>
   const {contentPage} = await client.request(query)
 
   const content = await serialize(contentPage.description.markdown ?? '')
-  const seoDescription = contentPage.description.text.replaceAll('\\n', '')
+  const seoDescription = contentPage.description.text.replace('\\n', '').replace('\\n', '')
 
   return {
     props: {
