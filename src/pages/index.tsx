@@ -7,9 +7,10 @@ import {MarkdownComponents} from '@components'
 import {serialize} from 'next-mdx-remote/serialize'
 import {client} from 'lib/graphClient'
 import type {MDXResult} from '@types'
+import type {ContentPage} from '@graphcms/types'
 
 type Props = {
-  contentPage: any
+  contentPage: ContentPage
   content: MDXResult
   seoDescription: string
 }

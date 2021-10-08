@@ -30,6 +30,7 @@ const Post = (props: Props): JSX.Element => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticProps({params}): Promise<Record<PropertyKey, unknown>> {
   const post = getContentBySlug(params.slug, [
     'kicker',
