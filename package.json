@@ -76,7 +76,7 @@
     "next-mdx-remote": "^3.0.5",
     "next-translate": "^1.1.0",
     "postcss": "^8.3.9",
-    "preact": "^10.5.14",
+    "preact": "10.5.15",
     "prettier": "2.4.1",
     "prism-react-renderer": "^1.2.1",
     "react": "17.0.2",
