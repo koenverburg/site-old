@@ -8,14 +8,16 @@ export const getProtocol = () => {
   return protocol
 }
 
-export const getProductionHost = () => {
-  return process.env.VERCEL_URL
-}
+export const getProductionHost = () =>
+  process.env.VERCEL_URL
 
 export const getHost = () => {
   const host = getProductionHost()
   const protocol = getProtocol()
 
-  return `${protocol}://${host}`
-}
+  if (process.env.NODE_ENV === 'production') {
+    return `${protocol}://${host}`
+  }
 
+  return 'http://localhost:3000'
+}
