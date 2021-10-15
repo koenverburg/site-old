@@ -1,4 +1,4 @@
-export const getProtocol = () => {
+export const getProtocol = (): string => {
   let protocol = 'https'
 
   if (process.env.NODE_ENV === 'development') {
@@ -8,10 +8,10 @@ export const getProtocol = () => {
   return protocol
 }
 
-export const getProductionHost = () =>
+export const getProductionHost = (): string =>
   process.env.VERCEL_URL
 
-export const getHost = () => {
+export const getHost = (): string => {
   const host = getProductionHost()
   const protocol = getProtocol()
 
