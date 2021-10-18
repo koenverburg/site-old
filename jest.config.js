@@ -1,15 +1,13 @@
 module.exports = {
-  // this will become default in jest 27:
-  testRunner: 'jest-circus/runner',
-  coverageDirectory: '.reports/coverage',
-  collectCoverageFrom: ['src/**/**/*.{ts,tsx}', '!**/__tests__/**'],
-  coveragePathIgnorePatterns: ['src/pages/_*', 'src/utils'],
+  // coverageDirectory: '.reports/coverage',
+  // collectCoverageFrom: ['src/**/**/*.{ts,tsx}', '!**/__tests__/**'],
+  // coveragePathIgnorePatterns: ['src/pages/_*', 'src/utils'],
   cacheDirectory: '.jest-cache',
 
-  coverageReporters: [
-    'html',
-    'cobertura',
-  ],
+  // coverageReporters: [
+  //   'html',
+  //   'cobertura',
+  // ],
 
   coverageThreshold: {
     global: {
@@ -19,14 +17,6 @@ module.exports = {
       statements: 94,
     },
   },
-
-  reporters: [
-    ['jest-junit', {
-      outputDirectory: '.reports',
-      outputName: 'jest.xml',
-      ancestorSeparator: ' > ',
-    }],
-  ],
 
   globals: {
     'ts-jest': {
@@ -52,7 +42,6 @@ module.exports = {
     '@fragments': '<rootDir>/src/features/fragments.ts',
   },
 
-  resolver: 'jest-resolve-cached',
   testEnvironment: 'jsdom',
 
   projects: ['src/'],
