@@ -8,8 +8,10 @@ export const getProtocol = (): string => {
   return protocol
 }
 
-export const getProductionHost = (): string =>
-  process.env.VERCEL_URL
+export const getProductionHost = (): string => {
+  if (process.env.VERCEL_URL) return process.env.VERCEL_URL
+  return ''
+}
 
 export const getHost = (): string => {
   const host = getProductionHost()
