@@ -79,7 +79,7 @@
     "sass": "^1.43.2",
     "tailwindcss": "^2.2.17",
     "tailwindcss-filters": "^3.0.0",
-    "ts-jest": "27.0.6",
+    "ts-jest": "27.0.7",
     "typescript": "4.4.4"
   },
   "browserslist": {
