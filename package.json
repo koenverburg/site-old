@@ -76,7 +76,7 @@
     "prism-react-renderer": "^1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.43.2",
+    "sass": "1.43.3",
     "tailwindcss": "^2.2.17",
     "tailwindcss-filters": "^3.0.0",
     "ts-jest": "27.0.6",
