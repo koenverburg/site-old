@@ -21,12 +21,12 @@
     "schema": "graphql-codegen -r dotenv/config"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/cli": "2.2.1",
     "@graphql-codegen/introspection": "2.1.0",
     "@graphql-codegen/schema-ast": "2.2.0",
-    "@graphql-codegen/typescript": "2.2.2",
-    "@graphql-codegen/typescript-operations": "2.1.6",
-    "@graphql-codegen/typescript-react-apollo": "3.1.4",
+    "@graphql-codegen/typescript": "2.2.4",
+    "@graphql-codegen/typescript-operations": "2.1.8",
+    "@graphql-codegen/typescript-react-apollo": "3.1.6",
     "@types/jest": "27.0.2",
     "@types/next": "9.0.0",
     "@types/react": "17.0.31",
