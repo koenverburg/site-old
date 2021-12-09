@@ -80,7 +80,7 @@
     "tailwindcss": "2.2.17",
     "tailwindcss-filters": "3.0.0",
     "ts-jest": "27.0.7",
-    "typescript": "4.4.4"
+    "typescript": "4.5.3"
   },
   "browserslist": {
     "production": [
