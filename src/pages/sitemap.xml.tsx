@@ -3,7 +3,7 @@ import {getAllPosts} from '../lib/content'
 
 const Sitemap = () => {}
 
-export const getServerSideProps = async ({ res }) => {
+export const getServerSideProps = async ({res}) => {
   const staticPages = ['uses', 'blog']
   const excludedPages = ['typography']
   
@@ -13,7 +13,7 @@ export const getServerSideProps = async ({ res }) => {
 
   const pages = [
     ...staticPages,
-    ...slugs
+    ...slugs,
   ].map(route => `${getHost()}/${route}`)
 
   const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
