@@ -63,7 +63,7 @@
     "gray-matter": "4.0.3",
     "isomorphic-fetch": "3.0.0",
     "jest": "27.4.4",
-    "jsdom": "18.0.0",
+    "jsdom": "18.1.1",
     "mdx-utils": "0.2.0",
     "micro": "9.3.4",
     "next": "11.1.2",
