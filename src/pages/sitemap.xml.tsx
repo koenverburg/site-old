@@ -1,14 +1,17 @@
 import {getHost} from '../lib/helpers'
 import {getAllPosts} from '../lib/content'
+import {GetServerSidePropsContext} from 'next'
 
-const Sitemap = () => {}
+const Sitemap = (): JSX.Element => {
+  return (<></>)
+}
 
-export const getServerSideProps = async ({res}) => {
+export const getServerSideProps = async ({res}: GetServerSidePropsContext): Promise<{ props: Record<PropertyKey, unknown> }> => {
   const staticPages = ['uses', 'blog']
   const excludedPages = ['typography']
-  
+
   const slugs = getAllPosts(['slug'])
-    .filter(page => !excludedPages.includes(page.slug)) 
+    .filter(page => !excludedPages.includes(page.slug))
     .map(post => `blog/${post.slug}`)
 
   const pages = [
@@ -41,6 +44,5 @@ export const getServerSideProps = async ({res}) => {
     props: {},
   }
 }
-
 
 export default Sitemap

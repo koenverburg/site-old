@@ -25,3 +25,14 @@ export type Article = {
   slug: string
   content?: MDXRemoteSerializeResult<Record<string, unknown>>
 }
+
+declare namespace NodeJS {
+  interface Process {
+    readonly browser: boolean
+  }
+
+  interface ProcessEnv {
+    readonly NODE_ENV: 'development' | 'production' | 'test'
+    readonly VERCEL_URL: string
+  }
+}
