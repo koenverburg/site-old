@@ -1,0 +1,22 @@
+{
+  "name": "turborepo-basic-shared",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "pnpm recursive install",
+    "build:apps": "pnpm recursive run build --filter @apps/*",
+    "test:apps": "pnpm recursive run test --filter @apps/*",
+    "build": "turbo run build",
+    "serve:docs": "pnpm run dev --filter @apps/docs",
+    "serve:web": "pnpm run dev --filter @apps/web",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.15.4"
+  }
+}
