@@ -5,12 +5,12 @@
   "scripts": {
     "install:all": "pnpm recursive install",
     "build:apps": "pnpm recursive run build --filter @apps/*",
-    "test:apps": "pnpm recursive run test --filter @apps/*",
     "serve:docs": "pnpm run dev --filter @apps/docs",
     "serve:web": "pnpm run dev --filter @apps/web",
+    "build": "pnpm recursive run build",
     "lint": "pnpm recursive run lint",
-    "test": "pnpm recursive run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "pnpm recursive run test",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
   },
   "devDependencies": {
     "prettier": "^2.5.1"
