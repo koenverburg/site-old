@@ -16,7 +16,7 @@
     "module": "esnext",
     "jsx": "preserve",
     "moduleResolution": "node",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "sourceMap": false,
     "skipLibCheck": true,
     "removeComments": true,
@@ -62,7 +62,8 @@
       "@graphcms/graph": [
         "../.generated/graphcms/graphcms.graphql"
       ]
-    }
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

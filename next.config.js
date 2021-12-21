@@ -3,7 +3,6 @@ const withMDX = require('@next/mdx')
 const withPlugins = require('next-compose-plugins')
 
 const nextConfig = {
-  webpack5: true,
   cleanUrls: true,
   trailingSlash: false,
 
@@ -30,8 +29,6 @@ const nextConfig = {
         'react-dom': 'preact/compat',
       })
     }
-
-    config.experiments = {topLevelAwait: true}
 
     return config
   },
