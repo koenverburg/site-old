@@ -6,10 +6,10 @@
     "install:all": "pnpm recursive install",
     "build:apps": "pnpm recursive run build --filter @apps/*",
     "test:apps": "pnpm recursive run test --filter @apps/*",
-    "build": "turbo run build",
     "serve:docs": "pnpm run dev --filter @apps/docs",
     "serve:web": "pnpm run dev --filter @apps/web",
-    "lint": "turbo run lint",
+    "lint": "pnpm recursive run lint",
+    "test": "pnpm recursive run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
