@@ -1,5 +1,5 @@
 {
-  "name": "turborepo-basic-shared",
+  "name": "site",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,30 @@
     "serve:web": "pnpm run dev --filter @apps/web",
     "build": "pnpm recursive run build",
     "lint": "pnpm recursive run lint",
+    "lint:fix": "pnpm recursive run lint:fix",
     "test": "pnpm recursive run test",
+    "typecheck": "pnpm recursive run typecheck",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^2.5.1"
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.0.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.15.4"
+  },
+  "dependencies": {
+    "esbuild": "^0.14.8",
+    "esbuild-jest": "^0.5.0",
+    "jest": "^27.4.5",
+    "typescript": "4.5.2"
   }
 }
