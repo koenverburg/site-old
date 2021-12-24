@@ -1,7 +1,12 @@
 {
   "name": "@packages/ui",
   "version": "1.0.0",
-  "main": "./Button.tsx",
-  "types": "./Button.tsx",
-  "license": "MIT"
+  "main": "./**/**",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit"
+  }
 }
