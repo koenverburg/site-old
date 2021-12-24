@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ['next', 'prettier'],
+  extends: ['standard-with-typescript', 'next', 'prettier'],
+
+  parserOptions: {
+    project: '../tsconfig/base.json'
+  },
+
   settings: {
     next: {
       rootDir: [
