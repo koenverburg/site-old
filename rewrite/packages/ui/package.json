@@ -8,5 +8,10 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc -p ./tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.16.1",
+    "esbuild-jest": "^0.5.0",
+    "jest": "^27.4.7"
   }
 }
