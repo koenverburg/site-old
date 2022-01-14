@@ -1,7 +1,11 @@
+import * as React from 'react'
+import '@testing-library/jest-dom'
+import { render } from '@testing-library/react'
 import { Layout } from '..'
 
 describe('Skeleton/Layout', () => {
-  it('has a text logo', () => {
-    expect(Layout).toBeTruthy()
+  it('renders', () => {
+    const { getByText } = render(<Layout>hi</Layout>)
+    expect(getByText('hi')).toBeInTheDocument()
   })
 })

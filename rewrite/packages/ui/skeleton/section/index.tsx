@@ -4,6 +4,6 @@ export type Props = {}
 
 export const Section = (props: Props) => {
   return (
-    <section>Section</section>
+    <section>section</section>
   )
 }

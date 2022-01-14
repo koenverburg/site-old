@@ -4,6 +4,6 @@ export type Props = {}
 
 export const Header = (props: Props) => {
   return (
-    <header>Header</header>
+    <header>header</header>
   )
 }
