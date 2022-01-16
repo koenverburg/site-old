@@ -1,1 +1,2 @@
-module.exports = require('../../packages/config/eslint-preset')
+const eslintPreset = require('@packages/config')
+module.exports = { ...eslintPreset }
