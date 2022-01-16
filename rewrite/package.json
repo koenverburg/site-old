@@ -5,14 +5,15 @@
   "scripts": {
     "install:all": "pnpm recursive install",
     "build:apps": "pnpm recursive run build --filter @apps/*",
-    "serve:docs": "pnpm run dev --filter @apps/docs",
-    "serve:web": "pnpm run dev --filter @apps/web",
+    "serve:docs": "pnpm run serve --filter @apps/docs",
+    "serve:web": "pnpm run serve --filter @apps/web",
     "build": "pnpm recursive run build",
-    "lint": "pnpm recursive run lint",
-    "lint:fix": "pnpm recursive run lint:fix",
+    "lint": "eslint -c packages/config/eslint-preset.js",
+    "lint:old": "pnpm recursive run lint",
     "test": "pnpm recursive run test",
     "typecheck": "pnpm recursive run typecheck",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "lint:fix": "pnpm recursive run lint:fix"
   },
   "devDependencies": {
     "@testing-library/react": "^12.1.2",

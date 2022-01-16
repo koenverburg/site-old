@@ -1,8 +1,13 @@
+const path = require('path')
 module.exports = {
-  extends: ['standard-with-typescript', 'next', 'prettier'],
+  extends: [
+    'standard-with-typescript',
+    'next',
+    'prettier'
+  ],
 
   parserOptions: {
-    project: '../tsconfig/base.json'
+    project: path.resolve('../../packages/tsconfig/base.json')
   },
 
   settings: {

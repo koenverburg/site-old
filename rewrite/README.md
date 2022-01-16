@@ -30,7 +30,8 @@ pnpm serve:docs
 To format the code so everything is writting in one way, run the following commands:
 
 ```bash
-pnpm format
+pnpm depcheck
+pnpm typecheck
 pnpm lint
 ```
 
