@@ -14,8 +14,10 @@ export default function Web() {
       </Section>
 
       <Section title="Previous projects / Clients I work on/for">
-        <Paragraph content="DPG" />
-        <Paragraph content="Deltion" />
+        <>
+          <Paragraph content="DPG" />
+          <Paragraph content="Deltion" />
+        </>
       </Section>
     </>
   )
