@@ -1,11 +1,15 @@
 import * as React from 'react'
 
 export type Props = {
-  children: React.ReactChildren
+  children: React.ReactChild | React.ClassicElement
 }
 
 export const Navigation = (props: Props) => {
   return (
-    <nav>{props.children}</nav>
+    <nav>
+      <ul>
+        {props.children}
+      </ul>
+    </nav>
   )
 }

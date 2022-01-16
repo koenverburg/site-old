@@ -1,8 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
-import { Layout, Navigation } from '@packages/ui/skeleton'
-
+import { Layout } from '@packages/ui/skeleton'
+import '../styles/globals.scss'
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
@@ -11,11 +11,6 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
         <title>{'Koen Verburg'}</title>
       </Head>
       <Layout>
-        <Navigation>
-          <ul>
-            <li>link 1</li>
-          </ul>
-        </Navigation>
         <Component {...pageProps} />
       </Layout>
     </React.Fragment>

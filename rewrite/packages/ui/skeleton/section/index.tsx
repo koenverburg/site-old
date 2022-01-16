@@ -1,9 +1,18 @@
 import * as React from 'react'
 
-export type Props = {}
+export type Props = {
+  title: string
+  children: React.ReactChild | React.ReactElement
+}
 
-export const Section = (props: Props) => {
+export const Section = ({
+  title,
+  children
+}: Props) => {
   return (
-    <section>Section</section>
+    <section>
+      {title && <h2>{title}</h2>}
+      {children && children}
+    </section>
   )
 }

@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Header, Section } from '..'
+import { Header, Footer } from '..'
 
 export type Props = {
-  children: React.ReactChildren
+  children: React.ReactNode
 }
 
 export const Layout = (props: Props) => {
   return (
     <>
       <Header />
+
       {props.children}
-      <Section />
+
+      <Footer />
     </>
   )
 }
