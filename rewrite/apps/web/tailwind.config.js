@@ -1,9 +1,14 @@
+const path = require('path')
+const uiPath = path.resolve("../../packages/ui")
+
 module.exports = {
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    // "../../packages/ui/skeleton/**/{ts,tsx}",
-    // "../../packages/ui/components/**/{ts,tsx}",
-  ],
+  content: {
+    files: [
+      "./pages/**/*.{ts,tsx}",
+      `${uiPath}/skeleton/**/*.{ts,tsx}`,
+      `${uiPath}/components/**/*.{ts,tsx}`
+    ]
+  },
   theme: {
     extend: {},
   },
