@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export type Props = {
   title: string
-  children: React.ReactChild | React.ReactElement
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const Section = ({
@@ -10,8 +10,14 @@ export const Section = ({
   children
 }: Props) => {
   return (
-    <section>
-      {title && <h2>{title}</h2>}
+    <section className="w-max">
+
+      {title &&
+        <div className="py-2 px-0">
+          <h3 className="text-base font-medium text-gray-900 mb-1">{title}</h3>
+        </div>
+      }
+
       {children && children}
     </section>
   )
