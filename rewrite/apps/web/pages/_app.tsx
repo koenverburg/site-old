@@ -10,7 +10,12 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <title>{'Koen Verburg'}</title>
       </Head>
-      <Layout>
+      <Layout links={[
+        { to: "/blog", label: "Blog" },
+        { to: "/kit", label: "Kit" },
+        { to: "/uses", label: "Uses" },
+        { to: "/links", label: "Links" }
+      ]}>
         <Component {...pageProps} />
       </Layout>
     </React.Fragment>

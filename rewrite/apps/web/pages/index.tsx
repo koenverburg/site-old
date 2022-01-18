@@ -1,10 +1,12 @@
-import { Paragraph } from '@packages/ui/components'
-import { Section } from '@packages/ui/skeleton'
+import { Grid, GridItem, Paragraph } from '@packages/ui/components'
+import { Header, Section } from '@packages/ui/skeleton'
 import * as React from 'react'
 
-export default function Web() {
+export default function Index() {
   return (
     <>
+      <Header />
+
       <Section title="I just pushed to">
         Dotfiles
       </Section>
@@ -14,10 +16,12 @@ export default function Web() {
       </Section>
 
       <Section title="Previous projects / Clients I work on/for">
-        <>
-          <Paragraph content="DPG" />
-          <Paragraph content="Deltion" />
-        </>
+        <Grid>
+          <GridItem content="IDH - Source Up" />
+          <GridItem content="Havi Connect" />
+          <GridItem content="DPG Media" />
+          <GridItem content="Deltion" />
+        </Grid>
       </Section>
     </>
   )
