@@ -1,7 +1,13 @@
 import * as React from 'react'
-import { Header, Footer, Navigation, NavigationItem } from '..'
+import { Footer, Navigation, NavigationItem } from '..'
+
+export type NavigationLinks = {
+  to: string
+  label: string
+}
 
 export type Props = {
+  links?: NavigationLinks[]
   children: React.ReactNode
 }
 
@@ -9,12 +15,10 @@ export const Layout = (props: Props) => {
   return (
     <div className="container mx-auto px-6 sm:px-3 md:px-0">
       <Navigation>
-        <NavigationItem to="/blog" label="Blog" />
-        <NavigationItem to="/kit" label="Kit" />
-        <NavigationItem to="/links" label="Links" />
+        {props.links && props.links.map(link => (
+          <NavigationItem key={link.to} to={link.to} label={link.label} />
+        ))}
       </Navigation>
-
-      <Header />
 
       {props.children}
 
