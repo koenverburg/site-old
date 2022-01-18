@@ -10,7 +10,7 @@ export const Section = ({
   children
 }: Props) => {
   return (
-    <section className="w-max">
+    <section className="w-max pb-8">
 
       {title &&
         <div className="py-2 px-0">
