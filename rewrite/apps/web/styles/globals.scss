@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  background: rgba(0, 0, 0, .05);
+body {
+  background: #ededed;
 }
+
+// * {
+//   background: rgba(0, 0, 0, .05);
+// }
 
 .debug {
   background: rgba(0, 0, 0, .05);
