@@ -13,7 +13,7 @@ export const Section = ({
     <section className="w-max pb-8">
 
       {title &&
-        <div className="py-2 px-0">
+        <div className="pb-2 px-0">
           <h3 className="text-base font-medium text-gray-900 mb-1">{title}</h3>
         </div>
       }
