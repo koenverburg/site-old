@@ -1,11 +1,13 @@
-import { Grid, GridItem, Paragraph } from '@packages/ui/components'
-import { Header, Section } from '@packages/ui/skeleton'
 import * as React from 'react'
+import { Grid, GridItem, Oneliner, Paragraph } from '@packages/ui/components'
+import { Section } from '@packages/ui/skeleton'
 
 export default function Index() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+
+      <Oneliner title="I just pushed to" items={['dotfiles', 'site', 'cloudfiles']} />
 
       <Section title="I just pushed to">
         Dotfiles
@@ -17,10 +19,6 @@ export default function Index() {
 
       <Section title="Previous projects / Clients I work on/for">
         <Grid>
-          <GridItem content="IDH - Source Up" />
-          <GridItem content="Havi Connect" />
-          <GridItem content="DPG Media" />
-          <GridItem content="Deltion" />
         </Grid>
       </Section>
     </>
