@@ -11,11 +11,7 @@ export const Oneliner = ({
   items
 }: Props) => {
   if (!items) return null
-
   const tail = items[items.length-1]
-  const head = items
-
-  console.log({ item: items[items.length - 1] })
 
   return (
     <section className="w-max pb-8">
@@ -23,7 +19,7 @@ export const Oneliner = ({
       <h3 className="text-base font-medium text-gray-900 mb-1">
         {title}{' '}
 
-        {head && head.map(item => (
+        {items && items.map(item => (
           <span key={item}>
             <strong>{item}</strong>
             {', '}
