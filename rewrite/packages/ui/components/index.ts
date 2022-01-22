@@ -5,4 +5,4 @@ export { GridItem } from './gridItem'
 export { Icon } from './icon'
 export { Divider } from './divider'
 export { Oneliner } from './oneliner'
-
+export { Intro } from './intro'
