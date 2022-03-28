@@ -5,7 +5,9 @@ import { Section } from '..'
 
 describe('Skeleton/Section', () => {
   it('renders', () => {
-    const { getByText } = render(<Section/>) 
-    expect(getByText('section')).toBeInTheDocument()
+    const {getByText} = render(<Section title={"MockTitle"}>{'children'}</Section>)
+
+    expect(getByText('MockTitle')).toBeInTheDocument()
+    expect(getByText('children')).toBeInTheDocument()
   })
 })

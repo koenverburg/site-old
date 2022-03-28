@@ -1,15 +1,17 @@
 import * as React from 'react'
 
 export type Props = {
-  name: string
-  position: string
+  firstName: string
+  lastName: string
+  position?: string
   companyName?: string
   companyUrl?: string
-  content: string[]
+  content?: string[]
 }
 
 export const Intro = ({
-  name, 
+  firstName,
+  lastName,
   position, 
   companyUrl,
   companyName,
@@ -20,7 +22,7 @@ export const Intro = ({
 
       <h1>
         <span className="text-xl">
-          <span className="font-bold">Koen</span>{' '}<span>Verburg</span>
+          <span className="font-bold">{firstName}</span>{' '}<span>{lastName}</span>
         </span>
       </h1>
 
