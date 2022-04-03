@@ -12,9 +12,9 @@ export const Footer = ({ socials }: Props) => {
     <div className={cx('flex flex-col justify-center items-start pb-8')}>
 
       <Divider />
-  
+
       <div className={cx('w-full sm:flex sm:justify-between')}>
-        {socials &&
+        {/* {socials &&
           <div className={cx('group flex justify-center mb-4 sm:mb-0')}>
             <ul className={cx('inline-flex space-x-4')}>
               {socials.map(links => (
@@ -32,10 +32,10 @@ export const Footer = ({ socials }: Props) => {
               ))}
             </ul>
           </div>
-        }
+        } */}
 
-        <div className={cx('group text-center sm:text-right')}>
-          <span className={cx('align-top text-center text-gray-500 hover:text-gray-900')}>Copyright {(new Date().getFullYear())}</span>
+        <div className={cx('group text-center')}>
+          <span className={cx('align-top text-center text-gray-500')}>Copyright {(new Date().getFullYear())}</span>
         </div>
 
       </div>

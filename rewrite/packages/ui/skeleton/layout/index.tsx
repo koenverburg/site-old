@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Footer, Navigation, NavigationItem } from '..'
+import { Footer, Navigation, NavigationItem, Theme } from '..'
 import { Social } from '../../types'
 
 export type NavigationLinks = {
@@ -27,6 +27,7 @@ export const Layout = (props: Props) => {
       </main>
 
       <Footer socials={props.socials}/>
+      <Theme />
     </div>
   )
 }

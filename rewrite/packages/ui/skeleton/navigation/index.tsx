@@ -7,7 +7,7 @@ export type Props = {
 
 export const Navigation = (props: Props) => {
   return (
-    <nav className="flex justify-between py-4">
+    <nav className="flex items-center justify-between py-4">
       <Link href="/">
         <span className="text-xl" style={{ cursor: "pointer" }}>
           <span className="font-bold">Koen</span>
