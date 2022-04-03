@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <title>{'Koen Verburg'}</title>
       </Head>
-      <Layout 
+      <Layout
         links={links}
         socials={socials}
       >

@@ -15,15 +15,16 @@ export type Props = {
 
 export const Layout = (props: Props) => {
   return (
-    <div className="container mx-auto px-6 sm:px-3 md:px-0">
-
+    <div className="flex flex-col min-h-screen mx-auto sm:max-w-screen-sm px-6 sm:px-3 md:px-0">
       <Navigation>
         {props.links && props.links.map(link => (
           <NavigationItem key={link.to} to={link.to} label={link.label} />
         ))}
       </Navigation>
 
-      {props.children}
+      <main className="flex-grow">
+        {props.children}
+      </main>
 
       <Footer socials={props.socials}/>
     </div>
