@@ -1,35 +1,47 @@
 import * as React from 'react'
-import { Grid, GridItem, Oneliner, Paragraph, Intro } from '@packages/ui/components'
+import { Grid, GridItem, Paragraph, Intro, Link, Divider } from '@packages/ui/components'
 import { Section } from '@packages/ui/skeleton'
 
 export default function Index() {
+  const socials = [
+    { url: "https://www.twitter.com/koenverburg", handle: "@koenverburg", icon: 'twitter' },
+    { url: "https://github.com/koenverburg", handle: "@koenverburg", icon: 'github' },
+    { url: "https://www.instagram.com/koenverburg.tech", handle: "@koenverburg.tech", icon: 'instagram' },
+    { url: "https://koenverburg.medium.com", handle: "@koenverburg", icon: 'medium-m' },
+    { url: "https://twitch.tv", handle: "@koenverburg", icon: 'twitch' },
+  ]
   return (
     <>
-      {/* <Header /> */}
-
       <Intro
-        name="Koen Verburg"
+        firstName="Koen"
+        lastName="Verburg"
         position="Software Engineer"
-        companyName="Acme"
-        companyUrl="https://example.com"
+        avatarUrl="/avatars/avatar-1.png"
+        companyName="Adidas"
+        socials={socials}
         content={[
-          "I'm a passionate Software Engineer, during the day I work on the react app that powers Acme.",
-          "At night I work on Nodejs Applications and my homelab which is running Kubernetes and a whole bunch of other stuff.",
-          "Update: I'm looking into openfaas to run on older style Raspberry pi's (less then 4 GiB Ram)"
+          "I'm a passionate Software Engineer, I care about Developer Experience, CI/CD, and faster roll-outs. During the day I work on the ReactJS app that powers adidas.com",
+          "At night I work on Go and Nodejs Applications which I deploy on my homelab running Kubernetes."
         ]}
       />
 
-      <Oneliner title="I just pushed to" items={['dotfiles', 'site', 'cloudfiles']} />
+      <Divider />
+{/*
 
-      <Section title="I wrote about">
+      <Section title="I recently wrote about">
         <Paragraph content="My plans for 2022" />
+        <Link href="/test" label="My plans for 2022" />
       </Section>
 
-      <Section title="Previous projects / Clients I work on/for">
+      <Section title="Previous projects I worked on">
         <Grid>
-          <GridItem content="item 1" />
+          <GridItem content="HAVI Connect - HAVI Logistics" />
+          <GridItem content="Webshops for DPG" />
+          <GridItem content="Source Up - IDH" />
+          <GridItem content="Deltion" />
         </Grid>
       </Section>
+ */}
     </>
   )
 }
