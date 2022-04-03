@@ -9,8 +9,14 @@ module.exports = {
       `${uiPath}/components/**/*.{ts,tsx}`
     ]
   },
+  darkMode: 'class',
   theme: {
     extend: {},
   },
-  plugins: [],
+  variants: {
+    typography: ['dark']
+  },
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }
