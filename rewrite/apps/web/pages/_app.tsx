@@ -3,13 +3,14 @@ import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { Layout } from '@packages/ui/skeleton'
 import '../styles/globals.scss'
+import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const links = [
     { to: "/blog", label: "Blog" },
-    { to: "/kit", label: "Kit" },
     { to: "/uses", label: "Uses" },
-    { to: "/links", label: "Links" }
+    // { to: "/kit", label: "Kit" }, -> sub domains like kit.koenverburg.dev
+    // { to: "/links", label: "Links" } -> links.koenverburg.dev
   ]
 
   const socials = [
@@ -21,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   ]
 
   return (
-    <React.Fragment>
+    <ThemeProvider>
       <Head>
         <title>{'Koen Verburg'}</title>
       </Head>
@@ -31,6 +32,6 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
       >
         <Component {...pageProps} />
       </Layout>
-    </React.Fragment>
+    </ThemeProvider>
   )
 }
