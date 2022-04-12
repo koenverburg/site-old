@@ -1,14 +1,8 @@
 import * as React from 'react'
 import {
-  Grid,
-  GridItem,
-  Paragraph,
   Intro,
-  Link,
-  Divider,
   Description,
 } from '@packages/ui/components'
-import { Section } from '@packages/ui/skeleton'
 
 export default function Index() {
   const socials = [
@@ -65,8 +59,6 @@ export default function Index() {
           'At night I work on Go and Nodejs Applications which I deploy on my homelab running Kubernetes.',
         ]}
       />
-
-      <Divider />
 
       {/*
         <Section title="I recently wrote about">
