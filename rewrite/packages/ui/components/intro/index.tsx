@@ -23,7 +23,7 @@ export const Intro = ({
   socials
 }: Props) => {
   const [mounted, setMounted] = React.useState<boolean>(false)
-  const {theme, setTheme}= useTheme()
+  const {theme}= useTheme()
   React.useEffect(() => setMounted(true), [])
 
   return (
@@ -31,9 +31,9 @@ export const Intro = ({
       <div className="flex items-center mb-4">
         {avatarUrl && (
           <div className="mr-4">
-            <div className="rounded-full bg-gradient-to-tl from-teal-200/60 to-yellow-400/60 shadow-lg p-1.5">
+            <div className="rounded-full bg-gradient-to-tl from-teal-200/60 to-green-400/60 shadow-lg p-1.5">
               <div className="rounded-full h-[80px] w-[80px]">
-                <img className="rounded-full" src={avatarUrl} />
+                <img className="rounded-full" src={avatarUrl} alt="Profile Image"/>
               </div>
             </div>
           </div>
